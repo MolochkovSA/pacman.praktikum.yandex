@@ -25,7 +25,7 @@ export const LoginPage = memo(() => {
           <Button
             className={styles.login__button}
             type={'submit'}
-            name={'Войти'}
+            name={'Авторизироваться'}
             handleClick={handleClick}></Button>
           <BrowserRouter>
             <Link
