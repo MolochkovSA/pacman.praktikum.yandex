@@ -6,7 +6,7 @@ module.exports = {
         {
             files: ['*.ts'],
             parserOptions: {
-                project: ['tsconfig.json']
+                project: ['packages/client/tsconfig.json']
             },
             plugins: ['@typescript-eslint'],
             extends: [
@@ -29,7 +29,7 @@ module.exports = {
                     'error',
                     {
                         printWidth: 120,
-                        tabWidth: 4,
+                        tabWidth: 2,
                         semi: true,
                         singleQuote: true,
                         trailingComma: 'none',

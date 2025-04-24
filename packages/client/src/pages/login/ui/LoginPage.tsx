@@ -1,8 +1,8 @@
-import { memo } from 'react'
-import styles from './LoginPage.module.scss'
-import { Input } from '@/shared/ui/Input'
-import { Button } from '@/shared/ui/Button'
-import { BrowserRouter, Link } from 'react-router-dom'
+import { memo } from 'react';
+import styles from './LoginPage.module.scss';
+import { Input } from '@/shared/ui/Input';
+import { Button } from '@/shared/ui/Button';
+import { BrowserRouter, Link } from 'react-router-dom';
 
 export const LoginPage = memo(() => {
   return (
@@ -28,20 +28,22 @@ export const LoginPage = memo(() => {
             name={'Войти'}
             handleClick={handleClick}></Button>
           <BrowserRouter>
-            <Link className={styles.login__link} to="/signin">
+            <Link
+              className={styles.login__link}
+              to="/signin">
               Нет аккаунта?
             </Link>
           </BrowserRouter>
         </form>
       </section>
     </main>
-  )
-})
+  );
+});
 
 const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  return 0
-}
+  return 0;
+};
 
 const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-  return 0
-}
+  return 0;
+};
