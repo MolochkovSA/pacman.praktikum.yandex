@@ -1,0 +1,6 @@
+@use './variables' as *;
+
+@mixin text-yellow-neon {
+  text-shadow: $shadow-yellow-text;
+  color: $color-yellow-text;
+}

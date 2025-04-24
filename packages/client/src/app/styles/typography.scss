@@ -1,0 +1,102 @@
+@use "./fonts";
+@use 'sass:map';
+
+$font-family: (
+  PressStart: (
+    "PressStart",
+    Ubuntu,
+    sans-serif
+  )
+);
+
+$typography: (
+  h2: (
+    font-family: PressStart,
+    font-size: 16px,
+    line-height: 17px,
+    font-weight: 100,
+    font-style: normal
+  ),
+  h3: (
+    font-family: PressStart,
+    font-size: 14px,
+    line-height: 15px,
+    font-weight: 100,
+    font-style: normal
+  ),
+  p2: (
+    font-family: PressStart,
+    font-size: 12px,
+    line-height: 13px,
+    font-weight: 100,
+    font-style: normal
+  ),
+  p2_input: (
+    font-family: PressStart,
+    font-size: 12px,
+    line-height: 30px,
+    font-weight: 100,
+    font-style: normal
+  ),
+  p3: (
+    font-family: PressStart,
+    font-size: 10px,
+    line-height: 11px,
+    font-weight: 100,
+    font-style: normal
+  )
+);
+
+@function typography($level) {
+  @if not map.has-key($typography, $level) {
+    @error "Unknown typography level '#{$level}'";
+  }
+
+  @return map.get($typography, $level);
+}
+
+@mixin font-function(
+  $font-family: null,
+  $font-size: null,
+  $line-height: null,
+  $font-weight: null,
+  $font-style: null
+) {
+  font-family: $font-family;
+  font-size: $font-size;
+  line-height: $line-height;
+  font-weight: $font-weight;
+  font-style: $font-style;
+}
+
+@mixin font($level) {
+  @include font-function(
+        font-family($level),
+        font-size($level),
+        line-height($level),
+        font-weight($level),
+        font-style($level)
+  );
+}
+
+@function font-family($level: null) {
+  @return map.get($font-family, if($level == null, IS, map.get(typography($level), font-family)));
+}
+
+@function font-size($level) {
+  @return map.get(typography($level), font-size);
+}
+
+@function line-height($level) {
+  @return map.get(typography($level), line-height);
+}
+
+@function font-weight($level) {
+  @return map.get(typography($level), font-weight);
+}
+
+@function font-style($level) {
+  @return map.get(typography($level), font-style);
+}
+
+
