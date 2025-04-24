@@ -6,7 +6,7 @@ module.exports = {
         {
             files: ['*.ts'],
             parserOptions: {
-                project: ['packages/client/tsconfig.json']
+                project: ['tsconfig.json']
             },
             plugins: ['@typescript-eslint'],
             extends: [
