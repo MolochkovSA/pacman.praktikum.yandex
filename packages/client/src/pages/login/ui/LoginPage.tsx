@@ -14,12 +14,15 @@ export const LoginPage = memo(() => {
             className={styles.login__field}
             label={'Логин'}
             name={'login'}
+            required={true}
             handleChange={handleChange}
           />
           <Input
             className={styles.login__field}
             label={'Пароль'}
             name={'password'}
+            type={'password'}
+            required={true}
             handleChange={handleChange}
           />
           <Button
