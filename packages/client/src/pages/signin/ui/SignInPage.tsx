@@ -14,42 +14,51 @@ export const SignInPage = memo(() => {
             className={styles.signin__field}
             label={'Почта'}
             name={'email'}
+            required={true}
             handleChange={handleChange}
           />
           <Input
             className={styles.signin__field}
             label={'Логин'}
             name={'login'}
+            required={true}
             handleChange={handleChange}
           />
           <Input
             className={styles.signin__field}
             label={'Имя'}
             name={'first_name'}
+            required={true}
             handleChange={handleChange}
           />
           <Input
             className={styles.signin__field}
             label={'Фамилия'}
             name={'second_name'}
+            required={true}
             handleChange={handleChange}
           />
           <Input
             className={styles.signin__field}
             label={'Телефон'}
             name={'phone'}
+            required={true}
             handleChange={handleChange}
           />
           <Input
             className={styles.signin__field}
             label={'Пароль'}
             name={'password'}
+            type="password"
+            required={true}
             handleChange={handleChange}
           />
           <Input
             className={styles.signin__field}
             label={'Пароль (еще раз)'}
             name={'password_two'}
+            type="password"
+            required={true}
             handleChange={handleChange}
           />
           <Button
