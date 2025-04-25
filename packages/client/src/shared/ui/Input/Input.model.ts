@@ -1,14 +1,8 @@
 import React from 'react';
 
-export interface InputProps {
-  className?: string;
-  required?: boolean;
+export type InputProps = React.InputHTMLAttributes<HTMLInputElement> & {
   label: string;
-  name: string;
-  value?: string;
-  pattern?: string;
-  min?: number;
-  max?: number;
+  isInvalid?: boolean;
   type?: 'text' | 'password';
-  handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-}
+  error?: string;
+};

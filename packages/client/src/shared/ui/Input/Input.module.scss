@@ -26,3 +26,15 @@
     top: -10px;
   }
 }
+
+.invalid {
+  border-bottom: 1px solid $color-red-invalidate;
+  color: $color-red-invalidate;
+}
+
+.error {
+  @include typography.font(p4);
+
+  margin-top: 5px;
+  color: $color-red-invalidate;
+}

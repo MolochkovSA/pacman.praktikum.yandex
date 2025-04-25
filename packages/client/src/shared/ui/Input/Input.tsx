@@ -1,7 +1,8 @@
-import { InputProps } from './Input.model';
 import styles from './Input.module.scss';
+import React, { forwardRef } from 'react';
+import { InputProps } from '@/shared/ui/Input/Input.model';
 
-export const Input = (props: InputProps) => {
+export const Input = forwardRef<HTMLInputElement, InputProps>(({ error, isInvalid, ...props }, ref) => {
   return (
     <div className={styles.input__wrapper + ' ' + props.className}>
       <label
@@ -10,10 +11,11 @@ export const Input = (props: InputProps) => {
         {props.label}
       </label>
       <input
+        ref={ref}
         {...props}
-        className={styles.input}
-        onChange={props.handleChange}
+        className={`${styles.input} ${isInvalid ? styles.invalid : ''}`}
       />
+      {error && <div className={styles.error}>{error}</div>}
     </div>
   );
-};
+});

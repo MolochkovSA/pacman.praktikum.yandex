@@ -4,5 +4,5 @@ export interface ButtonProps {
   className?: string;
   name: string;
   type?: 'button' | 'submit';
-  handleClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  handleClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }

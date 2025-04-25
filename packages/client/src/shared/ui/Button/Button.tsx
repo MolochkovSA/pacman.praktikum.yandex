@@ -5,6 +5,7 @@ export const Button = (props: ButtonProps) => {
   return (
     <button
       className={styles.button + ' ' + props.className}
+      onClick={props.handleClick}
       type={props.type}>
       {props.name}
     </button>
