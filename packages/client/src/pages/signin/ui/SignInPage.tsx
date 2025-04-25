@@ -25,19 +25,19 @@ export const SignInPage = memo(() => {
           <Input
             className={styles.signin__field}
             label={'Имя'}
-            name={'login'}
-            handleChange={handleChange}
-          />
-          <Input
-            className={styles.signin__field}
-            label={'Фамилия'}
             name={'first_name'}
             handleChange={handleChange}
           />
           <Input
             className={styles.signin__field}
-            label={'Телефон'}
+            label={'Фамилия'}
             name={'second_name'}
+            handleChange={handleChange}
+          />
+          <Input
+            className={styles.signin__field}
+            label={'Телефон'}
+            name={'phone'}
             handleChange={handleChange}
           />
           <Input
