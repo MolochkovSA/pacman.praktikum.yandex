@@ -41,14 +41,14 @@ function App() {
           path="/signup"
           element={<SignUpPage />}
         />
-        {/*<Route path="/profile" element={<ProfilePage}/>*/}
-        {/*<Route path="/home" element={<HomePage}/>*/}
-        {/*<Route path="/game" element={<GamePage}/>*/}
-        {/*<Route path="/leaderboard" element={<LeaderboardPage}/>*/}
-        {/*<Route path="/forum" element={<ForumPage}/>*/}
-        {/*<Route path="/forum/:id" element={<ForumTopicPage}/>*/}
-        {/*<Route path="/not_found" element={<PageError404}/>*/}
-        {/*<Route path="/server_error" element={<PageError500}/>*/}
+        {/*<Route path="/profile" element={<ProfilePage/>}/>*/}
+        {/*<Route path="/home" element={<HomePage/>}/>*/}
+        {/*<Route path="/game" element={<GamePage/>}/>*/}
+        {/*<Route path="/leaderboard" element={<LeaderboardPage/>}/>*/}
+        {/*<Route path="/forum" element={<ForumPage/>}/>*/}
+        {/*<Route path="/forum/:id" element={<ForumTopicPage/>}/>*/}
+        {/*<Route path="/not_found" element={<PageError404/>}/>*/}
+        {/*<Route path="/server_error" element={<PageError500/>}/>*/}
         {/*<Route path="*" element={<Navigate to="/login" />}/>*/}
       </Routes>
     </div>
