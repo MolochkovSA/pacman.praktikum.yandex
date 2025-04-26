@@ -7,7 +7,7 @@ export function AuthWatcher() {
   const location = useLocation();
 
   useEffect(() => {
-    if (!userStoreService.isAuthenticated() && location.pathname !== '/login' && location.pathname !== '/signin') {
+    if (!userStoreService.isAuthenticated() && location.pathname !== '/login' && location.pathname !== '/signup') {
       navigate('/login');
     }
   }, [navigate, location]);

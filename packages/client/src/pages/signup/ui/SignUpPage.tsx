@@ -2,12 +2,18 @@ import { memo } from 'react';
 import styles from './SignUpPage.module.scss';
 import { Input } from '@/shared/ui/Input';
 import { Button } from '@/shared/ui/Button';
-import { BrowserRouter, Link } from 'react-router-dom';
-import { useForm } from 'react-hook-form';
+import { BrowserRouter, Link, useNavigate } from 'react-router-dom';
+import { FieldValues, useForm } from 'react-hook-form';
 import { useFormValidator } from '@/shared/validators/FormValidator';
 import { validationTemplate } from '@/shared/validators/Rules';
+import { SignInProps, SignUpProps } from '@/shared/types';
+import { userStoreService } from '@/shared/lib';
+import { AuthorizationService } from '@/shared/api';
 
 export const SignUpPage = memo(() => {
+  const authService = new AuthorizationService();
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
@@ -18,8 +24,8 @@ export const SignUpPage = memo(() => {
     mode: 'onBlur'
   });
 
-  const onSubmit = (data: any) => {
-    console.log('данные формы:', data);
+  const onSubmit = (data: FieldValues) => {
+    authService.signUp(data as SignUpProps).then((response) => navigate('/login'));
   };
 
   return (

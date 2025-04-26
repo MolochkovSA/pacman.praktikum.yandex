@@ -1,6 +1,6 @@
 import './App.css';
 import { SignUpPage } from '@/pages/signup/ui';
-import { Route, Routes, Navigate, useNavigate } from 'react-router-dom';
+import { Route, Routes, Navigate, useNavigate, useLocation } from 'react-router-dom';
 import { LoginPage } from '@/pages/login/ui';
 import { useEffect } from 'react';
 import { AuthorizationService } from '@/shared/api';
@@ -9,17 +9,20 @@ import { AuthWatcher } from '@/app/providers/auth';
 
 function App() {
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
-    const authService = new AuthorizationService();
-    authService
-      .getUser()
-      .then((user) => {
-        userStoreService.user = user;
-      })
-      .catch((error) => {
-        navigate('/login');
-      });
+    if (location.pathname !== '/login' && location.pathname !== '/signup') {
+      const authService = new AuthorizationService();
+      authService
+        .getUser()
+        .then((user) => {
+          userStoreService.user = user;
+        })
+        .catch((error) => {
+          navigate('/login');
+        });
+    }
   }, [navigate]);
 
   return (
