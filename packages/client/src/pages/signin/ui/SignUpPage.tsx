@@ -1,10 +1,10 @@
 import { memo } from 'react';
-import styles from './SignInPage.module.scss';
+import styles from './SignUpPage.module.scss';
 import { Input } from '@/shared/ui/Input';
 import { Button } from '@/shared/ui/Button';
 import { BrowserRouter, Link } from 'react-router-dom';
 
-export const SignInPage = memo(() => {
+export const SignUpPage = memo(() => {
   return (
     <main className={styles.signin}>
       <section className={styles.signin__panel}>
