@@ -20,7 +20,7 @@ function App() {
       .catch((error) => {
         navigate('/login');
       });
-  }, [history]);
+  }, [navigate]);
 
   return (
     <div className="App">
