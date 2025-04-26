@@ -1,5 +1,5 @@
 import './App.css';
-import { SignInPage } from '@/pages/signin/ui';
+import { SignUpPage } from '@/pages/signup/ui';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import { LoginPage } from '@/pages/login/ui';
 
@@ -21,7 +21,7 @@ function App() {
           <Route
             exact
             path="/signin"
-            component={SignInPage}
+            component={SignUpPage}
           />
           {/*<Route path="/profile" component={ProfilePage}/>*/}
           {/*<Route path="/home" component={HomePage}/>*/}

@@ -1,5 +1,5 @@
 import { memo } from 'react';
-import styles from './SignInPage.module.scss';
+import styles from './SignUpPage.module.scss';
 import { Input } from '@/shared/ui/Input';
 import { Button } from '@/shared/ui/Button';
 import { BrowserRouter, Link } from 'react-router-dom';
@@ -7,7 +7,7 @@ import { useForm } from 'react-hook-form';
 import { useFormValidator } from '@/shared/validators/FormValidator';
 import { validationTemplate } from '@/shared/validators/Rules';
 
-export const SignInPage = memo(() => {
+export const SignUpPage = memo(() => {
   const {
     register,
     handleSubmit,
