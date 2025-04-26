@@ -1,6 +1,6 @@
 import './App.css';
 import { SignUpPage } from '@/pages/signup/ui';
-import { BrowserRouter as Router, Route, Routes, Navigate, useNavigate } from 'react-router-dom';
+import { Route, Routes, Navigate, useNavigate } from 'react-router-dom';
 import { LoginPage } from '@/pages/login/ui';
 import { useEffect } from 'react';
 import { AuthorizationService } from '@/shared/api';
