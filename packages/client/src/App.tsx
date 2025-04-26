@@ -1,39 +1,53 @@
 import './App.css';
 import { SignUpPage } from '@/pages/signup/ui';
-import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Navigate, useNavigate } from 'react-router-dom';
 import { LoginPage } from '@/pages/login/ui';
+import { useEffect } from 'react';
+import { AuthorizationService } from '@/shared/api';
+import { userStoreService } from '@/shared/lib';
+import { AuthWatcher } from '@/app/providers/auth';
 
 function App() {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const authService = new AuthorizationService();
+    authService
+      .getUser()
+      .then((user) => {
+        userStoreService.user = user;
+      })
+      .catch((error) => {
+        navigate('/login');
+      });
+  }, [history]);
+
   return (
     <div className="App">
-      <Router>
-        <Switch>
-          <Route
-            exact
-            path="/"
-            render={() => <Redirect to="/login" />}
-          />
-          <Route
-            exact
-            path="/login"
-            component={LoginPage}
-          />
-          <Route
-            exact
-            path="/signin"
-            component={SignUpPage}
-          />
-          {/*<Route path="/profile" component={ProfilePage}/>*/}
-          {/*<Route path="/home" component={HomePage}/>*/}
-          {/*<Route path="/game" component={GamePage}/>*/}
-          {/*<Route path="/leaderboard" component={LeaderboardPage}/>*/}
-          {/*<Route path="/forum" component={ForumPage}/>*/}
-          {/*<Route path="/forum/:id" component={ForumTopicPage}/>*/}
-          {/*<Route path="/not_found" component={PageError404}/>*/}
-          {/*<Route path="/server_error" component={PageError500}/>*/}
-          {/*<Route path="*" render={() => <Redirect to="/not_found" />}/>*/}
-        </Switch>
-      </Router>
+      <AuthWatcher />
+      <Routes>
+        <Route
+          path="/"
+          element={<Navigate to="/login" />}
+        />
+        <Route
+          path="/login"
+          element={<LoginPage />}
+        />
+        <Route
+          path="/signin"
+          element={<SignUpPage />}
+        />
+        {/*<Route path="/profile" element={<ProfilePage}/>*/}
+        {/*<Route path="/home" element={<HomePage}/>*/}
+        {/*<Route path="/game" element={<GamePage}/>*/}
+        {/*<Route path="/leaderboard" element={<LeaderboardPage}/>*/}
+        {/*<Route path="/forum" element={<ForumPage}/>*/}
+        {/*<Route path="/forum/:id" element={<ForumTopicPage}/>*/}
+        {/*<Route path="/not_found" element={<PageError404}/>*/}
+        {/*<Route path="/server_error" element={<PageError500}/>*/}
+        {/*<Route path="*" element={<Navigate to="/login" />}/>*/}
+      </Routes>
     </div>
   );
 }
