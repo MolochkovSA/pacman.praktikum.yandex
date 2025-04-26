@@ -1,5 +1,5 @@
 import './App.css';
-import { SignUpPage } from '@/pages/signin/ui';
+import { SignUpPage } from '@/pages/signup/ui';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import { LoginPage } from '@/pages/login/ui';
 
