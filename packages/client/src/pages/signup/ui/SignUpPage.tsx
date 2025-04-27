@@ -1,8 +1,7 @@
 import { memo } from 'react';
 import styles from './SignUpPage.module.scss';
-import { Input } from '@/shared/ui/Input';
-import { Button } from '@/shared/ui/Button';
 import { BrowserRouter, Link } from 'react-router-dom';
+import { Button, Input } from '@/shared/ui';
 
 export const SignUpPage = memo(() => {
   return (
