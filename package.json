@@ -10,7 +10,8 @@
     "test": "lerna run test",
     "lint": "lerna run lint",
     "format": "lerna run format",
-    "preview": "lerna run preview"
+    "preview": "lerna run preview",
+    "prepare": "husky"
   },
   "license": "MIT",
   "workspaces": [
@@ -23,10 +24,5 @@
     "@evilmartians/lefthook": "^1.3.9",
     "husky": "^9.1.7",
     "lerna": "^5.4.3"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm run lint && npm run test"
-    }
   }
 }
