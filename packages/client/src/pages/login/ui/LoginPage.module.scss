@@ -20,7 +20,7 @@
     box-sizing: border-box;
     padding: 40px 15px;
     border-radius: 10px;
-    background-color: rgba(255, 242, 0, 0.15);
+    background-color: rgba(255 242 0 / 15%);
     backdrop-filter: blur(7px);
     display: flex;
     flex-direction: column;
@@ -60,6 +60,4 @@
   &__link:visited {
     color: var(--color-white-text);
   }
-
 }
-

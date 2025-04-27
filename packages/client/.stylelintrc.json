@@ -1,22 +1,9 @@
 {
-  "extends": [
-    "stylelint-config-standard-scss"
-  ],
-  "ignoreFiles": [
-    "node_modules/**/*",
-    "src/style.css"
-  ],
+  "extends": ["stylelint-config-standard-scss"],
+  "ignoreFiles": ["node_modules/**/*", "dist/*"],
   "rules": {
-    "alpha-value-notation": null,
-    "color-function-notation": "legacy",
     "color-no-invalid-hex": true,
     "block-no-empty": true,
-    "scss/dollar-variable-empty-line-before": "always",
-    "value-keyword-case": [
-      "lower",
-      {
-        "ignoreKeywords": ["/.+/"]
-      }
-    ]
+    "selector-class-pattern": null
   }
 }
