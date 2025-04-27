@@ -1,23 +1,17 @@
 {
-  "customSyntax": "postcss-scss",
   "extends": [
-    "stylelint-config-standard"
-  ],
-  "plugins": [
-    "stylelint-scss"
+    "stylelint-config-standard-scss"
   ],
   "ignoreFiles": [
     "node_modules/**/*",
     "src/style.css"
   ],
   "rules": {
-    "alpha-value-notation": "decimal",
+    "alpha-value-notation": null,
     "color-function-notation": "legacy",
-    "at-rule-no-unknown": null,
     "color-no-invalid-hex": true,
     "block-no-empty": true,
-    "selector-class-pattern": null,
-    "string-quotes": "single",
+    "scss/dollar-variable-empty-line-before": "always",
     "value-keyword-case": [
       "lower",
       {
