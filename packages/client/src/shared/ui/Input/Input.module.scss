@@ -9,8 +9,8 @@
   width: 100%;
   outline: none;
   border: none;
-  border-bottom: 1px solid $color-blue-main;
-  color: $color-white-text;
+  border-bottom: 1px solid var(--color-blue-main);
+  color: var(--color-white-text);
 
   &__wrapper {
     margin-left: 20px;
@@ -25,4 +25,16 @@
     position: absolute;
     top: -10px;
   }
+}
+
+.invalid {
+  border-bottom: 1px solid var(--color-red-invalidate);
+  color: var(--color-red-invalidate);
+}
+
+.error {
+  @include typography.font(p4);
+
+  margin-top: 5px;
+  color: var(--color-red-invalidate);
 }

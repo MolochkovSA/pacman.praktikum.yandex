@@ -1,7 +1,14 @@
 import styles from './Button.module.scss';
-import { ButtonProps } from './Button.model';
+import React from 'react';
 
-export const Button = (props: ButtonProps) => {
+export interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  className?: string;
+  name: string;
+  type?: 'button' | 'submit';
+  handleClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
+}
+
+export const Button = (props: Props) => {
   return (
     <button
       className={styles.button + ' ' + props.className}
