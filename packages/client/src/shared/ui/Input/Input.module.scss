@@ -1,0 +1,32 @@
+@use 'styles/typography';
+@use 'styles/mixins';
+
+.input {
+  @include typography.font(p2_input);
+
+  background: transparent;
+  width: 100%;
+  outline: none;
+  border: none;
+  border-bottom: 1px solid var(--color-blue-main);
+  color: var(--color-white-text);
+
+  &__wrapper {
+    margin-left: 20px;
+    margin-right: 20px;
+    position: relative;
+  }
+
+  &__label {
+    @include typography.font(p3);
+    @include mixins.text-yellow-neon;
+
+    position: absolute;
+    top: -10px;
+  }
+}
+
+.invalid {
+  border-bottom: 1px solid var(--color-red-invalidate);
+  color: var(--color-red-invalidate);
+}

@@ -1,0 +1,4 @@
+@mixin text-yellow-neon {
+  text-shadow: var(--shadow-yellow-text);
+  color: var(--color-yellow-text);
+}
