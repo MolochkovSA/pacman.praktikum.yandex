@@ -31,7 +31,7 @@
 
   &__title {
     @include typography.font(h2);
-    @include mixins.text-yellow-neon();
+    @include mixins.text-yellow-neon;
   }
 
   &__field {
@@ -51,12 +51,13 @@
     text-decoration: none;
     text-align: center;
   }
+
+  &__link:hover {
+    text-decoration: underline;
+  }
+
+  &__link:visited {
+    color: var(--color-white-text);
+  }
 }
 
-.login__link:hover {
-  text-decoration: underline;
-}
-
-.login__link:visited {
-  color: var(--color-white-text);
-}
