@@ -55,13 +55,6 @@ export const LoginPage = memo(() => {
             className={styles.login__button}
             type={'submit'}
             name={'Авторизироваться'}></Button>
-          <BrowserRouter>
-            <Link
-              className={styles.login__link}
-              to="/signin">
-              Нет аккаунта?
-            </Link>
-          </BrowserRouter>
         </form>
       </section>
     </main>

@@ -1,8 +1,9 @@
+@forward './reset';
 @forward './typography';
 @forward './variables';
 @forward './mixins';
 
 body {
-  margin: 0;
   background: url('./../../assets/images/background.jpg');
+  color: var(--color-white-text);
 }
