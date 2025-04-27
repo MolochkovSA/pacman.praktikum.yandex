@@ -1,11 +1,11 @@
 import { memo, useEffect } from 'react';
 import styles from './LoginPage.module.scss';
-import { Input } from '@/shared/ui/Input';
-import { Button } from '@/shared/ui/Button';
+
 import { BrowserRouter, Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { useFormValidator } from '@/shared/validators/FormValidator';
 import { validationTemplate } from '@/shared/validators/Rules';
+import { Button, Input } from '@/shared/ui';
 
 export const LoginPage = memo(() => {
   const {

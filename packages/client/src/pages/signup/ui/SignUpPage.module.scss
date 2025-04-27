@@ -1,6 +1,5 @@
 @use 'styles/typography';
 @use 'styles/mixins';
-@use 'styles/variables' as *;
 
 .signin {
   display: flex;
@@ -46,7 +45,7 @@
   &__link {
     @include typography.font(p3);
 
-    color: $color-white-text;
+    color: var(--color-white-text);
     margin-top: 20px;
     border: none;
     text-decoration: none;
@@ -59,5 +58,5 @@
 }
 
 .login__link:visited {
-  color: $color-white-text;
+  color: var(--color-white-text);
 }
