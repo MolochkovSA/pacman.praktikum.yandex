@@ -9,7 +9,6 @@
     "lint": "tsc --noEmit && eslint \"**/*.ts\" && stylelint \"**/*.scss\"",
     "lint:ts": "eslint \"**/*.ts\"",
     "lint:scss": "stylelint \"**/*.scss\"",
-    "lint:style": "stylelint \"**/*.scss\"",
     "format": "prettier --write .",
     "test": "jest ./"
   },
@@ -43,7 +42,6 @@
     "prettier": "^2.7.1",
     "stylelint": "16.14.1",
     "stylelint-config-standard-scss": "13.1.0",
-    "stylelint-scss": "^4.3.0",
     "ts-jest": "^28.0.8",
     "typescript": "^4.8.2",
     "vite": "^3.0.7",
