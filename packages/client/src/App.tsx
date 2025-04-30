@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
-import { LoginPage } from './pages/login/ui';
-import { NotFoundPage } from './pages/not-found';
+
 
 function App() {
   useEffect(() => {
@@ -14,7 +13,6 @@ function App() {
     fetchServerData();
   }, []);
   return <div className="App">Вот тут будет жить ваше приложение :)</div>;
-  // return <NotFoundPage></NotFoundPage>
 }
 
 export default App;
