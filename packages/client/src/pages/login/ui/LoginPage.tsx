@@ -1,35 +1,57 @@
 import { memo } from 'react';
-import styles from './LoginPage.module.scss';
+import { zodResolver } from '@hookform/resolvers/zod';
 
-import { BrowserRouter, Link } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
 import { Button, Input } from '@/shared/ui';
 
+import styles from './LoginPage.module.scss';
+import { loginSchema } from '../model/schema';
+import { Login } from '../model/types';
+import { BrowserRouter, Link } from 'react-router-dom';
+
 export const LoginPage = memo(() => {
+  const {
+    register,
+    handleSubmit,
+    trigger,
+    formState: { errors }
+  } = useForm<Login>({
+    mode: 'onBlur',
+    resolver: zodResolver(loginSchema)
+  });
+
+  const onSubmit = (data: any) => {
+    console.log('данные формы:', data);
+  };
+
   return (
     <main className={styles.login}>
       <section className={styles.login__panel}>
         <div className={styles.login__title}>Вход</div>
-        <form className={styles.login__form}>
+        <form
+          className={styles.login__form}
+          onSubmit={handleSubmit(onSubmit)}>
           <Input
             className={styles.login__field}
             label={'Логин'}
-            name={'login'}
-            required={true}
-            handleChange={handleChange}
+            {...register('login')}
+            isInvalid={!!errors.login}
+            error={errors.login?.message as string}
+            onFocus={() => trigger('login')}
           />
           <Input
             className={styles.login__field}
             label={'Пароль'}
-            name={'password'}
+            {...register('password')}
+            isInvalid={!!errors.password}
             type={'password'}
-            required={true}
-            handleChange={handleChange}
+            error={errors.password?.message as string}
+            onFocus={() => trigger('password')}
           />
           <Button
             className={styles.login__button}
             type={'submit'}
-            name={'Авторизироваться'}
-            handleClick={handleClick}></Button>
+            name={'Авторизироваться'}></Button>
           <BrowserRouter>
             <Link
               className={styles.login__link}
@@ -42,11 +64,3 @@ export const LoginPage = memo(() => {
     </main>
   );
 });
-
-const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  return 0;
-};
-
-const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-  return 0;
-};
