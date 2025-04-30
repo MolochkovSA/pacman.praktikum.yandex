@@ -1,22 +1,20 @@
-import { useEffect } from 'react'
-import { LoginPage } from './pages/login/ui'
-import { NotFoundPage } from './pages/not-found'
+import { useEffect } from 'react';
+import { LoginPage } from './pages/login/ui';
+import { NotFoundPage } from './pages/not-found';
 
 function App() {
   useEffect(() => {
     const fetchServerData = async () => {
-      const url = `http://localhost:${__SERVER_PORT__}`
-      const response = await fetch(url)
-      const data = await response.json()
-      console.log(data)
-    }
+      const url = `http://localhost:${__SERVER_PORT__}`;
+      const response = await fetch(url);
+      const data = await response.json();
+      console.log(data);
+    };
 
-    fetchServerData()
-  }, [])
-  // return <div className="App">Вот тут будет жить ваше приложение :)</div>
-  // return <LoginPage></LoginPage>
-    return <NotFoundPage></NotFoundPage>
-
+    fetchServerData();
+  }, []);
+  return <div className="App">Вот тут будет жить ваше приложение :)</div>;
+  // return <NotFoundPage></NotFoundPage>
 }
 
-export default App
+export default App;

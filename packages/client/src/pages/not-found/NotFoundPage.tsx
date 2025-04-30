@@ -1,4 +1,3 @@
-
 import React from 'react';
 import styles from './NotFoundPage.module.scss';
 import { Button } from '@/shared/ui';
@@ -11,14 +10,14 @@ export const NotFoundPage = () => {
       <div className={styles.message}>
         error: page not found
         <br />
-         return to start?
+        return to start?
         <br />
       </div>
-                <Button
-            className={styles.button}
-            type={'submit'}
-            name={'На главную'}
-            handleClick={handleClick}></Button>
+      <Button
+        className={styles.button}
+        type={'submit'}
+        name={'На главную'}
+        handleClick={handleClick}></Button>
     </div>
   );
 };
