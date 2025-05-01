@@ -1,25 +1,22 @@
 import { memo } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 
-import { BrowserRouter, Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import { useFormValidator } from '@/shared/validators/FormValidator';
-import { validationTemplate } from '@/shared/validators/Rules';
 import { Button, Input } from '@/shared/ui';
 
 import styles from './LoginPage.module.scss';
 import { loginSchema } from '../model/schema';
 import { Login } from '../model/types';
+import { BrowserRouter, Link } from 'react-router-dom';
 
 export const LoginPage = memo(() => {
   const {
     register,
     handleSubmit,
     trigger,
-    getValues,
     formState: { errors }
   } = useForm<Login>({
-    mode: 'onChange',
+    mode: 'onBlur',
     resolver: zodResolver(loginSchema)
   });
 
