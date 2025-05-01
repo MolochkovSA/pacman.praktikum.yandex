@@ -1,20 +1,14 @@
 import styles from './Input.module.scss';
-import React from 'react';
+import React, { forwardRef } from 'react';
 
 export interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
-  className?: string;
-  required?: boolean;
   label: string;
-  name: string;
-  value?: string;
-  pattern?: string;
-  min?: number;
-  max?: number;
+  isInvalid?: boolean;
   type?: 'text' | 'password';
-  handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  error?: string;
 }
 
-export const Input = (props: Props) => {
+export const Input = forwardRef<HTMLInputElement, Props>(({ error, isInvalid, ...props }, ref) => {
   return (
     <div className={styles.input__wrapper + ' ' + props.className}>
       <label
@@ -23,10 +17,11 @@ export const Input = (props: Props) => {
         {props.label}
       </label>
       <input
+        ref={ref}
         {...props}
-        className={styles.input}
-        onChange={props.handleChange}
+        className={`${styles.input} ${isInvalid ? styles.invalid : ''}`}
       />
+      {error && <div className={styles.error}>{error}</div>}
     </div>
   );
-};
+});

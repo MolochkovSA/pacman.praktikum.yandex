@@ -5,13 +5,14 @@ export interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   className?: string;
   name: string;
   type?: 'button' | 'submit';
-  handleClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  handleClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 export const Button = (props: Props) => {
   return (
     <button
       className={styles.button + ' ' + props.className}
+      onClick={props.handleClick}
       type={props.type}>
       {props.name}
     </button>
