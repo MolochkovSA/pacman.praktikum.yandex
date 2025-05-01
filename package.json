@@ -28,6 +28,5 @@
     "lerna": "^5.4.3"
   },
   "dependencies": {
-    "client-server-template-with-vite": "file:"
   }
 }
