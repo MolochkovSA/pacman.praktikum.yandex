@@ -13,9 +13,9 @@ function App() {
 
     fetchServerData();
   }, []);
-  // return <div className="App">Вот тут будет жить ваше приложение :)</div>;
+  return <div className="App">Вот тут будет жить ваше приложение :)</div>;
   // return <NotFoundPage></NotFoundPage>;
-  return <ServerErrorPage></ServerErrorPage>;
+  // return <ServerErrorPage></ServerErrorPage>;
 }
 
 export default App;
