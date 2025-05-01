@@ -26,6 +26,13 @@
   }
 }
 
+.error {
+  @include typography.font(p4);
+
+  margin-top: 5px;
+  color: var(--color-red-invalidate);
+}
+
 .invalid {
   border-bottom: 1px solid var(--color-red-invalidate);
   color: var(--color-red-invalidate);
