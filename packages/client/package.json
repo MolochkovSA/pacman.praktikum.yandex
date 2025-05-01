@@ -13,6 +13,8 @@
     "test": "jest ./"
   },
   "dependencies": {
+    "@types/react-router-dom": "^5.1.7",
+    "client": "file:",
     "@hookform/resolvers": "^5.0.1",
     "@types/react-router-dom": "^5.1.7",
     "client": "file:",

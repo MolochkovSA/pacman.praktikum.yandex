@@ -12,5 +12,6 @@ export default {
     '^@/(.*)$': '<rootDir>/src/$1',
     '\\.module\\.(css|scss)$': 'identity-obj-proxy',
     '\\.(scss|css)$': '<rootDir>/__mocks__/styleMock.js'
+
   }
 };

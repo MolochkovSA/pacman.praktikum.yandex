@@ -8004,12 +8004,14 @@ stylelint-config-standard@^36.0.0:
   dependencies:
     stylelint-config-recommended "^14.0.1"
 
+
 stylelint-prettier@^5.0.3:
   version "5.0.3"
   resolved "https://registry.npmjs.org/stylelint-prettier/-/stylelint-prettier-5.0.3.tgz"
   integrity sha512-B6V0oa35ekRrKZlf+6+jA+i50C4GXJ7X1PPmoCqSUoXN6BrNF6NhqqhanvkLjqw2qgvrS0wjdpeC+Tn06KN3jw==
   dependencies:
     prettier-linter-helpers "^1.0.0"
+
 
 stylelint-scss@^6.4.0:
   version "6.11.1"

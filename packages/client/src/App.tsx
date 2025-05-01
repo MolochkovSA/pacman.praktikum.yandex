@@ -1,5 +1,4 @@
 import { useEffect } from 'react';
-import { ErrorPage } from './pages/error/ui/ErrorPage';
 
 function App() {
   useEffect(() => {
@@ -13,7 +12,6 @@ function App() {
     fetchServerData();
   }, []);
   return <div className="App">Вот тут будет жить ваше приложение :)</div>;
-  // return <ErrorPage errorType="404"></ErrorPage>;
 }
 
 export default App;
