@@ -11,10 +11,8 @@ export const NotFoundPage = () => {
         error: page not found
         <br />
         return to start?
-        <br />
       </div>
       <Button
-        className={styles.button}
         type={'submit'}
         name={'На главную'}
         handleClick={handleClick}></Button>

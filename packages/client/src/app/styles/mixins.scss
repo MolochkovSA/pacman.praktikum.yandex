@@ -2,3 +2,21 @@
   text-shadow: var(--shadow-yellow-text);
   color: var(--color-yellow-text);
 }
+
+// @mixin glitch-animation {
+//   @keyframes glitch {
+//     0% {
+//       text-shadow: 3px 0 0 var(--color-red-invalidate), -3px 0 0 var(--color-blue-main);
+//     }
+//     25% {
+//       text-shadow: -3px 0 0 var(--color-red-invalidate), 3px 0 0 var(--color-blue-main);
+//     }
+//     50% {
+//       text-shadow: 3px 0 0 var(--color-red-invalidate), -3px 0 0 var(--color-blue-main);
+//     }
+//     100% {
+//       text-shadow: -3px 0 0 var(--color-red-invalidate), 3px 0 0 var(--color-blue-main);
+//     }
+//   }
+//   animation: glitch 1.5s infinite;
+// }
