@@ -54,7 +54,7 @@ export const LoginPage = memo(() => {
             name={'Авторизироваться'}></Button>
           <Link
             className={styles.login__link}
-            to="/signin">
+            to="/signup">
             Нет аккаунта?
           </Link>
         </form>
