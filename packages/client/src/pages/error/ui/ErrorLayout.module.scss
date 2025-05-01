@@ -23,15 +23,6 @@
     margin-bottom: 2rem;
     position: relative;
     text-shadow: var(--shadow-yellow-text);
-
-    &::after {
-      content: '404';
-      position: absolute;
-      left: 0;
-      top: 0;
-      color: rgb(255 255 255 / 30%);
-      z-index: -1;
-    }
   }
 
   .message {
