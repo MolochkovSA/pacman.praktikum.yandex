@@ -1,17 +1,13 @@
 import React from 'react';
-import styles from './NotFoundPage.module.scss';
+import styles from './ErrorLayout.module.scss';
 import { Button } from '@/shared/ui';
 
-export const NotFoundPage = () => {
+export const ServerErrorPage = () => {
   return (
     <div className={styles.container}>
       <div className={styles.scanlines}></div>
-      <h1 className={styles.title}>404</h1>
-      <div className={styles.message}>
-        error: page not found
-        <br />
-        return to start?
-      </div>
+      <h1 className={styles.title}>500</h1>
+      <div className={styles.message}>Woops, internal server error</div>
       <Button
         type={'submit'}
         name={'На главную'}
