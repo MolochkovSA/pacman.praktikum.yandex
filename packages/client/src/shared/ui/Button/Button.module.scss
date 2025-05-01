@@ -1,13 +1,12 @@
 @use 'styles/typography';
 @use 'styles/mixins';
-@use 'styles/variables' as *;
 
 .button {
   @include typography.font(p3);
 
-  background: $color-blue-main;
+  background: var(--color-blue-main);
   border: none;
-  color: $color-white-text;
+  color: var(--color-white-text);
   border-radius: 10px;
   padding: 15px 40px;
 }

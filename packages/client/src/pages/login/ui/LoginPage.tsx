@@ -1,21 +1,23 @@
-import { memo, useEffect } from 'react';
-import styles from './LoginPage.module.scss';
-import { Input } from '@/shared/ui/Input';
-import { Button } from '@/shared/ui/Button';
-import { BrowserRouter, Link } from 'react-router-dom';
+import { memo } from 'react';
+import { zodResolver } from '@hookform/resolvers/zod';
+
 import { useForm } from 'react-hook-form';
-import { useFormValidator } from '@/shared/validators/FormValidator';
-import { validationTemplate } from '@/shared/validators/Rules';
+import { Button, Input } from '@/shared/ui';
+
+import styles from './LoginPage.module.scss';
+import { loginSchema } from '../model/schema';
+import { Login } from '../model/types';
+import { BrowserRouter, Link } from 'react-router-dom';
 
 export const LoginPage = memo(() => {
   const {
     register,
     handleSubmit,
     trigger,
-    getValues,
     formState: { errors }
-  } = useForm({
-    mode: 'onBlur'
+  } = useForm<Login>({
+    mode: 'onBlur',
+    resolver: zodResolver(loginSchema)
   });
 
   const onSubmit = (data: any) => {
@@ -32,7 +34,7 @@ export const LoginPage = memo(() => {
           <Input
             className={styles.login__field}
             label={'Логин'}
-            {...register('login', useFormValidator(validationTemplate(getValues).login))}
+            {...register('login')}
             isInvalid={!!errors.login}
             error={errors.login?.message as string}
             onFocus={() => trigger('login')}
@@ -40,7 +42,7 @@ export const LoginPage = memo(() => {
           <Input
             className={styles.login__field}
             label={'Пароль'}
-            {...register('password', useFormValidator(validationTemplate(getValues).password))}
+            {...register('password')}
             isInvalid={!!errors.password}
             type={'password'}
             error={errors.password?.message as string}
