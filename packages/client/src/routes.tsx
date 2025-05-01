@@ -2,12 +2,13 @@ import { BrowserRouter as Router, createBrowserRouter, Navigate, Route, Routes }
 import App from './App';
 import { LoginPage } from './pages/login';
 import { SignUpPage } from './pages/signup';
+import { NotFoundPage } from '@/pages/not-found';
 
 export const router = createBrowserRouter([
   {
     path: '/',
     element: <App />,
-    //   errorElement: <NotFoundPage />
+    errorElement: <NotFoundPage />,
     children: [
       {
         index: true,
@@ -25,8 +26,11 @@ export const router = createBrowserRouter([
       {
         path: '/signup',
         element: <SignUpPage />
+      },
+      {
+        path: '/not_found',
+        element: <NotFoundPage />
       }
-      // ,
       // {
       //   path: '/profile',
       //   element: <SignUpPage />
@@ -49,10 +53,6 @@ export const router = createBrowserRouter([
       // },
       // {
       //   path: '/forum/:id',
-      //   element: <SignUpPage />
-      // },
-      // {
-      //   path: '/not_found',
       //   element: <SignUpPage />
       // },
       // {
