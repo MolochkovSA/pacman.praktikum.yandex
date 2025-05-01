@@ -13,9 +13,9 @@
     "test": "jest ./"
   },
   "dependencies": {
+    "@hookform/resolvers": "^5.0.1",
     "@types/react-router-dom": "^5.1.7",
     "client": "file:",
-    "@hookform/resolvers": "^5.0.1",
     "dotenv": "^16.0.2",
     "eslint-config-prettier": "^8.5.0",
     "prettier": "^2.7.1",
