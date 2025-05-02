@@ -50,8 +50,9 @@ export const LoginPage = memo(() => {
           />
           <Button
             className={styles.login__button}
-            type={'submit'}
-            name={'Авторизироваться'}></Button>
+            type={'submit'}>
+            Авторизироваться
+          </Button>
         </form>
       </section>
     </main>

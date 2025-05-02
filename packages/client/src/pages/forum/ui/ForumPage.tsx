@@ -1,16 +1,25 @@
 import { ForumLayout } from '@/widgets/forum-layout';
-import styles from './ForumPage.module.scss';
-import { Button, Card, Input } from '@/shared/ui';
+import { Pagination } from '@/widgets/pagination';
+import { Card } from '@/shared/ui';
+
 import { NewTopicButton } from './NewTopicButton/NewTopicButton';
+import { TopicsTable } from './TopicsTable/TopicsTable';
 
-type Props = {};
-
-export const ForumPage = () => {
+export default function ForumPage() {
   return (
     <ForumLayout
       title="Форум"
       actions={<NewTopicButton />}>
-      <div>topics</div>
+      <Card>
+        <TopicsTable />
+        <Pagination
+          page={1}
+          total={100}
+          limit={10}
+          onNextClick={() => {}}
+          onPrevClick={() => {}}
+        />
+      </Card>
     </ForumLayout>
   );
-};
+}

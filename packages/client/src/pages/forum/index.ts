@@ -1,1 +1,1 @@
-export { ForumPage } from './ui/ForumPage';
+export { ForumPageAsync as ForumPage } from './ui/ForumPage.async';

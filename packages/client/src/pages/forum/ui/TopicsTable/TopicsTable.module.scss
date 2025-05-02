@@ -1,0 +1,36 @@
+@use 'styles/typography';
+
+.table {
+  margin-bottom: 2rem;
+  table-layout: fixed;
+
+  tr {
+    border-color: var(--color-yellow-opacity50);
+  }
+
+  th {
+    @include typography.font(p2);
+
+    padding: 1rem;
+    background-color: var(--color-onion);
+    color: var(--color-yellow-text);
+
+    &:first-child {
+      padding: 0;
+      width: 32px;
+    }
+
+    &:nth-child(2) {
+      width: 45%;
+    }
+
+    &:last-child {
+      width: 21%;
+    }
+  }
+}
+
+.noData {
+  color: gray;
+  text-align: center;
+}

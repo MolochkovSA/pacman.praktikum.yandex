@@ -12,7 +12,7 @@ const router = createBrowserRouter([
   {
     path: '/forum',
     lazy: LayoutWithTopbar,
-    children: [{ index: true, element: <ForumPage /> }]
+    children: [{ index: true, lazy: ForumPage }]
   },
   {
     path: '/login',

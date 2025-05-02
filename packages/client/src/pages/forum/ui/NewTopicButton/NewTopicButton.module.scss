@@ -1,3 +1,7 @@
+@use 'styles/typography';
+
 .text {
+  @include typography.font(p3);
+
   margin-top: 2px;
 }

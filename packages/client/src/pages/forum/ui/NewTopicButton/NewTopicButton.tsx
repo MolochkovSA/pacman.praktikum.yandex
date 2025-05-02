@@ -7,7 +7,7 @@ import styles from './NewTopicButton.module.scss';
 export const NewTopicButton = () => {
   return (
     <ButtonStyledLink to="/forum/posting">
-      <BsPlusLg size={20} />
+      <BsPlusLg size={16} />
       <span className={styles.text}>Новая тема</span>
     </ButtonStyledLink>
   );

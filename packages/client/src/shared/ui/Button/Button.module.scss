@@ -4,8 +4,6 @@
 .button {
   @include typography.font(p3);
 
-  background: var(--color-blue-main);
-  border: none;
   color: var(--color-white-text);
   border-radius: 10px;
   padding: 15px 40px;

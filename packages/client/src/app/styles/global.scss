@@ -1,8 +1,8 @@
-@forward 'bootstrap/scss/bootstrap';
 @forward './reset';
 @forward './typography';
-@forward './variables';
 @forward './mixins';
+@import './variables';
+@import 'bootstrap/scss/bootstrap';
 
 body {
   background: url('./../../assets/images/background.jpg');
