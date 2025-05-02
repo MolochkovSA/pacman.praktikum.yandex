@@ -1,7 +1,6 @@
 import { ForumLayout } from '@/widgets/forum-layout';
 import { Pagination } from '@/widgets/pagination';
 import { Card } from '@/shared/ui';
-
 import { NewTopicButton } from './NewTopicButton/NewTopicButton';
 import { TopicsTable } from './TopicsTable/TopicsTable';
 

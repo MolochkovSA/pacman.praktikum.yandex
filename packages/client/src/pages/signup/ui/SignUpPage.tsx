@@ -32,7 +32,6 @@ export const SignUpPage = memo(() => {
             className={styles.signin__field}
             label={'Почта'}
             {...register('email')}
-            isInvalid={!!errors.email}
             error={errors.email?.message as string}
             onFocus={() => trigger('email')}
           />
@@ -40,7 +39,6 @@ export const SignUpPage = memo(() => {
             className={styles.signin__field}
             label={'Логин'}
             {...register('login')}
-            isInvalid={!!errors.login}
             error={errors.login?.message as string}
             onFocus={() => trigger('login')}
           />
@@ -48,7 +46,6 @@ export const SignUpPage = memo(() => {
             className={styles.signin__field}
             label={'Имя'}
             {...register('first_name')}
-            isInvalid={!!errors.first_name}
             error={errors.first_name?.message as string}
             onFocus={() => trigger('first_name')}
           />
@@ -56,7 +53,6 @@ export const SignUpPage = memo(() => {
             className={styles.signin__field}
             label={'Фамилия'}
             {...register('second_name')}
-            isInvalid={!!errors.second_name}
             error={errors.second_name?.message as string}
             onFocus={() => trigger('second_name')}
           />
@@ -64,7 +60,6 @@ export const SignUpPage = memo(() => {
             className={styles.signin__field}
             label={'Телефон'}
             {...register('phone')}
-            isInvalid={!!errors.phone}
             error={errors.phone?.message as string}
             onFocus={() => trigger('phone')}
           />
@@ -72,7 +67,6 @@ export const SignUpPage = memo(() => {
             className={styles.signin__field}
             label={'Пароль'}
             {...register('password')}
-            isInvalid={!!errors.password}
             type={'password'}
             error={errors.password?.message as string}
             onFocus={() => trigger('password')}
@@ -81,7 +75,6 @@ export const SignUpPage = memo(() => {
             className={styles.signin__field}
             label={'Пароль (еще раз)'}
             {...register('password_two')}
-            isInvalid={!!errors.password_two}
             type={'password'}
             error={errors.password_two?.message as string}
             onFocus={() => trigger('password_two')}

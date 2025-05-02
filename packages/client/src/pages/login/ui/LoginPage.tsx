@@ -7,7 +7,6 @@ import { Button, Input } from '@/shared/ui';
 import styles from './LoginPage.module.scss';
 import { loginSchema } from '../model/schema';
 import { Login } from '../model/types';
-import { BrowserRouter, Link } from 'react-router-dom';
 
 export const LoginPage = memo(() => {
   const {
@@ -35,7 +34,6 @@ export const LoginPage = memo(() => {
             className={styles.login__field}
             label={'Логин'}
             {...register('login')}
-            isInvalid={!!errors.login}
             error={errors.login?.message as string}
             onFocus={() => trigger('login')}
           />
@@ -43,7 +41,6 @@ export const LoginPage = memo(() => {
             className={styles.login__field}
             label={'Пароль'}
             {...register('password')}
-            isInvalid={!!errors.password}
             type={'password'}
             error={errors.password?.message as string}
             onFocus={() => trigger('password')}

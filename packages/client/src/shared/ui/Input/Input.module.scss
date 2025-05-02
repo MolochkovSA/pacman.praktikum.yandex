@@ -2,38 +2,66 @@
 @use 'styles/mixins';
 
 .input {
-  @include typography.font(p2_input);
+  @include typography.font(p2);
 
+  padding: 8px 12px;
+  line-height: 2;
   background: transparent;
-  width: 100%;
-  outline: none;
-  border: none;
-  border-bottom: 1px solid var(--color-blue-main);
+  border: 1px solid var(--color-blue-main);
+  border-radius: 0;
   color: var(--color-white-text);
 
   &__wrapper {
-    margin-left: 20px;
-    margin-right: 20px;
     position: relative;
+    margin-bottom: 1.5rem;
   }
 
   &__label {
     @include typography.font(p3);
     @include mixins.text-yellow-neon;
 
-    position: absolute;
-    top: -10px;
+    margin-left: 0.5rem;
+  }
+
+  &:focus {
+    background: transparent;
+    color: var(--color-white-text);
+  }
+
+  &.invalid {
+    background: transparent;
   }
 }
 
 .error {
   @include typography.font(p4);
 
-  margin-top: 5px;
+  position: absolute;
+  margin: 0 0 0 0.5rem;
+  bottom: -1.2rem;
   color: var(--color-red-invalidate);
 }
 
-.invalid {
-  border-bottom: 1px solid var(--color-red-invalidate);
-  color: var(--color-red-invalidate);
+.prependIconGroup {
+  .prependIcon {
+    position: absolute;
+    left: 0.5rem;
+    top: 0.75rem;
+  }
+
+  input {
+    padding-left: 2rem;
+  }
+}
+
+.appendIconGroup {
+  .appendIcon {
+    position: absolute;
+    right: 0.5rem;
+    top: 0.75rem;
+  }
+
+  input {
+    padding-right: 2rem;
+  }
 }
