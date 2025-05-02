@@ -1,25 +1,6 @@
 @use './fonts';
 @use 'sass:map';
 
-:root {
-  --font-family-main: 'PressStart', 'Ubuntu', sans-serif;
-  --font-size-h2: 16px;
-  --font-line-h2: 20px;
-  --font-h2: var(--font-size-h2) / var(--font-line-h2) var(--font-family-main);
-  --font-size-h3: 14px;
-  --font-line-h3: 18px;
-  --font-h3: var(--font-size-h3) / var(--font-line-h3) var(--font-family-main);
-  --font-size-p2: 12px;
-  --font-line-p2: 16px;
-  --font-p2: var(--font-size-p2) / var(--font-line-p2) var(--font-family-main);
-  --font-size-p3: 10px;
-  --font-line-p3: 14px;
-  --font-p3: var(--font-size-p3) / var(--font-line-p3) var(--font-family-main);
-  --font-size-p4: 8px;
-  --font-line-p4: 12px;
-  --font-p4: var(--font-size-p4) / var(--font-line-p4) var(--font-family-main);
-}
-
 $font-family: (
   press-start: (
     'PressStart',

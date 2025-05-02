@@ -5,11 +5,11 @@ import App from './App';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import './app/styles/global.scss';
 import { ForumPage } from './pages/forum';
-import { LoginPage } from './pages/login/ui';
+import { LoginPage } from './pages/login';
 
 const router = createBrowserRouter([
   {
-    path: '/',
+    path: '/forum',
     element: <ForumPage />
   },
   {

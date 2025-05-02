@@ -1,24 +1,27 @@
 import { ProfileLink } from './ProfileLink/ProfileLink';
 
 import styles from './ForumPage.module.scss';
-import { Input } from '@/shared/ui';
+import { Card, Input } from '@/shared/ui';
+import { Topbar } from '@/widgets/topbar';
 
 type Props = {};
 
 export const ForumPage = () => {
   return (
     <main className={styles.page}>
-      <aside className={styles.leftBar}>
+      <Topbar />
+      {/* <aside className={styles.leftBar}>
         <header>
           <ProfileLink />
         </header>
         <nav>links</nav>
       </aside>
-      <div>
+      <div style={{ flex: 1 }}>
         <header>header</header>
+        <Card>test</Card>
         <main>main</main>
         <footer>footer</footer>
-      </div>
+      </div> */}
     </main>
   );
 };
