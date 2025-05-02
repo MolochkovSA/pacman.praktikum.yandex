@@ -6,11 +6,13 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import './app/styles/global.scss';
 import { ForumPage } from './pages/forum';
 import { LoginPage } from './pages/login';
+import { LayoutWithTopbar } from './pages/layout-with-topbar';
 
 const router = createBrowserRouter([
   {
     path: '/forum',
-    element: <ForumPage />
+    lazy: LayoutWithTopbar,
+    children: [{ index: true, element: <ForumPage /> }]
   },
   {
     path: '/login',

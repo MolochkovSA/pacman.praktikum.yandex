@@ -1,10 +1,10 @@
+import { PropsWithChildren } from 'react';
 import { NavLink } from 'react-router';
 
 import { UserDropdown } from './UserDropdown/UserDropdown';
 import logo from '@/assets/images/pacman-logo.png';
 
 import styles from './topbar.module.scss';
-import { PropsWithChildren } from 'react';
 
 export const Topbar = ({ children }: PropsWithChildren) => {
   return (
