@@ -1,11 +1,13 @@
-import { memo, useEffect } from 'react';
+import { memo } from 'react';
+import { zodResolver } from '@hookform/resolvers/zod';
+
+import { Button, Input } from '@/shared/ui';
+
 import styles from './LoginPage.module.scss';
-import { Input } from '@/shared/ui/Input';
-import { Button } from '@/shared/ui/Button';
+import { loginSchema } from '../model/schema';
+import { Login } from '../model/types';
 import { Link, useNavigate } from 'react-router-dom';
 import { FieldValues, useForm } from 'react-hook-form';
-import { useFormValidator } from '@/shared/validators/FormValidator';
-import { validationTemplate } from '@/shared/validators/Rules';
 import { SignInProps } from '@/shared/types';
 import { AuthorizationService } from '@/shared/api';
 import { userStoreService } from '@/shared/lib';
@@ -18,10 +20,10 @@ export const LoginPage = memo(() => {
     register,
     handleSubmit,
     trigger,
-    getValues,
     formState: { errors }
-  } = useForm({
-    mode: 'onBlur'
+  } = useForm<Login>({
+    mode: 'onBlur',
+    resolver: zodResolver(loginSchema)
   });
 
   const onSubmit = (data: FieldValues) => {
@@ -44,7 +46,7 @@ export const LoginPage = memo(() => {
           <Input
             className={styles.login__field}
             label={'Логин'}
-            {...register('login', useFormValidator(validationTemplate(getValues).login))}
+            {...register('login')}
             isInvalid={!!errors.login}
             error={errors.login?.message as string}
             onFocus={() => trigger('login')}
@@ -52,7 +54,7 @@ export const LoginPage = memo(() => {
           <Input
             className={styles.login__field}
             label={'Пароль'}
-            {...register('password', useFormValidator(validationTemplate(getValues).password))}
+            {...register('password')}
             isInvalid={!!errors.password}
             type={'password'}
             error={errors.password?.message as string}
@@ -64,7 +66,7 @@ export const LoginPage = memo(() => {
             name={'Авторизироваться'}></Button>
           <Link
             className={styles.login__link}
-            to="/signin">
+            to="/signup">
             Нет аккаунта?
           </Link>
         </form>

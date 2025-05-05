@@ -1,11 +1,6 @@
 {
-  "extends": [
-    "stylelint-config-standard"
-  ],
-  "ignoreFiles": [
-    "node_modules/**/*",
-    "src/style.css"
-  ],
+  "extends": ["stylelint-config-standard-scss"],
+  "ignoreFiles": ["node_modules/**/*", "dist/*"],
   "rules": {
     "color-no-invalid-hex": true,
     "block-no-empty": true,

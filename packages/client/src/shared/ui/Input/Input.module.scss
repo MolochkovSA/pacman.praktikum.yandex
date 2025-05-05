@@ -1,6 +1,5 @@
 @use 'styles/typography';
 @use 'styles/mixins';
-@use 'styles/variables' as *;
 
 .input {
   @include typography.font(p2_input);
@@ -9,8 +8,8 @@
   width: 100%;
   outline: none;
   border: none;
-  border-bottom: 1px solid $color-blue-main;
-  color: $color-white-text;
+  border-bottom: 1px solid var(--color-blue-main);
+  color: var(--color-white-text);
 
   &__wrapper {
     margin-left: 20px;
@@ -27,14 +26,14 @@
   }
 }
 
-.invalid {
-  border-bottom: 1px solid $color-red-invalidate;
-  color: $color-red-invalidate;
-}
-
 .error {
   @include typography.font(p4);
 
   margin-top: 5px;
-  color: $color-red-invalidate;
+  color: var(--color-red-invalidate);
+}
+
+.invalid {
+  border-bottom: 1px solid var(--color-red-invalidate);
+  color: var(--color-red-invalidate);
 }
