@@ -90,13 +90,11 @@ export const SignUpPage = memo(() => {
             className={styles.signin__button}
             type={'submit'}
             name={'Авторизироваться'}></Button>
-          <BrowserRouter>
-            <Link
-              className={styles.signin__link}
-              to="/login">
-              Войти
-            </Link>
-          </BrowserRouter>
+          <Link
+            className={styles.signin__link}
+            to="/login">
+            Войти
+          </Link>
         </form>
       </section>
     </main>
