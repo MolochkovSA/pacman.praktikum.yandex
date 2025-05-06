@@ -1,12 +1,11 @@
-import { memo } from 'react';
 import styles from './SignUpPage.module.scss';
-import { BrowserRouter, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Button, Input } from '@/shared/ui';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { signupSchema } from '@/pages/signup/model/scheme';
 
-export const SignUpPage = memo(() => {
+export const SignUpPage = () => {
   const {
     register,
     handleSubmit,
@@ -17,7 +16,7 @@ export const SignUpPage = memo(() => {
     resolver: zodResolver(signupSchema)
   });
 
-  const onSubmit = (data: any) => {
+  const onSubmit = (data: unknown) => {
     console.log('данные формы:', data);
   };
 
@@ -90,15 +89,13 @@ export const SignUpPage = memo(() => {
             className={styles.signin__button}
             type={'submit'}
             name={'Авторизироваться'}></Button>
-          <BrowserRouter>
-            <Link
-              className={styles.signin__link}
-              to="/login">
-              Войти
-            </Link>
-          </BrowserRouter>
+          <Link
+            className={styles.signin__link}
+            to="/login">
+            Войти
+          </Link>
         </form>
       </section>
     </main>
   );
-});
+};

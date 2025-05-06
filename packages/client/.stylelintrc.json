@@ -1,8 +1,9 @@
 {
-  "extends": ["stylelint-config-standard-scss", "stylelint-prettier/recommended"],
+  "extends": ["stylelint-config-standard-scss"],
+  "ignoreFiles": ["node_modules/**/*", "dist/*"],
   "rules": {
-    "declaration-empty-line-before": null,
-    "rule-empty-line-before": null,
-    "prettier/prettier": true
+    "color-no-invalid-hex": true,
+    "block-no-empty": true,
+    "selector-class-pattern": null
   }
 }
