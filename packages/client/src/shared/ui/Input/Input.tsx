@@ -8,7 +8,7 @@ export interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
   error?: string;
 }
 
-export const Input = forwardRef<HTMLInputElement, Props>(({ error, isInvalid, ...props }, ref) => {
+export const Input = forwardRef<HTMLInputElement, Props>(function Input({ error, isInvalid, ...props }, ref) {
   return (
     <div className={styles.input__wrapper + ' ' + props.className}>
       <label

@@ -1,4 +1,3 @@
-import { memo } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import { useForm } from 'react-hook-form';
@@ -7,9 +6,9 @@ import { Button, Input } from '@/shared/ui';
 import styles from './LoginPage.module.scss';
 import { loginSchema } from '../model/schema';
 import { Login } from '../model/types';
-import { BrowserRouter, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
-export const LoginPage = memo(() => {
+export const LoginPage = () => {
   const {
     register,
     handleSubmit,
@@ -20,7 +19,7 @@ export const LoginPage = memo(() => {
     resolver: zodResolver(loginSchema)
   });
 
-  const onSubmit = (data: any) => {
+  const onSubmit = (data: unknown) => {
     console.log('данные формы:', data);
   };
 
@@ -61,4 +60,4 @@ export const LoginPage = memo(() => {
       </section>
     </main>
   );
-});
+};

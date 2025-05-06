@@ -23,5 +23,5 @@ export const NotFoundPage = () => {
 };
 
 const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-  return 0;
+  return e;
 };
