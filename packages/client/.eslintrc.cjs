@@ -15,7 +15,6 @@ module.exports = {
         'plugin:@typescript-eslint/recommended',
         'plugin:@typescript-eslint/recommended-requiring-type-checking',
         'prettier'
-
       ],
       rules: {
         'react/jsx-filename-extension': 'off',
@@ -29,7 +28,6 @@ module.exports = {
         '@typescript-eslint/no-unsafe-member-access': 'off',
 
         '@typescript-eslint/ban-ts-comment': 'off'
-
       }
     }
   ]

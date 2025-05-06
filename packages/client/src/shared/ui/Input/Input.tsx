@@ -4,7 +4,7 @@ import React, { forwardRef } from 'react';
 export interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
   label: string;
   isInvalid?: boolean;
-  type?: 'text' | 'password';
+  type?: 'text' | 'password' | 'email';
   error?: string;
 }
 
@@ -21,7 +21,7 @@ export const Input = forwardRef<HTMLInputElement, Props>(({ error, isInvalid, ..
         {...props}
         className={`${styles.input} ${isInvalid ? styles.invalid : ''}`}
       />
-      {error && <div className={styles.error}>{error}</div>}
+      {error && <span className={styles.error}>{error}</span>}
     </div>
   );
 });

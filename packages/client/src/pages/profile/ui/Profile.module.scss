@@ -1,0 +1,104 @@
+@use 'styles/typography';
+@use 'styles/mixins';
+@use 'styles/variables' as *;
+
+.profile {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  padding: 20px;
+  position: relative;
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 40px 15px;
+    height: 100%;
+  }
+
+  &__panel {
+    border-radius: 10px;
+    background-color: rgba(255 242 0 / 15%);
+    backdrop-filter: blur(7px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 750px;
+  }
+
+  &__header {
+    @include typography.font(h2);
+    @include mixins.text-yellow-neon;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 50px;
+    position: relative;
+    background-color: #505023;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+  }
+
+  &__avatar {
+    background-color: #505023;
+    width: 175px;
+    height: 175px;
+    position: absolute;
+    top: -28px;
+    right: 40px;
+  }
+  // &__buttons {
+  //   display: flex;
+  //   flex-direction: column;
+  //   padding: 20px 40px;
+  //   gap: 15px;
+  // }
+  // &__button {
+  //   @include typography.font(p2);
+  //   align-self: flex-start;
+  //   color: var(--color-white-text);
+  //   position: relative;
+
+  //   &::before {
+  //     content: '▶';
+  //     position: absolute;
+  //     left: -20px;
+  //     top: 0;
+  //   }
+  //   &:hover {
+  //     text-decoration: underline;
+  //   }
+  // }
+  &__button {
+    width: 50%;
+    margin: 30px auto;
+  }
+
+  &__field {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    label {
+      position: relative;
+      top: 0;
+      font-size: 14px;
+      line-height: 14px;
+    }
+    input {
+      width: 50%;
+      align-self: flex-end;
+      text-align: right;
+      border-bottom: 2px solid #505023;
+    }
+    span {
+      position: absolute;
+      bottom: -15px;
+      right: 0;
+    }
+  }
+}

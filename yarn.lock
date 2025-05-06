@@ -3200,7 +3200,7 @@ cli-width@^3.0.0:
   dependencies:
     "@hookform/resolvers" "^5.0.1"
     "@types/react-router-dom" "^5.1.7"
-    client "file:../../../AppData/Local/Yarn/Cache/v6/npm-client-0.0.0-3567c038-6004-4526-8eaf-1900870e2b08-1746111036410/node_modules/client"
+    client "file:../../../AppData/Local/Yarn/Cache/v6/npm-client-0.0.0-f579aaf6-91f8-4fdd-a0ee-700e90397ad2-1746477199725/node_modules/client"
     dotenv "^16.0.2"
     react "^18.2.0"
     react-dom "^18.2.0"
