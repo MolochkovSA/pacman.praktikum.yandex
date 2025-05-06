@@ -4,16 +4,19 @@
       3px 0 0 var(--color-red-invalidate),
       -3px 0 0 var(--color-blue-main);
   }
+
   25% {
     text-shadow:
       -3px 0 0 var(--color-red-invalidate),
       3px 0 0 var(--color-blue-main);
   }
+
   50% {
     text-shadow:
       3px 0 0 var(--color-red-invalidate),
       -3px 0 0 var(--color-blue-main);
   }
+
   100% {
     text-shadow:
       -3px 0 0 var(--color-red-invalidate),
