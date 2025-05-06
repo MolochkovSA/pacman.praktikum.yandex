@@ -13,33 +13,34 @@ export interface Props extends FormControlProps {
   AppendIcon?: IconType;
 }
 
-export const Input = forwardRef<HTMLInputElement, Props>(
-  ({ error, className, label, PrependIcon, AppendIcon, ...props }, ref) => {
-    return (
-      <Form.Group
-        className={clsx(styles.input__wrapper, className)}
-        controlId={props.id || props.name}>
-        {label && <Form.Label className={styles.input__label}>{label}</Form.Label>}
-        <InputGroup
-          className={clsx({ [styles.prependIconGroup]: !!PrependIcon, [styles.appendIconGroup]: !!AppendIcon })}>
-          {PrependIcon && <PrependIcon className={styles.prependIcon} />}
+export const Input = forwardRef<HTMLInputElement, Props>(function Input(
+  { error, className, label, PrependIcon, AppendIcon, ...props },
+  ref
+) {
+  return (
+    <Form.Group
+      className={clsx(styles.input__wrapper, className)}
+      controlId={props.id || props.name}>
+      {label && <Form.Label className={styles.input__label}>{label}</Form.Label>}
+      <InputGroup
+        className={clsx({ [styles.prependIconGroup]: !!PrependIcon, [styles.appendIconGroup]: !!AppendIcon })}>
+        {PrependIcon && <PrependIcon className={styles.prependIcon} />}
 
-          <Form.Control
-            {...props}
-            ref={ref}
-            className={clsx(styles.input, { [styles.invalid]: error })}
-            isInvalid={!!error}
-          />
+        <Form.Control
+          {...props}
+          ref={ref}
+          className={clsx(styles.input, { [styles.invalid]: error })}
+          isInvalid={!!error}
+        />
 
-          {AppendIcon && <AppendIcon className={styles.appendIcon} />}
+        {AppendIcon && <AppendIcon className={styles.appendIcon} />}
 
-          <Form.Control.Feedback
-            type="invalid"
-            className={styles.error}>
-            {error}
-          </Form.Control.Feedback>
-        </InputGroup>
-      </Form.Group>
-    );
-  }
-);
+        <Form.Control.Feedback
+          type="invalid"
+          className={styles.error}>
+          {error}
+        </Form.Control.Feedback>
+      </InputGroup>
+    </Form.Group>
+  );
+});
