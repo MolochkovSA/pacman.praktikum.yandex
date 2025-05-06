@@ -1,28 +1,6 @@
-@use 'styles/variables' as *;
 @use 'styles/typography';
 @use 'styles/mixins';
-
-@keyframes glitch {
-  0% {
-    text-shadow: 3px 0 0 var(--color-red-invalidate), -3px 0 0 var(--color-blue-main);
-  }
-
-  25% {
-    text-shadow: -3px 0 0 var(--color-red-invalidate), 3px 0 0 var(--color-blue-main);
-  }
-
-  50% {
-    text-shadow: 3px 0 0 var(--color-red-invalidate), -3px 0 0 var(--color-blue-main);
-  }
-
-  75% {
-    text-shadow: -3px 0 0 var(--color-red-invalidate), 3px 0 0 var(--color-blue-main);
-  }
-
-  100% {
-    text-shadow: 3px 0 0 var(--color-red-invalidate), -3px 0 0 var(--color-blue-main);
-  }
-}
+@use 'styles/animation';
 
 .container {
   @include typography.font(h2);
@@ -39,20 +17,12 @@
   gap: 3rem;
 
   .title {
+    @include animation.glitch-animation;
+
     font-size: 5rem;
     margin-bottom: 2rem;
-    animation: glitch 1s infinite;
     position: relative;
     text-shadow: var(--shadow-yellow-text);
-
-    &::after {
-      content: '404';
-      position: absolute;
-      left: 0;
-      top: 0;
-      color: rgb(255 255 255 / 30%);
-      z-index: -1;
-    }
   }
 
   .message {
