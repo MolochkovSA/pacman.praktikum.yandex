@@ -32,6 +32,7 @@
   &__header {
     @include typography.font(h2);
     @include mixins.text-yellow-neon;
+
     width: 100%;
     display: flex;
     align-items: center;
@@ -51,6 +52,7 @@
     top: -28px;
     right: 40px;
   }
+
   &__button {
     width: 50%;
     margin: 30px auto;
@@ -61,18 +63,21 @@
     align-items: center;
     justify-content: space-between;
     margin-bottom: 20px;
+
     label {
       position: relative;
       top: 0;
       font-size: 14px;
       line-height: 14px;
     }
+
     input {
       width: 50%;
       align-self: flex-end;
       text-align: right;
       border-bottom: 2px solid #505023;
     }
+
     span {
       position: absolute;
       bottom: -15px;
