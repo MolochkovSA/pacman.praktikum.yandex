@@ -51,28 +51,6 @@
     top: -28px;
     right: 40px;
   }
-  // &__buttons {
-  //   display: flex;
-  //   flex-direction: column;
-  //   padding: 20px 40px;
-  //   gap: 15px;
-  // }
-  // &__button {
-  //   @include typography.font(p2);
-  //   align-self: flex-start;
-  //   color: var(--color-white-text);
-  //   position: relative;
-
-  //   &::before {
-  //     content: '▶';
-  //     position: absolute;
-  //     left: -20px;
-  //     top: 0;
-  //   }
-  //   &:hover {
-  //     text-decoration: underline;
-  //   }
-  // }
   &__button {
     width: 50%;
     margin: 30px auto;

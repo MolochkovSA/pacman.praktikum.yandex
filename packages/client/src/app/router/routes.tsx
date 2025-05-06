@@ -2,13 +2,14 @@ import { createBrowserRouter, Navigate } from 'react-router-dom';
 import App from '../ui/App';
 import { LoginPage } from '../../pages/login';
 import { SignUpPage } from '../../pages/signup';
-import { NotFoundPage } from '@/pages/not-found';
+import { ProfilePage } from '@/pages/profile';
+import { ErrorPage } from '@/pages/error/ui';
 
 export const router = createBrowserRouter([
   {
     path: '/',
     element: <App />,
-    errorElement: <NotFoundPage />,
+    errorElement: <ErrorPage errorType="500" />,
     children: [
       {
         index: true,
@@ -28,13 +29,13 @@ export const router = createBrowserRouter([
         element: <SignUpPage />
       },
       {
-        path: '/not_found',
-        element: <NotFoundPage />
+        path: '/*',
+        element: <ErrorPage errorType="404" />
+      },
+      {
+        path: '/profile',
+        element: <ProfilePage />
       }
-      // {
-      //   path: '/profile',
-      //   element: <SignUpPage />
-      // },
       // {
       //   path: '/home',
       //   element: <SignUpPage />
