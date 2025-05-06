@@ -4,3 +4,4 @@ export { IconLink } from './IconLink/IconLink';
 export { Card } from './Card/Card';
 export { ButtonStyledLink } from './ButtonStyledLink/ButtonStyledLink';
 export { Pagination } from '../../widgets/pagination/ui/pagination';
+export { Breadcrumbs } from './Breadcrumbs/Breadcrumbs';

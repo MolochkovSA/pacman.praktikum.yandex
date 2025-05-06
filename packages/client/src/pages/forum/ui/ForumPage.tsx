@@ -1,14 +1,23 @@
 import { ForumLayout } from '@/widgets/forum-layout';
 import { Pagination } from '@/widgets/pagination';
-import { Card } from '@/shared/ui';
+import { Breadcrumbs, Card } from '@/shared/ui';
 import { NewTopicButton } from './NewTopicButton/NewTopicButton';
 import { TopicsTable } from './TopicsTable/TopicsTable';
 
 export default function ForumPage() {
   return (
     <ForumLayout
-      title="Форум"
-      actions={<NewTopicButton />}>
+      top={
+        <>
+          <Breadcrumbs
+            links={[
+              { label: 'Главная', to: '/' },
+              { label: 'Форум', to: '/forum' }
+            ]}
+          />
+          <NewTopicButton />
+        </>
+      }>
       <Card>
         <TopicsTable />
         <Pagination

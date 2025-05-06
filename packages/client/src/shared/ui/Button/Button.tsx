@@ -1,12 +1,12 @@
 import { Button as BootstrapButton, ButtonProps } from 'react-bootstrap';
-
-import styles from './Button.module.scss';
 import clsx from 'clsx';
 
-export const Button = ({ className, as, ...props }: ButtonProps) => {
+import styles from './Button.module.scss';
+
+export const Button = ({ className, as = 'button', ...props }: ButtonProps) => {
   return (
     <BootstrapButton
-      as="button"
+      as={as}
       {...props}
       className={clsx(styles.button, className)}
     />

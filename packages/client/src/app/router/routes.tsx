@@ -4,12 +4,14 @@ import { LoginPage } from '../../pages/login';
 import { SignUpPage } from '../../pages/signup';
 import { ErrorPage } from '@/pages/error';
 import { ForumPage } from '@/pages/forum';
+import { LayoutWithTopbar } from '@/pages/layout-with-topbar';
+import { ForumPostingPage } from '@/pages/forum-posting';
 
 export const router = createBrowserRouter([
   {
     path: '/',
     element: <App />,
-    errorElement: <ErrorPage errorType="404" />,
+    errorElement: <ErrorPage errorType="500" />,
     children: [
       {
         index: true,
@@ -28,7 +30,14 @@ export const router = createBrowserRouter([
         path: '/signup',
         element: <SignUpPage />
       },
-      { path: 'forum', lazy: ForumPage },
+      {
+        path: 'forum',
+        lazy: LayoutWithTopbar,
+        children: [
+          { index: true, lazy: ForumPage },
+          { path: 'posting', lazy: ForumPostingPage }
+        ]
+      },
       {
         path: '/not_found',
         element: <ErrorPage errorType="404" />
