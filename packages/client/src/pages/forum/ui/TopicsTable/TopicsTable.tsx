@@ -1,7 +1,7 @@
 import { Table } from 'react-bootstrap';
 
-import { TopicPreview } from '@/entities/topic';
 import { TopicRow } from '../TopicRow/TopicRow';
+import { TopicPreview } from '../../model/types';
 
 import styles from './TopicsTable.module.scss';
 
@@ -16,7 +16,20 @@ const headers: React.ReactElement[] = Object.entries(topicHeaders).map(([value, 
   <th key={value}>{label}</th>
 ));
 
-export const TopicsTable = () => {
+type Props = {
+  topics: TopicPreview[];
+};
+
+export const TopicsTable = ({ topics }: Props) => {
+  const topicsList = topics.map((topic) => (
+    <TopicRow
+      key={topic.id}
+      topic={topic}
+    />
+  ));
+
+  if (!topicsList.length) return <div className={styles.noData}>Форум пуст</div>;
+
   return (
     <Table
       hover
@@ -27,30 +40,7 @@ export const TopicsTable = () => {
           {headers}
         </tr>
       </thead>
-
-      <tbody>
-        <TopicRow
-          id={0}
-          title="Это очень длинная тема для теста. Это очень длинная тема для теста. Это очень длинная тема для теста."
-          author={{ display_name: 'test' }}
-          commentsCount={0}
-          lastComment={{ author: { display_name: 'test' }, createdAt: new Date() }}
-        />
-        <TopicRow
-          id={1}
-          title="Это очень длинная тема для теста. Это очень длинная тема для теста. Это очень длинная тема для теста."
-          author={{ display_name: 'test' }}
-          commentsCount={0}
-          lastComment={{ author: { display_name: 'test' }, createdAt: new Date() }}
-        />
-        <TopicRow
-          id={2}
-          title="Это очень длинная тема для теста. Это очень длинная тема для теста. Это очень длинная тема для теста."
-          author={{ display_name: 'test' }}
-          commentsCount={0}
-          lastComment={{ author: { display_name: 'test' }, createdAt: new Date() }}
-        />
-      </tbody>
+      <tbody>{topicsList}</tbody>
     </Table>
   );
 };

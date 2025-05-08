@@ -2,4 +2,4 @@ import { z } from 'zod';
 
 import { topicSchema } from './schema';
 
-export type NewTopicType = z.infer<typeof topicSchema>;
+export type TopicData = z.infer<typeof topicSchema>;

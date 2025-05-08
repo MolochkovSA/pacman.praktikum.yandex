@@ -1,20 +1,26 @@
-import { Comment, CommentPreview } from '@/entities/comment';
-import { User } from '@/entities/user';
-
 export type TopicId = number;
 
-export type Topic = {
-  id: TopicId;
-  author: User;
+export type TopicContent = {
   title: string;
   themeDescription: string;
   text: string;
-  createdAt: Date;
-  comments: Comment[];
 };
 
-export type TopicPreview = Pick<Topic, 'id' | 'author' | 'title'> & {
-  lastComment: CommentPreview;
-  commentsCount: number;
+export type Topic = TopicContent & { id: TopicId; createdAt: Date };
+
+export type TopicResponseDto = TopicContent & { id: TopicId; createdAt: string };
+
+export type TopicListResponseDto = {
+  topics: TopicResponseDto[];
+  total: number;
 };
-export type TopicView = Topic & { comments: Comment[] };
+
+export type CreateTopicRequestDto = {
+  authorId: number;
+  topic: TopicContent;
+};
+
+export type UpdateTopicRequestDto = {
+  topicId: TopicId;
+  topic: Partial<TopicContent>;
+};

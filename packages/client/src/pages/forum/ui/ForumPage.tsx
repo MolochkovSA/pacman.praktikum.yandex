@@ -1,11 +1,18 @@
+import { useState } from 'react';
 import { Card } from 'react-bootstrap';
+
 import { ForumLayout } from '@/widgets/forum-layout';
 import { Pagination } from '@/widgets/pagination';
-import { Breadcrumbs } from '@/shared/ui';
+import { Breadcrumbs, Spinner } from '@/shared/ui';
 import { NewTopicButton } from './NewTopicButton/NewTopicButton';
 import { TopicsTable } from './TopicsTable/TopicsTable';
+import { DEFAULT_PAGE, DEFAULT_TOPICS_ON_SCREEN } from '../constants';
+import { useTopicList } from '../hooks/useTopicList';
 
 export default function ForumPage() {
+  const [page, setPage] = useState(DEFAULT_PAGE);
+  const { topics, isLoading, total } = useTopicList(page);
+
   return (
     <ForumLayout
       top={
@@ -24,17 +31,15 @@ export default function ForumPage() {
           <Card.Title>Пристанище словоблуда</Card.Title>
         </Card.Header>
 
-        <Card.Body>
-          <TopicsTable />
-        </Card.Body>
+        <Card.Body>{isLoading ? <Spinner /> : <TopicsTable topics={topics} />}</Card.Body>
 
         <Card.Footer>
           <Pagination
-            page={1}
-            total={100}
-            limit={10}
-            onNextClick={() => {}}
-            onPrevClick={() => {}}
+            page={page}
+            total={total}
+            limit={DEFAULT_TOPICS_ON_SCREEN}
+            onNextClick={() => setPage((prev) => prev + 1)}
+            onPrevClick={() => setPage((prev) => prev - 1)}
           />
         </Card.Footer>
       </Card>

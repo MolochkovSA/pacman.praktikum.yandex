@@ -2,34 +2,32 @@ import { RiFilePaper2Line } from 'react-icons/ri';
 
 import styles from './TopicRow.module.scss';
 import { Link } from 'react-router-dom';
-
-type User = { id: number; display_name: string };
+import { TopicPreview } from '../../model/types';
 
 type Props = {
-  id: number;
-  title: string;
-  author: User;
-  commentsCount: number;
-  lastComment: {
-    author: User;
-    createdAt: Date;
-  };
+  topic: TopicPreview;
 };
 
-export const TopicRow = ({ id, title, author, commentsCount, lastComment }: Props) => {
+export const TopicRow = ({ topic: { id, title, author, commentsCount, lastComment } }: Props) => {
   const topicUrl = `/forum/${id}`;
   const authorProfileUrl = `/profile/${author.id}`;
   const commentatorProfileUrl = `/profile/${lastComment.author.id}`;
 
   return (
     <tr className={styles.row}>
-      <td className={styles.link}>
-        <Link to={topicUrl}>
+      <td>
+        <Link
+          className={styles.link}
+          to={topicUrl}>
           <RiFilePaper2Line size={16} />
         </Link>
       </td>
-      <td className={styles.link}>
-        <Link to={topicUrl}>{title}</Link>
+      <td>
+        <Link
+          className={styles.link}
+          to={topicUrl}>
+          {title}
+        </Link>
       </td>
       <td>
         <Link

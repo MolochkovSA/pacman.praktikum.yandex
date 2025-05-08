@@ -5,8 +5,8 @@ import { SignUpPage } from '../../pages/signup';
 import { ErrorPage } from '@/pages/error';
 import { ForumPage } from '@/pages/forum';
 import { LayoutWithTopbar } from '@/pages/layout-with-topbar';
-import { ForumPostingPage } from '@/pages/forum-posting';
 import { ForumTopicPage } from '@/pages/forum-topic';
+import { ForumTopicEditPage, topicLoader } from '@/pages/forum-topic-edit';
 
 export const router = createBrowserRouter([
   {
@@ -36,8 +36,9 @@ export const router = createBrowserRouter([
         lazy: LayoutWithTopbar,
         children: [
           { index: true, lazy: ForumPage },
-          { path: 'posting', lazy: ForumPostingPage },
-          { path: ':topicId', lazy: ForumTopicPage }
+          { path: 'posting', lazy: ForumTopicEditPage },
+          { path: ':topicId', lazy: ForumTopicPage },
+          { path: ':topicId/edit', loader: topicLoader, lazy: ForumTopicEditPage }
         ]
       },
       {
