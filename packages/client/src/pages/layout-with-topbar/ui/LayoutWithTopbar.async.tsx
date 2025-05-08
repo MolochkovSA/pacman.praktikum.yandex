@@ -1,1 +1,1 @@
-export const LayoutWithTopbarAsync = async () => ({ Component: (await import('./LayoutWithTopbar')).default });
+export const LayoutWithTopbarAsync = async () => ({ Component: (await import('./LayoutWithTopbar')).LayoutWithTopbar });

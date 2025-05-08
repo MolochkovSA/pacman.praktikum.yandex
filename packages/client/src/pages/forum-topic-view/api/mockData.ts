@@ -1,0 +1,37 @@
+import { TopicViewRequestDto } from '../model/types';
+
+const generateMockTopicView = (id: number) => {
+  return {
+    id,
+    title: 'Тема для теста',
+    themeDescription: 'Описание темы для теста',
+    text: 'Очень длинный текст для теста, написанный ИИ прошлого века или что-то вроде этого, чтобы проверить работоспособность страницы, но это не важно, так как она не используется в реальном проекте.',
+    author: {
+      id: 0,
+      display_name: 'Автор темы',
+      avatar: undefined
+    },
+    createdAt: '2022-01-01T00:00:00.000Z'
+  };
+};
+
+const generateMockCommentView = (id: number) => {
+  return {
+    id,
+    text: 'lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+    author: {
+      id: id * 3 + 1,
+      display_name: 'Автор' + (id + 1),
+      avatar: undefined
+    },
+    createdAt: '2022-01-01T00:00:00.000Z'
+  };
+};
+
+export const getMockTopicVew = ({ id, limit }: TopicViewRequestDto) => {
+  return {
+    topic: generateMockTopicView(id),
+    comments: Array.from({ length: limit }, (_, index) => generateMockCommentView(index)),
+    total: 27
+  };
+};

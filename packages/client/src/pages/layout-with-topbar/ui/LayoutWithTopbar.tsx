@@ -4,7 +4,7 @@ import { Topbar } from '@/widgets/topbar';
 
 import styles from './LayoutWithTopbar.module.scss';
 
-export default function LayoutWithTopbar() {
+export const LayoutWithTopbar = () => {
   return (
     <div className={styles.layout}>
       <Topbar />
@@ -14,4 +14,4 @@ export default function LayoutWithTopbar() {
       </main>
     </div>
   );
-}
+};

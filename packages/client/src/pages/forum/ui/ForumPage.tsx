@@ -9,7 +9,7 @@ import { TopicsTable } from './TopicsTable/TopicsTable';
 import { DEFAULT_PAGE, DEFAULT_TOPICS_ON_SCREEN } from '../constants';
 import { useTopicList } from '../hooks/useTopicList';
 
-export default function ForumPage() {
+export const ForumPage = () => {
   const [page, setPage] = useState(DEFAULT_PAGE);
   const { topics, isLoading, total } = useTopicList(page);
 
@@ -45,4 +45,4 @@ export default function ForumPage() {
       </Card>
     </ForumLayout>
   );
-}
+};

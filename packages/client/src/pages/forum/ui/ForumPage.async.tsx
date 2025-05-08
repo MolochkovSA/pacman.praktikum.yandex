@@ -1,1 +1,1 @@
-export const ForumPageAsync = async () => ({ Component: (await import('./ForumPage')).default });
+export const ForumPageAsync = async () => ({ Component: (await import('./ForumPage')).ForumPage });
