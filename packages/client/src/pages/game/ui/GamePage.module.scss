@@ -1,0 +1,17 @@
+@use 'styles/variables' as *;
+@use 'styles/typography';
+@use 'styles/mixins';
+@use 'styles/global';
+
+.container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  padding-top: 30px;
+  justify-content: center;
+  .title {
+    @include mixins.text-yellow-neon;
+    @include typography.font(h2);
+    font-size: 5rem;
+  }
+}
