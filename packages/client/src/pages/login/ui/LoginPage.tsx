@@ -1,5 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-
+import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { Button, Input } from '@/shared/ui';
 
@@ -49,6 +49,11 @@ export const LoginPage = () => {
             type="submit">
             Авторизироваться
           </Button>
+          <Link
+            className={styles.login__link}
+            to="/signup">
+            Нет аккаунта?
+          </Link>
         </form>
       </section>
     </main>
