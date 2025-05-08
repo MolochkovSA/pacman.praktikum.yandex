@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 
 import { Breadcrumbs, Pagination, Spinner } from '@/shared/ui';
 import { ForumLayout } from '@/widgets/forum-layout';
+import { CreateCommentForm } from '@/features/comment/create';
 import { MessageBlock } from './MessageBlock/MessageBlock';
 import { useTopicView } from '../hooks/useTopicView';
 import { DEFAULT_COMMENTS_ON_SCREEN, DEFAULT_PAGE } from '../constants';
@@ -14,7 +15,7 @@ export const ForumTopicViewPage = () => {
   const { topicId } = useParams();
   const id = Number(topicId);
   const [page, setPage] = useState(DEFAULT_PAGE);
-  const { isLoading, topic, comments, total } = useTopicView(id, page);
+  const { isLoading, topic, comments, total, loadTopicView } = useTopicView(id, page);
 
   const messages = comments.map((comment) => (
     <MessageBlock
@@ -57,6 +58,11 @@ export const ForumTopicViewPage = () => {
           {messages}
 
           {paginationCard}
+
+          <CreateCommentForm
+            topicId={id}
+            onSubmit={loadTopicView}
+          />
         </div>
       )}
     </ForumLayout>

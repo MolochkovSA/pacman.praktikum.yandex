@@ -23,6 +23,7 @@ export const EditTopicForm = ({ topic, onSubmit, onCancel }: Props) => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors }
   } = useForm<TopicData>({
     mode: 'onBlur',
@@ -38,6 +39,7 @@ export const EditTopicForm = ({ topic, onSubmit, onCancel }: Props) => {
     }
 
     onSubmit(data);
+    reset();
   };
 
   return (
@@ -59,7 +61,6 @@ export const EditTopicForm = ({ topic, onSubmit, onCancel }: Props) => {
           <Input
             as="textarea"
             label="Текст сообщения/темы"
-            className="h-25"
             {...register('text')}
             error={errors.text?.message as string}
           />

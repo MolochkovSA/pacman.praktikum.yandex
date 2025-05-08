@@ -5,3 +5,8 @@ export type Comment = {
   text: string;
   createdAt: Date;
 };
+
+export type CreateCommentRequestDto = {
+  topicId: number;
+  text: string;
+};

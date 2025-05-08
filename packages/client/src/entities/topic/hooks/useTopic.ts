@@ -32,26 +32,11 @@ export const useTopic = () => {
     setIsLoading(true);
 
     try {
-      const topicDto = await topicApi.getTopicByid(id);
-
-      return {
-        ...topicDto,
-        createdAt: new Date(topicDto.createdAt)
-      };
+      return await topicApi.getTopicByid(id);
     } finally {
       setIsLoading(false);
     }
   };
 
-  const deleteTopic = async (id: TopicId): Promise<void> => {
-    setIsLoading(true);
-
-    try {
-      await topicApi.deleteTopic(id);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  return { isLoading, createTopic, updateTopic, getTopicByid, deleteTopic };
+  return { isLoading, createTopic, updateTopic, getTopicByid };
 };

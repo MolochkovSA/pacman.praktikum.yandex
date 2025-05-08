@@ -1,10 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import { TopicId } from '@/entities/topic';
 import { CommentView, TopicView } from '../model/types';
 import { getTopicView } from '../api/getTopicView';
 
 export const useTopicView = (id: TopicId, page: number) => {
+  const [forceUpdate, setForceUpdate] = useState(false);
   const [topic, setTopic] = useState<TopicView>();
   const [comments, setComments] = useState<CommentView[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -27,12 +28,17 @@ export const useTopicView = (id: TopicId, page: number) => {
     return () => {
       isLive = false;
     };
-  }, [id, page]);
+  }, [id, page, forceUpdate]);
+
+  const loadTopicView = useCallback(() => {
+    setForceUpdate((prev) => !prev);
+  }, []);
 
   return {
     topic,
     comments,
     isLoading,
-    total
+    total,
+    loadTopicView
   };
 };
