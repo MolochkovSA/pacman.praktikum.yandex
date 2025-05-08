@@ -1,43 +1,51 @@
-import { useNavigate } from 'react-router';
 import { RiFilePaper2Line } from 'react-icons/ri';
 
 import styles from './TopicRow.module.scss';
-import { Topic, TopicId } from '@/entities/topic';
+import { Link } from 'react-router-dom';
+
+type User = { id: number; display_name: string };
 
 type Props = {
-  id: TopicId;
-  title: Topic['title'];
-  author: Topic['author'];
-  commentsCount: Topic['commentsCount'];
-  lastComment: Topic['lastComment'];
+  id: number;
+  title: string;
+  author: User;
+  commentsCount: number;
+  lastComment: {
+    author: User;
+    createdAt: Date;
+  };
 };
 
 export const TopicRow = ({ id, title, author, commentsCount, lastComment }: Props) => {
-  const navigate = useNavigate();
-
-  const goToTopic = () => navigate(`/forum/topic/${id}`);
-  const goToProfile = () => navigate(`/profile/${author.id}`);
+  const topicUrl = `/forum/${id}`;
+  const authorProfileUrl = `/profile/${author.id}`;
+  const commentatorProfileUrl = `/profile/${lastComment.author.id}`;
 
   return (
     <tr className={styles.row}>
       <td className={styles.link}>
-        <RiFilePaper2Line
-          size={16}
-          onClick={goToTopic}
-        />
+        <Link to={topicUrl}>
+          <RiFilePaper2Line size={16} />
+        </Link>
       </td>
       <td className={styles.link}>
-        <span onClick={goToTopic}>{title}</span>
+        <Link to={topicUrl}>{title}</Link>
       </td>
-      <td>{author.display_name}</td>
+      <td>
+        <Link
+          className={styles.author}
+          to={authorProfileUrl}>
+          {author.display_name}
+        </Link>
+      </td>
       <td>{commentsCount}</td>
       <td className={styles.lastComment}>
-        <div>{lastComment.createdAt.toLocaleString()}</div>
-        <div
+        <time>{lastComment.createdAt.toLocaleString()}</time>
+        <Link
           className={styles.author}
-          onClick={goToProfile}>
+          to={commentatorProfileUrl}>
           {lastComment.author.display_name}
-        </div>
+        </Link>
       </td>
     </tr>
   );

@@ -1,1 +1,1 @@
-export type { Topic, TopicId } from './model/types';
+export type { Topic, TopicId, TopicPreview, TopicView } from './model/types';

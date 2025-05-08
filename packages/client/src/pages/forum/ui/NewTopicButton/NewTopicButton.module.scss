@@ -1,7 +1,9 @@
 @use 'styles/typography';
 
-.text {
-  @include typography.font(p3);
+.button {
+  padding-left: 1.75rem;
 
-  margin-top: 2px;
+  span {
+    margin-top: 2px;
+  }
 }

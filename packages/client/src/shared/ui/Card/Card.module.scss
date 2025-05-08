@@ -1,9 +1,0 @@
-@use 'styles/typography';
-@use 'styles/mixins';
-
-.card {
-  padding: 2rem;
-  border-radius: 1rem;
-  background-color: var(--color-yellow-opacity15);
-  backdrop-filter: blur(7px);
-}

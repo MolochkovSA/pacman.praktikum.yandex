@@ -6,12 +6,13 @@ import { ErrorPage } from '@/pages/error';
 import { ForumPage } from '@/pages/forum';
 import { LayoutWithTopbar } from '@/pages/layout-with-topbar';
 import { ForumPostingPage } from '@/pages/forum-posting';
+import { ForumTopicPage } from '@/pages/forum-topic';
 
 export const router = createBrowserRouter([
   {
     path: '/',
     element: <App />,
-    errorElement: <ErrorPage errorType="500" />,
+    errorElement: <ErrorPage errorType="404" />,
     children: [
       {
         index: true,
@@ -35,7 +36,8 @@ export const router = createBrowserRouter([
         lazy: LayoutWithTopbar,
         children: [
           { index: true, lazy: ForumPage },
-          { path: 'posting', lazy: ForumPostingPage }
+          { path: 'posting', lazy: ForumPostingPage },
+          { path: ':topicId', lazy: ForumTopicPage }
         ]
       },
       {

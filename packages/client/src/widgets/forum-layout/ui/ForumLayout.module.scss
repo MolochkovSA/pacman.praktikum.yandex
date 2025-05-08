@@ -2,10 +2,11 @@
 @use 'styles/mixins';
 
 .forumLayout {
-  padding: 2rem;
+  padding: 2rem 4rem;
   display: flex;
   flex-direction: column;
   gap: 2rem;
+  overflow: auto;
 
   .header {
     display: flex;

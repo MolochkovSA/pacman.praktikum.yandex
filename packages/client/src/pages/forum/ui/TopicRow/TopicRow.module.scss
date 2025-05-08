@@ -4,7 +4,7 @@
   td {
     @include typography.font(p3);
 
-    padding: 0.5rem 1rem;
+    padding: 0.75rem 1rem;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -18,28 +18,24 @@
       text-align: center;
     }
   }
-}
-
-.link {
-  cursor: pointer;
-
-  &:hover {
-    color: var(--color-blue-main);
-  }
-}
-
-.lastComment {
-  div {
-    margin-top: 4px;
-  }
 
   .author {
+    display: block;
     cursor: pointer;
     color: var(--color-yellow-text);
     text-decoration: underline;
+  }
 
+  .link,
+  .author {
     &:hover {
       color: var(--color-blue-main);
+    }
+  }
+
+  .lastComment {
+    div {
+      margin-top: 4px;
     }
   }
 }

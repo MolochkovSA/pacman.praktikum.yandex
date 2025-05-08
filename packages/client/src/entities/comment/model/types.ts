@@ -8,3 +8,5 @@ export type Comment = {
   text: string;
   createdAt: Date;
 };
+
+export type CommentPreview = Omit<Comment, 'text'>;

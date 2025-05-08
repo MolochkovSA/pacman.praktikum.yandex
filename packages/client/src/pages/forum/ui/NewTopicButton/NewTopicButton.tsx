@@ -1,14 +1,21 @@
 import { BsPlusLg } from 'react-icons/bs';
+import { useNavigate } from 'react-router-dom';
 
-import { ButtonStyledLink } from '@/shared/ui';
+import { Button } from '@/shared/ui';
 
 import styles from './NewTopicButton.module.scss';
 
 export const NewTopicButton = () => {
+  const navigate = useNavigate();
+
+  const goToNewTopic = () => navigate('/forum/posting');
+
   return (
-    <ButtonStyledLink to="/forum/posting">
+    <Button
+      className={styles.button}
+      onClick={goToNewTopic}>
       <BsPlusLg size={16} />
-      <span className={styles.text}>Новая тема</span>
-    </ButtonStyledLink>
+      <span>Новая тема</span>
+    </Button>
   );
 };

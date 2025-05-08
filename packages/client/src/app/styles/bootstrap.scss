@@ -1,0 +1,27 @@
+@use 'styles/typography';
+@use 'styles/mixins';
+
+.card {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  border-radius: 1rem;
+  background-color: var(--color-yellow-opacity15);
+  backdrop-filter: blur(7px);
+  box-shadow: 0 2px 8px 2px rgb(255 242 0 / 30%);
+  color: var(--color-white-text);
+
+  &-header,
+  &-body,
+  &-footer {
+    padding: 0;
+    margin: 0;
+    border: none;
+  }
+
+  &-title {
+    @include typography.font(h2);
+    @include mixins.text-yellow-neon;
+  }
+}

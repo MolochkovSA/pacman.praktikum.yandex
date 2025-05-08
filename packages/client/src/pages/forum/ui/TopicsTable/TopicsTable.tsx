@@ -1,18 +1,20 @@
 import { Table } from 'react-bootstrap';
 
-import { Topic } from '@/entities/topic';
-
-import styles from './TopicsTable.module.scss';
+import { TopicPreview } from '@/entities/topic';
 import { TopicRow } from '../TopicRow/TopicRow';
 
-const topicHeaders: Record<keyof Pick<Topic, 'author' | 'title' | 'commentsCount' | 'lastComment'>, string> = {
+import styles from './TopicsTable.module.scss';
+
+const topicHeaders: Record<keyof Omit<TopicPreview, 'id'>, string> = {
   title: 'Тема',
   author: 'Автор',
   commentsCount: 'Сообщений',
   lastComment: 'Последнее сообщение'
 };
 
-const headers: JSX.Element[] = Object.entries(topicHeaders).map(([value, label]) => <th key={value}>{label}</th>);
+const headers: React.ReactElement[] = Object.entries(topicHeaders).map(([value, label]) => (
+  <th key={value}>{label}</th>
+));
 
 export const TopicsTable = () => {
   return (
@@ -25,6 +27,7 @@ export const TopicsTable = () => {
           {headers}
         </tr>
       </thead>
+
       <tbody>
         <TopicRow
           id={0}
@@ -34,14 +37,14 @@ export const TopicsTable = () => {
           lastComment={{ author: { display_name: 'test' }, createdAt: new Date() }}
         />
         <TopicRow
-          id={0}
+          id={1}
           title="Это очень длинная тема для теста. Это очень длинная тема для теста. Это очень длинная тема для теста."
           author={{ display_name: 'test' }}
           commentsCount={0}
           lastComment={{ author: { display_name: 'test' }, createdAt: new Date() }}
         />
         <TopicRow
-          id={0}
+          id={2}
           title="Это очень длинная тема для теста. Это очень длинная тема для теста. Это очень длинная тема для теста."
           author={{ display_name: 'test' }}
           commentsCount={0}

@@ -1,6 +1,7 @@
+import { Card } from 'react-bootstrap';
 import { ForumLayout } from '@/widgets/forum-layout';
 import { Pagination } from '@/widgets/pagination';
-import { Breadcrumbs, Card } from '@/shared/ui';
+import { Breadcrumbs } from '@/shared/ui';
 import { NewTopicButton } from './NewTopicButton/NewTopicButton';
 import { TopicsTable } from './TopicsTable/TopicsTable';
 
@@ -19,14 +20,23 @@ export default function ForumPage() {
         </>
       }>
       <Card>
-        <TopicsTable />
-        <Pagination
-          page={1}
-          total={100}
-          limit={10}
-          onNextClick={() => {}}
-          onPrevClick={() => {}}
-        />
+        <Card.Header>
+          <Card.Title>Пристанище словоблуда</Card.Title>
+        </Card.Header>
+
+        <Card.Body>
+          <TopicsTable />
+        </Card.Body>
+
+        <Card.Footer>
+          <Pagination
+            page={1}
+            total={100}
+            limit={10}
+            onNextClick={() => {}}
+            onPrevClick={() => {}}
+          />
+        </Card.Footer>
       </Card>
     </ForumLayout>
   );
