@@ -1,6 +1,5 @@
 @use 'styles/typography';
 @use 'styles/mixins';
-@use 'sass:color';
 
 .button {
   @include typography.font(p3);
