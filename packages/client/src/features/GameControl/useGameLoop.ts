@@ -79,7 +79,7 @@ export const useGameLoop = () => {
     }, 300);
 
     return () => clearInterval(interval);
-  }, [direction, player, ghosts]);
+  }, [direction, player, ghosts, resetGame]);
 
   return {
     player,
