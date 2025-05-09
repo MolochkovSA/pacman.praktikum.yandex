@@ -1,15 +1,18 @@
 import { tileSize } from '@/entities/Map';
 import { Vector2D } from '@/shared/model/vector';
 
-export const renderGhosts = (ctx: CanvasRenderingContext2D, ghosts: Vector2D[]) => {
+export const renderGhosts = (ctx: CanvasRenderingContext2D, ghosts: Vector2D[], images: HTMLImageElement[]) => {
   ghosts.forEach((ghost, i) => {
-    const colors = ['red', 'pink', 'cyan', 'orange'];
-    ctx.fillStyle = colors[i % colors.length];
+    const img = images[i % images.length];
+    const baseX = ghost.x * tileSize;
+    const baseY = ghost.y * tileSize;
 
-    // // Восстанавливаем нормальную непрозрачность для остальных объектов
-    ctx.globalAlpha = 1;
-    ctx.beginPath();
-    ctx.arc(ghost.x * tileSize + tileSize / 2, ghost.y * tileSize + tileSize / 2, tileSize / 2.5, 0, Math.PI * 2);
-    ctx.fill();
+    ctx.drawImage(
+      img,
+      baseX + tileSize / 2 - tileSize / 2, // центрируем
+      baseY + tileSize / 2 - tileSize / 2,
+      tileSize,
+      tileSize
+    );
   });
 };

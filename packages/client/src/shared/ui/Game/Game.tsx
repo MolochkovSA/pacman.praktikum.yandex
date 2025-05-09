@@ -6,18 +6,30 @@ import { renderPlayer } from '@/entities/Player/lib/render';
 import { Vector2D } from '@/shared/model/vector';
 import { useEffect, useRef } from 'react';
 import { renderGhosts } from '@/entities/Ghost/lib/render';
-export const Game = ({ player, foods, ghosts }: { player: Player; foods: Vector2D[]; ghosts: Vector2D[] }) => {
+import { Direction } from '@/features/GameControl/useGameLoop';
+export const Game = ({
+  player,
+  foods,
+  ghosts,
+  ghostImages,
+  direction
+}: {
+  player: Player;
+  foods: Vector2D[];
+  ghosts: Vector2D[];
+  ghostImages: HTMLImageElement[];
+  direction: Direction;
+}) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
     const canvas = canvasRef.current!;
     const ctx = canvas.getContext('2d')!;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-
     renderMap(ctx, map);
     renderFood(ctx, foods);
-    renderGhosts(ctx, ghosts);
-    renderPlayer(ctx, player);
+    renderGhosts(ctx, ghosts, ghostImages);
+    renderPlayer(ctx, player, direction);
   }, [player, foods, ghosts]);
 
   return (

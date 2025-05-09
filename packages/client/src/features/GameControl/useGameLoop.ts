@@ -1,10 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Player } from '@/entities/Player';
 import { Vector2D } from '@/shared/model/vector';
-import { canMoveTo, map } from '@/entities/Map';
+import { canMoveTo } from '@/entities/Map';
 import { generateFood, isSamePosition } from '@/entities/Food';
 
-type Direction = 'ArrowUp' | 'ArrowDown' | 'ArrowLeft' | 'ArrowRight';
+export type Direction = 'ArrowUp' | 'ArrowDown' | 'ArrowLeft' | 'ArrowRight';
 
 const directionVectors: Record<Direction, Vector2D> = {
   ArrowUp: { x: 0, y: -1 },
@@ -12,16 +12,30 @@ const directionVectors: Record<Direction, Vector2D> = {
   ArrowLeft: { x: -1, y: 0 },
   ArrowRight: { x: 1, y: 0 }
 };
+
 const initialGhosts = [
-  { x: 14, y: 1 },
-  { x: 1, y: 3 }
+  { x: 14, y: 2 },
+  { x: 11, y: 10 },
+  { x: 8, y: 15 }
 ];
+
 export const useGameLoop = () => {
   const [player, setPlayer] = useState<Player>({ position: { x: 1, y: 1 } });
   const [foods, setFoods] = useState(generateFood);
   const [ghosts, setGhosts] = useState<Vector2D[]>(initialGhosts);
   const [direction, setDirection] = useState<Direction>('ArrowRight');
   const [score, setScore] = useState(0);
+
+  const resetGame = useCallback(() => {
+    const initialPlayer = { position: { x: 1, y: 1 } };
+    const initialGhostsCopy = [...initialGhosts];
+
+    setPlayer(initialPlayer);
+    setFoods(generateFood());
+    setGhosts(initialGhostsCopy);
+    setScore(0);
+    setDirection('ArrowRight');
+  }, []);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -30,48 +44,50 @@ export const useGameLoop = () => {
         x: player.position.x + vector.x,
         y: player.position.y + vector.y
       };
-      if (canMoveTo(newPos)) {
-        setPlayer((prev) => ({ ...prev, position: newPos }));
 
-        setFoods((prevFoods) => {
-          const remaining = prevFoods.filter((food) => !isSamePosition(food, newPos));
-          if (remaining.length < prevFoods.length) {
-            setScore((prev) => prev + 10);
-          }
-          return remaining;
-        });
-        const isDead = ghosts.some((ghost) => isSamePosition(ghost, newPos));
-        if (isDead) {
-          alert('Game Over!');
-          setPlayer({ position: { x: 1, y: 1 } });
-          setFoods(generateFood);
-          setGhosts(initialGhosts);
-          setScore(0);
-          return;
-        }
+      if (!canMoveTo(newPos)) return;
+
+      const collided = ghosts.some((ghost) => isSamePosition(ghost, newPos));
+      if (collided) {
+        alert('Конец игры!');
+        resetGame();
+        return;
       }
 
-      setGhosts((prevGhosts) =>
-        prevGhosts.map((ghost) => {
-          const possibleDirs = Object.values(directionVectors);
-          for (let i = 0; i < possibleDirs.length; i++) {
-            const dir = possibleDirs[Math.floor(Math.random() * possibleDirs.length)];
-            const newGhostPos = { x: ghost.x + dir.x, y: ghost.y + dir.y };
-            if (canMoveTo(newGhostPos)) return newGhostPos;
-          }
-          return ghost;
-        })
-      );
-    }, 200);
+      const updatedPlayer = { position: newPos };
+      setPlayer(updatedPlayer);
+
+      setFoods((prevFoods) => {
+        const remaining = prevFoods.filter((food) => !isSamePosition(food, newPos));
+        if (remaining.length < prevFoods.length) {
+          setScore((prev) => prev + 10);
+        }
+        return remaining;
+      });
+
+      const newGhosts = ghosts.map((ghost) => {
+        const dirs = Object.values(directionVectors);
+        for (let i = 0; i < dirs.length; i++) {
+          const dir = dirs[Math.floor(Math.random() * dirs.length)];
+          const newGhostPos = { x: ghost.x + dir.x, y: ghost.y + dir.y };
+          if (canMoveTo(newGhostPos)) return newGhostPos;
+        }
+        return ghost;
+      });
+
+      setGhosts(newGhosts);
+    }, 300);
 
     return () => clearInterval(interval);
-  }, [player, direction]);
+  }, [direction, player, ghosts]);
 
   return {
     player,
     foods,
     ghosts,
     score,
-    setDirection
+    direction,
+    setDirection,
+    resetGame
   };
 };
