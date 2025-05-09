@@ -15,6 +15,7 @@
 
     .title {
       @include typography.font(h2);
+
       color: var(--color-yellow-text);
       font-size: 5rem;
     }
