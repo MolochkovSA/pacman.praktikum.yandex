@@ -1,0 +1,43 @@
+import { renderFood } from '@/entities/Food/lib/render';
+import { map, tileSize } from '@/entities/Map/Map';
+import { renderMap } from '@/entities/Map/lib/render';
+import { Player } from '@/entities/Player/Player';
+import { renderPlayer } from '@/entities/Player/lib/render';
+import { Vector2D } from '@/shared/model/vector';
+import { useEffect, useRef } from 'react';
+import { renderGhosts } from '@/entities/Ghost/lib/render';
+import { Direction } from '@/features/GameControl/useGameLoop';
+export const Game = ({
+  player,
+  foods,
+  ghosts,
+  ghostImages,
+  direction
+}: {
+  player: Player;
+  foods: Vector2D[];
+  ghosts: Vector2D[];
+  ghostImages: HTMLImageElement[];
+  direction: Direction;
+}) => {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  useEffect(() => {
+    const canvas = canvasRef.current!;
+    const ctx = canvas.getContext('2d')!;
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    renderMap(ctx, map);
+    renderFood(ctx, foods);
+    renderGhosts(ctx, ghosts, ghostImages);
+    renderPlayer(ctx, player, direction);
+  }, [player, foods, ghosts]);
+
+  return (
+    <canvas
+      ref={canvasRef}
+      width={map[0].length * tileSize}
+      height={map.length * tileSize}
+      style={{ background: 'black' }}
+    />
+  );
+};

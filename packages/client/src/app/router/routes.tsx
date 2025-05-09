@@ -3,6 +3,7 @@ import App from '../ui/App';
 import { LoginPage } from '../../pages/login';
 import { SignUpPage } from '../../pages/signup';
 import { NotFoundPage } from '@/pages/not-found';
+import { GamePage } from '@/pages/game/ui/GamePage';
 
 export const router = createBrowserRouter([
   {
@@ -30,7 +31,7 @@ export const router = createBrowserRouter([
       {
         path: '/not_found',
         element: <NotFoundPage />
-      }
+      },
       // {
       //   path: '/profile',
       //   element: <SignUpPage />
@@ -39,10 +40,10 @@ export const router = createBrowserRouter([
       //   path: '/home',
       //   element: <SignUpPage />
       // },
-      // {
-      //   path: '/game',
-      //   element: <SignUpPage />
-      // },
+      {
+        path: '/game',
+        element: <GamePage />
+      }
       // {
       //   path: '/leaderboard',
       //   element: <SignUpPage />
