@@ -1,4 +1,6 @@
+import { useState } from 'react';
 import styles from './Avatar.module.scss';
+import { AvatarModal } from '@/features/changeAvatar/ui/AvatarModal';
 
 export interface Props {
   className?: string;
@@ -6,6 +8,8 @@ export interface Props {
 }
 
 export const Avatar = (props: Props) => {
+  const [isShowedModal, setShowModal] = useState(false);
+
   return (
     <div className={styles.avatar + ' ' + props.className}>
       <div className={styles.avatar__container}>
@@ -13,10 +17,15 @@ export const Avatar = (props: Props) => {
           src={props.src}
           alt="no img no img no img"
         />
-        <div className={styles.avatar__shadow}>
+        <div
+          className={styles.avatar__shadow}
+          onClick={() => setShowModal(true)}>
           <p>Изменить</p>
         </div>
       </div>
+      <AvatarModal
+        show={isShowedModal}
+        onHide={() => setShowModal(false)}></AvatarModal>
     </div>
   );
 };

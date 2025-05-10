@@ -9,7 +9,7 @@ import { Button } from '@/shared/ui';
 import { Input } from '@/shared/ui';
 import { Avatar } from '@/shared/ui';
 import { Profile } from '@/shared/model/types';
-import { ProfilePasswordModal } from './Profile.Modal';
+import { PasswordModal } from '@/features/changePassword/ui/PasswordModal';
 
 const defaultProfileValues: Profile = {
   first_name: 'Иван',
@@ -127,9 +127,9 @@ export const ProfilePage = () => {
           )}
         </form>
       </section>
-      <ProfilePasswordModal
+      <PasswordModal
         show={isShowedModal}
-        onHide={() => setShowModal(false)}></ProfilePasswordModal>
+        onHide={() => setShowModal(false)}></PasswordModal>
     </main>
   );
 };

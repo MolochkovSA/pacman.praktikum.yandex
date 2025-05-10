@@ -4,7 +4,7 @@ import React, { forwardRef } from 'react';
 export interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
   label: string;
   isInvalid?: boolean;
-  type?: 'text' | 'password' | 'email';
+  type?: 'text' | 'password' | 'email' | 'file';
   error?: string;
 }
 

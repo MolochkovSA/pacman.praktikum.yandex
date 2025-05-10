@@ -6,9 +6,8 @@ import { BaseModal } from '@/shared/ui/Modal/modal';
 import { Input } from '@/shared/ui';
 import { passwordSchema } from '@/shared/model/passwordSchema';
 import { Password } from '@/shared/model/types';
-import { Button } from '@/shared/ui';
 
-interface ProfilePasswordModalProps {
+interface PasswordModalProps {
   show: boolean;
   onHide: () => void;
 }
@@ -18,7 +17,7 @@ const defaultProfileValues: Password = {
   password_two: 'Testpassword1'
 };
 
-export const ProfilePasswordModal: React.FC<ProfilePasswordModalProps> = ({ show, onHide }) => {
+export const PasswordModal: React.FC<PasswordModalProps> = ({ show, onHide }) => {
   const {
     register,
     handleSubmit,
