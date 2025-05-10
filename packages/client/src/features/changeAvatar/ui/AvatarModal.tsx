@@ -6,6 +6,8 @@ import { BaseModal } from '@/shared/ui/Modal/modal';
 import { Input } from '@/shared/ui';
 import { avatarSchema } from '@/shared/model/avatarSchema';
 import { Avatar } from '@/shared/model/types';
+import { UserService, AuthorizationService } from '@/shared/api';
+import { userStoreService } from '@/shared/lib';
 
 interface AvatarModal {
   show: boolean;
@@ -13,6 +15,8 @@ interface AvatarModal {
 }
 
 export const AvatarModal: React.FC<AvatarModal> = ({ show, onHide }) => {
+  const userService = new UserService();
+  const authService = new AuthorizationService();
   const {
     register,
     handleSubmit,
@@ -22,11 +26,19 @@ export const AvatarModal: React.FC<AvatarModal> = ({ show, onHide }) => {
     mode: 'onChange',
     resolver: zodResolver(avatarSchema)
   });
-
   const onSubmit = (data: Avatar) => {
     const file = data.avatar?.[0];
+    console.log(file);
     if (file) {
-      console.log('Файл загружен:', file.name);
+      userService
+        .updateAvatar(file as File)
+        .then(() => authService.getUser())
+        .then((user) => {
+          userStoreService.user = user;
+        })
+        .catch((error) => {
+          console.log(error.status, error.statusText);
+        });
     }
   };
 

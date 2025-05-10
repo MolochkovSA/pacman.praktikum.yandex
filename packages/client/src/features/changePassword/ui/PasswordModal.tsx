@@ -6,33 +6,42 @@ import { BaseModal } from '@/shared/ui/Modal/modal';
 import { Input } from '@/shared/ui';
 import { passwordSchema } from '@/shared/model/passwordSchema';
 import { Password } from '@/shared/model/types';
+import { PasswordProps } from '@/shared/types';
+import { UserService, AuthorizationService } from '@/shared/api';
+import { userStoreService } from '@/shared/lib';
 
 interface PasswordModalProps {
   show: boolean;
   onHide: () => void;
 }
 
-const defaultProfileValues: Password = {
-  password: 'Testpassword1',
-  password_two: 'Testpassword1'
-};
-
 export const PasswordModal: React.FC<PasswordModalProps> = ({ show, onHide }) => {
+  const userService = new UserService();
+  const authService = new AuthorizationService();
   const {
     register,
     handleSubmit,
     trigger,
     formState: { errors }
   } = useForm<Password>({
-    defaultValues: defaultProfileValues,
     mode: 'onBlur',
     resolver: zodResolver(passwordSchema)
   });
 
   const onSubmit = (data: Password) => {
-    console.log('данные формы:', data);
+    console.log(data);
+    if (data) {
+      userService
+        .changePassword(data as PasswordProps)
+        .then(() => authService.getUser())
+        .then((user) => {
+          userStoreService.user = user;
+        })
+        .catch((error) => {
+          console.log(error.status, error.statusText);
+        });
+    }
   };
-
   return (
     <BaseModal
       show={show}
@@ -43,17 +52,17 @@ export const PasswordModal: React.FC<PasswordModalProps> = ({ show, onHide }) =>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Input
           label="Пароль"
-          {...register('password')}
-          isInvalid={!!errors.password}
-          error={errors.password?.message as string}
-          onFocus={() => trigger('password')}
+          {...register('oldPassword')}
+          isInvalid={!!errors.oldPassword}
+          error={errors.oldPassword?.message as string}
+          onFocus={() => trigger('oldPassword')}
         />
         <Input
           label="Повторите пароль"
-          {...register('password_two')}
-          isInvalid={!!errors.password_two}
-          error={errors.password_two?.message as string}
-          onFocus={() => trigger('password_two')}
+          {...register('newPassword')}
+          isInvalid={!!errors.newPassword}
+          error={errors.newPassword?.message as string}
+          onFocus={() => trigger('newPassword')}
         />
       </form>
     </BaseModal>

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import styles from './Avatar.module.scss';
-import { AvatarModal } from '@/features/changeAvatar/ui/AvatarModal';
+import { AvatarModal } from '@/features/changeAvatar/ui';
 
 export interface Props {
   className?: string;

@@ -9,7 +9,7 @@ import { Button } from '@/shared/ui';
 import { Input } from '@/shared/ui';
 import { Avatar } from '@/shared/ui';
 import { Profile } from '@/shared/model/types';
-import { PasswordModal } from '@/features/changePassword/ui/PasswordModal';
+import { PasswordModal } from '@/features/changePassword/ui';
 
 const defaultProfileValues: Profile = {
   first_name: 'Иван',
