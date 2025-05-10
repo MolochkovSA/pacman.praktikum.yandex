@@ -1,11 +1,23 @@
-import styles from './Profile.module.scss';
-import { Button } from '@/shared/ui';
-import { Input } from '@/shared/ui';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { useState } from 'react';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { profileSchema } from '../model/schema';
+
+import styles from './Profile.module.scss';
+
+import { profileSchema } from '@/shared/model/profileSchema';
+import { Button } from '@/shared/ui';
+import { Input } from '@/shared/ui';
 import { Avatar } from '@/shared/ui';
+import { Profile } from '@/shared/model/types';
+import { ProfilePasswordModal } from './Profile.Modal';
+
+const defaultProfileValues: Profile = {
+  first_name: 'Иван',
+  second_name: 'Иванов',
+  login: 'noizzer',
+  email: 'email@yande.ru',
+  phone: '+79000000000'
+};
 
 export const ProfilePage = () => {
   const {
@@ -13,23 +25,16 @@ export const ProfilePage = () => {
     handleSubmit,
     trigger,
     formState: { errors }
-  } = useForm({
-    defaultValues: {
-      first_name: 'Иван',
-      second_name: 'Иванов',
-      login: 'noizzer',
-      email: 'email@yande.ru',
-      phone: '+79000000000',
-      password: 'Testpassword1',
-      repeated_password: 'Testpassword1'
-    },
+  } = useForm<Profile>({
+    defaultValues: defaultProfileValues,
     mode: 'onBlur',
     resolver: zodResolver(profileSchema)
   });
 
   const [isEditMode, setEditMode] = useState(false);
+  const [isShowedModal, setShowModal] = useState(false);
 
-  const onSubmit = (data: any) => {
+  const onSubmit = (data: Profile) => {
     console.log('данные формы:', data);
     console.log(isEditMode);
     setEditMode(false);
@@ -49,7 +54,7 @@ export const ProfilePage = () => {
           onSubmit={handleSubmit(onSubmit)}>
           <Input
             className={styles.profile__field}
-            label={'Имя'}
+            label="Имя"
             {...register('first_name')}
             onFocus={() => trigger('first_name')}
             isInvalid={!!errors.first_name}
@@ -58,7 +63,7 @@ export const ProfilePage = () => {
           />
           <Input
             className={styles.profile__field}
-            label={'Фамилия'}
+            label="Фамилия"
             {...register('second_name')}
             isInvalid={!!errors.second_name}
             error={errors.second_name?.message as string}
@@ -67,7 +72,7 @@ export const ProfilePage = () => {
           />
           <Input
             className={styles.profile__field}
-            label={'Никнейм'}
+            label="Никнейм"
             {...register('login')}
             isInvalid={!!errors.login}
             error={errors.login?.message as string}
@@ -76,7 +81,7 @@ export const ProfilePage = () => {
           />
           <Input
             className={styles.profile__field}
-            label={'Почта'}
+            label="Почта"
             type="email"
             {...register('email')}
             isInvalid={!!errors.email}
@@ -86,38 +91,29 @@ export const ProfilePage = () => {
           />
           <Input
             className={styles.profile__field}
-            label={'Телефон'}
+            label="Телефон"
             {...register('phone')}
             isInvalid={!!errors.phone}
             error={errors.phone?.message as string}
             onFocus={() => trigger('phone')}
             readOnly={!isEditMode}
           />
-          <Input
-            className={styles.profile__field}
-            label={'Пароль'}
-            {...register('password')}
-            isInvalid={!!errors.password}
-            error={errors.password?.message as string}
-            onFocus={() => trigger('password')}
-            readOnly={!isEditMode}
-          />
-          {isEditMode && (
-            <Input
-              className={styles.profile__field}
-              label={'Повторите пароль'}
-              {...register('repeated_password')}
-              isInvalid={!!errors.repeated_password}
-              error={errors.repeated_password?.message as string}
-              onFocus={() => trigger('repeated_password')}
-            />
-          )}
+
           {isEditMode ? (
-            <Button
-              className={styles.profile__button}
-              type="submit"
-              name="Сохранить"
-            />
+            <div className={styles.profile__buttons}>
+              <Button
+                className={styles.profile__button}
+                handleClick={() => setShowModal(true)}
+                type="button"
+                color="white"
+                name="Изменить пароль"
+              />
+              <Button
+                className={styles.profile__button}
+                type="submit"
+                name="Сохранить"
+              />
+            </div>
           ) : (
             <Button
               className={styles.profile__button}
@@ -131,6 +127,9 @@ export const ProfilePage = () => {
           )}
         </form>
       </section>
+      <ProfilePasswordModal
+        show={isShowedModal}
+        onHide={() => setShowModal(false)}></ProfilePasswordModal>
     </main>
   );
 };

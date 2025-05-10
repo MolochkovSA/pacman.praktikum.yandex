@@ -1,6 +1,5 @@
 @use 'styles/typography';
 @use 'styles/mixins';
-@use 'styles/variables' as *;
 
 .profile {
   display: flex;
@@ -51,6 +50,16 @@
     position: absolute;
     top: -28px;
     right: 40px;
+  }
+
+  &__buttons {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+    button {
+      margin: 15px;
+    }
   }
 
   &__button {

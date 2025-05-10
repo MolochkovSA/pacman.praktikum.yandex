@@ -4,8 +4,8 @@ import { useForm } from 'react-hook-form';
 import { Button, Input } from '@/shared/ui';
 
 import styles from './LoginPage.module.scss';
-import { loginSchema } from '../model/schema';
-import { Login } from '../model/types';
+import { loginSchema } from '../../../shared/model/loginSchema';
+import { Login } from '@/shared/model/types';
 import { Link } from 'react-router-dom';
 
 export const LoginPage = () => {

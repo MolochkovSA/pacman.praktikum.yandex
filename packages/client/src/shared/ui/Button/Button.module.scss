@@ -23,3 +23,24 @@
     transform: scale(0.9);
   }
 }
+
+.button__secondary {
+  @include typography.font(p3);
+
+  background: var(--color-white-text);
+  color: var(--color-blue-main);
+  border-radius: 10px;
+  padding: 15px 40px;
+  cursor: pointer;
+  transition: all 0.3s;
+  border: none;
+
+  &:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 15px var(--color-blue-main);
+  }
+
+  &:active {
+    transform: scale(0.9);
+  }
+}

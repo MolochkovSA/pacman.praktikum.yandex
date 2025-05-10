@@ -2,8 +2,8 @@ import styles from './SignUpPage.module.scss';
 import { Link } from 'react-router-dom';
 import { Button, Input } from '@/shared/ui';
 import { useForm } from 'react-hook-form';
+import { signUpSchema } from '@/shared/model/signUpSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { signupSchema } from '@/pages/signup/model/scheme';
 
 export const SignUpPage = () => {
   const {
@@ -13,7 +13,7 @@ export const SignUpPage = () => {
     formState: { errors }
   } = useForm({
     mode: 'onBlur',
-    resolver: zodResolver(signupSchema)
+    resolver: zodResolver(signUpSchema)
   });
 
   const onSubmit = (data: unknown) => {
