@@ -21,7 +21,6 @@ function UserInfo({ show, onClick }: Props, ref: React.Ref<HTMLDivElement>) {
       className={styles.wrapper}
       ref={ref}
       onClick={(e) => {
-        e.preventDefault();
         onClick(e);
         setIsActive(!isActive);
       }}>
