@@ -1,0 +1,37 @@
+@use 'styles/typography';
+
+.menu {
+  width: 300px;
+  background-color: var(--color-charcoal-sand);
+  border-radius: 8px;
+  padding: 16px;
+
+  @include typography.font(p2);
+
+  span {
+    margin-top: 2px;
+  }
+
+  .link {
+    padding: 8px 12px;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--color-gainsboro);
+
+    &:hover {
+      color: var(--color-yellow-text);
+      background-color: var(--color-yellow-opacity15);
+    }
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    .icon {
+      width: 16px;
+      height: 16px;
+    }
+  }
+}

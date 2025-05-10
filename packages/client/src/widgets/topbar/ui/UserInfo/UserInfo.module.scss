@@ -1,0 +1,48 @@
+@use 'styles/typography';
+
+.wrapper {
+  display: flex;
+  align-items: center;
+  padding: 4px 12px 4px 43px;
+  gap: 12px;
+  cursor: pointer;
+  color: var(--color-gainsboro);
+
+  .avatar {
+    border-radius: 50%;
+
+    &.active {
+      border: 2px solid var(--color-yellow-text);
+    }
+  }
+
+  .info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    .login {
+      @include typography.font(h3);
+
+      &.active {
+        color: var(--color-yellow-text);
+      }
+    }
+
+    .achievement {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+
+      svg {
+        color: var(--color-yellow-text);
+      }
+
+      span {
+        margin-top: 2px;
+
+        @include typography.font(p2);
+      }
+    }
+  }
+}

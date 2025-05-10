@@ -9,6 +9,13 @@ $font-family: (
   )
 );
 $typography: (
+  h1: (
+    font-family: press-start,
+    font-size: 24px,
+    line-height: 26px,
+    font-weight: 100,
+    font-style: normal
+  ),
   h2: (
     font-family: press-start,
     font-size: 16px,
@@ -27,13 +34,6 @@ $typography: (
     font-family: press-start,
     font-size: 12px,
     line-height: 13px,
-    font-weight: 100,
-    font-style: normal
-  ),
-  p2_input: (
-    font-family: press-start,
-    font-size: 12px,
-    line-height: 30px,
     font-weight: 100,
     font-style: normal
   ),

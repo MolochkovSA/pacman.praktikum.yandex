@@ -1,8 +1,11 @@
 @forward './typography';
-@forward './variables';
 @forward './mixins';
+@import './variables';
+@import 'bootstrap/scss/bootstrap';
+@import './bootstrap';
+@import './reset';
 
 body {
-  margin: 0;
   background: url('./../../assets/images/background.jpg');
+  color: var(--color-white-text);
 }

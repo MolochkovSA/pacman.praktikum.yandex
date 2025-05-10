@@ -1,0 +1,15 @@
+@use 'styles/typography';
+
+.link {
+  @include typography.font(p3);
+
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--color-white-text);
+
+  &:hover {
+    color: var(--color-blue-main);
+    text-decoration: underline;
+  }
+}
