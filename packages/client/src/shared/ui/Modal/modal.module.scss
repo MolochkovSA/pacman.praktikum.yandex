@@ -1,0 +1,34 @@
+@use 'styles/typography';
+@use 'styles/mixins';
+@use 'sass:color';
+
+.modal {
+  &__content {
+    background-color: #505023;
+    border-radius: 10px;
+    padding: 20px;
+  }
+
+  &__header {
+    @include typography.font(h2);
+    @include mixins.text-yellow-neon;
+  }
+
+  &__body {
+    height: 100%;
+
+    form {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      padding: 40px 15px;
+      height: 100%;
+      gap: 40px;
+    }
+  }
+
+  &__footer {
+    border-top: none;
+    margin: auto;
+  }
+}

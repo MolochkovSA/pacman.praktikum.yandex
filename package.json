@@ -1,6 +1,7 @@
 {
   "name": "client-server-template-with-vite",
   "private": true,
+  "type": "module",
   "scripts": {
     "bootstrap": "yarn && node init.js && lerna clean && yarn && lerna bootstrap",
     "build": "lerna run build",
@@ -27,6 +28,5 @@
     "husky": "^9.1.7",
     "lerna": "^5.4.3"
   },
-  "dependencies": {
-  }
+  "dependencies": {}
 }

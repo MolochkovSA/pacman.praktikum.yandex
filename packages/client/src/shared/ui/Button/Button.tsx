@@ -6,12 +6,14 @@ export interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   name: string;
   type?: 'button' | 'submit';
   handleClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  color?: 'regular' | 'white';
 }
 
 export const Button = (props: Props) => {
+  const colorClass = props.color === 'white' ? styles.button__secondary : styles.button;
   return (
     <button
-      className={styles.button + ' ' + props.className}
+      className={colorClass + ' ' + props.className}
       onClick={props.handleClick}
       type={props.type}>
       {props.name}
