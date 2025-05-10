@@ -1,15 +1,13 @@
-import { memo } from 'react';
 import styles from './SignUpPage.module.scss';
 import { Button, Input } from '@/shared/ui';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { signupSchema } from '@/pages/signup/model/scheme';
 import { Link, useNavigate } from 'react-router-dom';
 import { FieldValues, useForm } from 'react-hook-form';
-import { SignInProps, SignUpProps } from '@/shared/types';
-import { userStoreService } from '@/shared/lib';
+import { SignUpProps } from '@/shared/types';
 import { AuthorizationService } from '@/shared/api';
 
-export const SignUpPage = memo(() => {
+export const SignUpPage = () => {
   const authService = new AuthorizationService();
   const navigate = useNavigate();
 
@@ -105,4 +103,4 @@ export const SignUpPage = memo(() => {
       </section>
     </main>
   );
-});
+};

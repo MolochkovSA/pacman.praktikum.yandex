@@ -1,4 +1,3 @@
-import { memo } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import { Button, Input } from '@/shared/ui';
@@ -12,7 +11,7 @@ import { SignInProps } from '@/shared/types';
 import { AuthorizationService } from '@/shared/api';
 import { userStoreService } from '@/shared/lib';
 
-export const LoginPage = memo(() => {
+export const LoginPage = () => {
   const authService = new AuthorizationService();
   const navigate = useNavigate();
 
@@ -73,4 +72,4 @@ export const LoginPage = memo(() => {
       </section>
     </main>
   );
-});
+};
