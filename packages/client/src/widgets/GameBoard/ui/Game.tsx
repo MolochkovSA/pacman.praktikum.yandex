@@ -1,11 +1,11 @@
-import { renderFood } from '@/entities/Food/lib/render';
+import { renderFood } from '@/entities/Food/ui/render';
 import { map } from '@/entities/Map/Map';
 import { renderMap } from '@/entities/Map/lib/render';
 
-import { renderPlayer } from '@/entities/Player/lib/render';
+import { renderPlayer } from '@/entities/Player/ui/render';
 import { Vector2D } from '@/shared/model/vector';
 import { useEffect, useRef } from 'react';
-import { renderGhosts } from '@/entities/Ghost/lib/render';
+import { renderGhosts } from '@/entities/Ghost/ui/render';
 import { Player } from '@/entities/Player/model/types';
 import { Direction } from '@/shared/model/direction';
 import { tileSize } from '@/shared/const/game';

@@ -1,1 +1,1 @@
-export { generateFood, isSamePosition } from './model';
+export { generateFood, isSamePosition } from './model/model';
