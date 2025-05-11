@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
@@ -8,6 +8,8 @@ import { avatarSchema } from '@/shared/model/avatarSchema';
 import { Avatar } from '@/shared/model/types';
 import { UserService, AuthorizationService } from '@/shared/api';
 import { userStoreService } from '@/shared/lib';
+import { ErrorMessage } from '@/shared/ui/Error/error';
+import { HttpError } from '@/shared/types';
 
 interface AvatarModal {
   show: boolean;
@@ -26,6 +28,9 @@ export const AvatarModal: React.FC<AvatarModal> = ({ show, onHide }) => {
     mode: 'onChange',
     resolver: zodResolver(avatarSchema)
   });
+
+  const [error, setError] = useState('');
+
   const onSubmit = (data: Avatar) => {
     const file = data.avatar?.[0];
     console.log(file);
@@ -37,7 +42,10 @@ export const AvatarModal: React.FC<AvatarModal> = ({ show, onHide }) => {
           userStoreService.user = user;
         })
         .catch((error) => {
-          console.log(error.status, error.statusText);
+          console.log(error);
+          if (error instanceof HttpError) {
+            setError(error.message);
+          }
         });
     }
   };
@@ -45,7 +53,7 @@ export const AvatarModal: React.FC<AvatarModal> = ({ show, onHide }) => {
   return (
     <BaseModal
       show={show}
-      title="Сменить пароль"
+      title="Сменить аватар"
       onHide={onHide}
       btnText="Изменить"
       submit={handleSubmit(onSubmit)}>
@@ -58,6 +66,7 @@ export const AvatarModal: React.FC<AvatarModal> = ({ show, onHide }) => {
           error={errors.avatar?.message as string}
           onFocus={() => trigger('avatar')}
         />
+        <ErrorMessage error={error}></ErrorMessage>
       </form>
     </BaseModal>
   );

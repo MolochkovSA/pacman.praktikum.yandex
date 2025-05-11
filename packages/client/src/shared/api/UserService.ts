@@ -20,11 +20,11 @@ export class UserService {
         'Content-Type': 'application/json;charset=utf-8'
       },
       body: JSON.stringify(data)
-    }).then((response) => {
+    }).then(async (response) => {
       if (response.ok) {
         return response;
       }
-      throw new HttpError(response.status, response.statusText);
+      throw await HttpError.setMessage(response);
     });
   }
 
@@ -36,11 +36,11 @@ export class UserService {
       method: 'PUT',
       credentials: 'include',
       body: formData
-    }).then((response) => {
+    }).then(async (response) => {
       if (response.ok) {
         return response.json() as Promise<User>;
       }
-      throw new HttpError(response.status, response.statusText);
+      throw await HttpError.setMessage(response);
     });
   }
 }

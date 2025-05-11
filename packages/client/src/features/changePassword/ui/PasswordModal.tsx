@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
@@ -6,9 +6,10 @@ import { BaseModal } from '@/shared/ui/Modal/modal';
 import { Input } from '@/shared/ui';
 import { passwordSchema } from '@/shared/model/passwordSchema';
 import { Password } from '@/shared/model/types';
-import { PasswordProps } from '@/shared/types';
+import { HttpError, PasswordProps } from '@/shared/types';
 import { UserService, AuthorizationService } from '@/shared/api';
 import { userStoreService } from '@/shared/lib';
+import { ErrorMessage } from '@/shared/ui/Error/error';
 
 interface PasswordModalProps {
   show: boolean;
@@ -28,6 +29,8 @@ export const PasswordModal: React.FC<PasswordModalProps> = ({ show, onHide }) =>
     resolver: zodResolver(passwordSchema)
   });
 
+  const [error, setError] = useState('');
+
   const onSubmit = (data: Password) => {
     console.log(data);
     if (data) {
@@ -38,7 +41,9 @@ export const PasswordModal: React.FC<PasswordModalProps> = ({ show, onHide }) =>
           userStoreService.user = user;
         })
         .catch((error) => {
-          console.log(error.status, error.statusText);
+          if (error instanceof HttpError) {
+            setError(error.message);
+          }
         });
     }
   };
@@ -64,6 +69,7 @@ export const PasswordModal: React.FC<PasswordModalProps> = ({ show, onHide }) =>
           error={errors.newPassword?.message as string}
           onFocus={() => trigger('newPassword')}
         />
+        <ErrorMessage error={error}></ErrorMessage>
       </form>
     </BaseModal>
   );
