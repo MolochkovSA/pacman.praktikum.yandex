@@ -30,7 +30,9 @@ export const router = createBrowserRouter([
       {
         path: '/not_found',
         element: <NotFoundPage />
-      }
+      },
+      { path: 'end', element: <GameOverPage /> }
+
       // {
       //   path: '/profile',
       //   element: <SignUpPage />
