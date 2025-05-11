@@ -1,7 +1,5 @@
 import { Vector2D } from '@/shared/model/vector';
 
-export const tileSize = 20;
-
 // 0 — пусто, 1 — стена
 export const map: number[][] = [
   [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],

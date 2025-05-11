@@ -1,5 +1,5 @@
+import { tileSize } from '@/shared/const/game';
 import { Vector2D } from '@/shared/model/vector';
-import { tileSize } from '../../Map/Map';
 
 export const renderFood = (ctx: CanvasRenderingContext2D, foods: Vector2D[]) => {
   ctx.fillStyle = 'white';

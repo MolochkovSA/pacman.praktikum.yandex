@@ -1,4 +1,4 @@
-import { tileSize } from '@/entities/Map';
+import { tileSize } from '@/shared/const/game';
 
 export const renderMap = (ctx: CanvasRenderingContext2D, mapData: number[][]) => {
   ctx.fillStyle = 'blue';

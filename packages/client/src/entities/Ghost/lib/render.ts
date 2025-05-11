@@ -1,4 +1,4 @@
-import { tileSize } from '@/entities/Map';
+import { tileSize } from '@/shared/const/game';
 import { Vector2D } from '@/shared/model/vector';
 
 export const renderGhosts = (ctx: CanvasRenderingContext2D, ghosts: Vector2D[], images: HTMLImageElement[]) => {

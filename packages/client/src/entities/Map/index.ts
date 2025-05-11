@@ -1,1 +1,1 @@
-export { map, tileSize, canMoveTo } from './Map';
+export { map, canMoveTo } from './Map';

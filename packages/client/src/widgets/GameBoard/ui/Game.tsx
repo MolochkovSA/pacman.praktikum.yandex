@@ -1,12 +1,15 @@
 import { renderFood } from '@/entities/Food/lib/render';
-import { map, tileSize } from '@/entities/Map/Map';
+import { map } from '@/entities/Map/Map';
 import { renderMap } from '@/entities/Map/lib/render';
-import { Player } from '@/entities/Player/Player';
+
 import { renderPlayer } from '@/entities/Player/lib/render';
 import { Vector2D } from '@/shared/model/vector';
 import { useEffect, useRef } from 'react';
 import { renderGhosts } from '@/entities/Ghost/lib/render';
-import { Direction } from '@/features/GameControl/useGameLoop';
+import { Player } from '@/entities/Player/model/types';
+import { Direction } from '@/shared/model/direction';
+import { tileSize } from '@/shared/const/game';
+
 export const Game = ({
   player,
   foods,

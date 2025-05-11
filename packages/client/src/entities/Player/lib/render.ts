@@ -1,6 +1,7 @@
-import { Direction } from '@/features/GameControl/useGameLoop';
-import { tileSize } from '../../Map/Map';
-import { Player } from '../Player';
+import { Direction } from '@/shared/model/direction';
+
+import { Player } from '../model/types';
+import { tileSize } from '@/shared/const/game';
 
 const directionToAngle: Record<Direction, number> = {
   ArrowRight: 0,

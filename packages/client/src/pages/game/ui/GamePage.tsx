@@ -1,6 +1,6 @@
-import { GameBoard } from '@/widgets/GameBoard/GameBoard';
 import { memo } from 'react';
 import styles from './GamePage.module.scss';
+import { GameBoard } from '@/widgets/GameBoard';
 export const GamePage = memo(() => {
   return (
     <main>

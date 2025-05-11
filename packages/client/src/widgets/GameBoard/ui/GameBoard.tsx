@@ -1,15 +1,17 @@
-import { useGameLoop } from '@/features/GameControl/useGameLoop';
-import { useMovement } from '@/features/Movement/useMovement';
-import { Button, Game } from '@/shared/ui';
+import { useGameLoop } from '@/features/GameControl/model/useGameLoop';
+import { useMovement } from '@/features/PlayerMovement/useMovement';
+import { Button } from '@/shared/ui';
 import styles from './GameBoard.module.scss';
-const ghostImages: HTMLImageElement[] = [];
-const colors = ['pink', 'green', 'blue'];
+import { Game } from './Game';
+import { ghostImages } from '@/shared/const/ghostImages';
+// const ghostImages: HTMLImageElement[] = [];
+// const colors = ['pink', 'green', 'blue'];
 
-colors.forEach((color) => {
-  const img = new Image();
-  img.src = `/src/assets/images/ghosts/${color}.svg`;
-  ghostImages.push(img);
-});
+// colors.forEach((color) => {
+//   const img = new Image();
+//   img.src = `/src/assets/images/ghosts/${color}.svg`;
+//   ghostImages.push(img);
+// });
 export const GameBoard = () => {
   const { player, setDirection, foods, ghosts, score, resetGame, direction } = useGameLoop();
   useMovement(setDirection);

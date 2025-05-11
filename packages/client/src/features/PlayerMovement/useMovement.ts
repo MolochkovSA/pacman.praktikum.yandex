@@ -1,6 +1,5 @@
+import { Direction } from '@/shared/model/direction';
 import { useEffect } from 'react';
-
-type Direction = 'ArrowUp' | 'ArrowDown' | 'ArrowLeft' | 'ArrowRight';
 
 export const useMovement = (onDirectionChange: (direction: Direction) => void) => {
   useEffect(() => {
