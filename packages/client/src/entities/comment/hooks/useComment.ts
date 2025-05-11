@@ -13,6 +13,8 @@ export const useComment = () => {
 
     try {
       await commentApi.createComment(data);
+    } catch (e) {
+      console.error(e);
     } finally {
       setIsLoading(false);
     }

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 import { topicApi } from '../api/topicApi';
-import { CreateTopicRequestDto, Topic, TopicId, UpdateTopicRequestDto } from '../model/types';
+import { CreateTopicRequestDto, UpdateTopicRequestDto } from '../model/types';
 
 // TODO: add real api
 
@@ -13,6 +13,8 @@ export const useTopic = () => {
 
     try {
       await topicApi.createTopic(data);
+    } catch (e) {
+      console.error(e);
     } finally {
       setIsLoading(false);
     }
@@ -23,20 +25,12 @@ export const useTopic = () => {
 
     try {
       await topicApi.updateTopic(data);
+    } catch (e) {
+      console.error(e);
     } finally {
       setIsLoading(false);
     }
   };
 
-  const getTopicByid = async (id: TopicId): Promise<Topic> => {
-    setIsLoading(true);
-
-    try {
-      return await topicApi.getTopicByid(id);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  return { isLoading, createTopic, updateTopic, getTopicByid };
+  return { isLoading, createTopic, updateTopic };
 };
