@@ -1,14 +1,20 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 
-import { useForm } from 'react-hook-form';
 import { Button, Input } from '@/shared/ui';
 
 import styles from './LoginPage.module.scss';
 import { loginSchema } from '../model/schema';
 import { Login } from '../model/types';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { FieldValues, useForm } from 'react-hook-form';
+import { SignInProps } from '@/shared/types';
+import { AuthorizationService } from '@/shared/api';
+import { userStoreService } from '@/shared/lib';
 
 export const LoginPage = () => {
+  const authService = new AuthorizationService();
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
@@ -19,8 +25,14 @@ export const LoginPage = () => {
     resolver: zodResolver(loginSchema)
   });
 
-  const onSubmit = (data: unknown) => {
-    console.log('данные формы:', data);
+  const onSubmit = (data: FieldValues) => {
+    authService
+      .signIn(data as SignInProps)
+      .then((response) => authService.getUser())
+      .then((user) => {
+        userStoreService.user = user;
+        navigate('/home');
+      });
   };
 
   return (

@@ -1,11 +1,16 @@
 import styles from './SignUpPage.module.scss';
-import { Link } from 'react-router-dom';
 import { Button, Input } from '@/shared/ui';
-import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { signupSchema } from '@/pages/signup/model/scheme';
+import { Link, useNavigate } from 'react-router-dom';
+import { FieldValues, useForm } from 'react-hook-form';
+import { SignUpProps } from '@/shared/types';
+import { AuthorizationService } from '@/shared/api';
 
 export const SignUpPage = () => {
+  const authService = new AuthorizationService();
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
@@ -16,8 +21,8 @@ export const SignUpPage = () => {
     resolver: zodResolver(signupSchema)
   });
 
-  const onSubmit = (data: unknown) => {
-    console.log('данные формы:', data);
+  const onSubmit = (data: FieldValues) => {
+    authService.signUp(data as SignUpProps).then((response) => navigate('/login'));
   };
 
   return (
