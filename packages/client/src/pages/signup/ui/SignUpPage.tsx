@@ -1,13 +1,18 @@
 import { Card } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 
 import { Button, IconLink, Input } from '@/shared/ui';
+import { signUpSchema } from '@/shared/model';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { signupSchema } from '@/pages/signup/model/scheme';
+import { SignUpProps } from '@/shared/types';
+import { authService } from '@/shared/api';
 
 import styles from './SignUpPage.module.scss';
 
 export const SignUpPage = () => {
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
@@ -15,11 +20,11 @@ export const SignUpPage = () => {
     formState: { errors }
   } = useForm({
     mode: 'onBlur',
-    resolver: zodResolver(signupSchema)
+    resolver: zodResolver(signUpSchema)
   });
 
-  const onSubmit = (data: unknown) => {
-    console.log('данные формы:', data);
+  const onSubmit = (data: SignUpProps) => {
+    authService.signUp(data).then(() => navigate('/login'));
   };
 
   return (

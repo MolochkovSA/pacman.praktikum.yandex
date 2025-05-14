@@ -1,14 +1,20 @@
-import { zodResolver } from '@hookform/resolvers/zod';
 import { Card } from 'react-bootstrap';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 
 import { Button, IconLink, Input } from '@/shared/ui';
-import { loginSchema } from '../model/schema';
-import { Login } from '../model/types';
+import { Login } from '@/shared/model/types';
+import { loginSchema } from '@/shared/model';
+import { authService } from '@/shared/api';
+import { SignInProps } from '@/shared/types';
+import { userStoreService } from '@/shared/lib';
 
 import styles from './LoginPage.module.scss';
 
 export const LoginPage = () => {
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
@@ -19,8 +25,14 @@ export const LoginPage = () => {
     resolver: zodResolver(loginSchema)
   });
 
-  const onSubmit = (data: unknown) => {
-    console.log('данные формы:', data);
+  const onSubmit = (data: Login) => {
+    authService
+      .signIn(data as SignInProps)
+      .then(() => authService.getUser())
+      .then((user) => {
+        userStoreService.user = user;
+        navigate('/home');
+      });
   };
 
   return (
@@ -34,22 +46,22 @@ export const LoginPage = () => {
             id="login"
             onSubmit={handleSubmit(onSubmit)}>
             <Input
-              label={'Логин'}
+              label="Логин"
               {...register('login')}
               error={errors.login?.message as string}
               onFocus={() => trigger('login')}
             />
             <Input
-              label={'Пароль'}
+              label="Пароль"
               {...register('password')}
-              type={'password'}
+              type="password"
               error={errors.password?.message as string}
               onFocus={() => trigger('password')}
             />
           </form>
         </Card.Body>
 
-        <Card.Footer className="d-flex flex-column gap-3 align-items-center">
+        <Card.Footer className="d-flex flex-column gap-3 align-items-center mt-5">
           <Button
             className="w-100"
             form="login"

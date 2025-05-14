@@ -1,0 +1,70 @@
+@use 'styles/typography';
+@use 'styles/mixins';
+
+.profile {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  padding: 20px;
+
+  &__card {
+    width: 750px;
+  }
+
+  &__header {
+    @include typography.font(h2);
+    @include mixins.text-yellow-neon;
+
+    margin: -2rem -2rem 2rem;
+    padding: 50px;
+    position: relative;
+    background-color: #505023;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+  }
+
+  &__avatar {
+    background-color: #505023;
+    width: 175px;
+    height: 175px;
+    position: absolute;
+    top: -28px;
+    right: 40px;
+  }
+
+  &__buttons {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+    button {
+      margin: 15px;
+    }
+  }
+
+  &__button {
+    width: 50%;
+    margin: 30px auto;
+  }
+
+  &__field {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+
+    label {
+      font-size: 14px;
+      line-height: 14px;
+    }
+
+    input {
+      text-align: right;
+      border: none;
+      border-bottom: 2px solid #505023 !important;
+      box-shadow: none !important;
+    }
+  }
+}

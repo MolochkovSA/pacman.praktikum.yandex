@@ -1,8 +1,10 @@
 import { createBrowserRouter, Navigate } from 'react-router-dom';
 import App from '../ui/App';
-import { LoginPage } from '../../pages/login';
-import { SignUpPage } from '../../pages/signup';
+import { LoginPage } from '@/pages/login';
+import { SignUpPage } from '@/pages/signup';
+import { ProfilePage } from '@/pages/profile';
 import { ErrorPage } from '@/pages/error';
+import { GamePage } from '@/pages/game';
 import { ForumPage } from '@/pages/forum';
 import { LayoutWithTopbar } from '@/pages/layout-with-topbar';
 import { ForumTopicViewPage } from '@/pages/forum-topic-view';
@@ -12,7 +14,7 @@ export const router = createBrowserRouter([
   {
     path: '/',
     element: <App />,
-    errorElement: <ErrorPage errorType="404" />,
+    errorElement: <ErrorPage errorType="500" />,
     children: [
       {
         index: true,
@@ -47,21 +49,21 @@ export const router = createBrowserRouter([
         ]
       },
       {
-        path: '/not_found',
+        path: '/*',
         element: <ErrorPage errorType="404" />
-      }
-      // {
-      //   path: '/profile',
-      //   element: <SignUpPage />
-      // },
+      },
+      {
+        path: '/profile',
+        element: <ProfilePage />
+      },
       // {
       //   path: '/home',
       //   element: <SignUpPage />
       // },
-      // {
-      //   path: '/game',
-      //   element: <SignUpPage />
-      // },
+      {
+        path: '/game',
+        element: <GamePage />
+      }
       // {
       //   path: '/leaderboard',
       //   element: <SignUpPage />
