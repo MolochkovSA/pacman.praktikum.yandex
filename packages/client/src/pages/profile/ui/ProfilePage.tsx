@@ -10,23 +10,19 @@ import { Input } from '@/shared/ui';
 import { Avatar } from '@/shared/ui';
 import { Profile } from '@/shared/model/types';
 import { PasswordModal } from '@/features/changePassword/ui';
-
-const defaultProfileValues: Profile = {
-  first_name: 'Иван',
-  second_name: 'Иванов',
-  login: 'noizzer',
-  email: 'email@yande.ru',
-  phone: '+79000000000'
-};
+import { userStoreService } from '@/shared/lib';
+import pic from '@/assets/images/profile.png';
 
 export const ProfilePage = () => {
+  const user = userStoreService.user;
+
   const {
     register,
     handleSubmit,
     trigger,
     formState: { errors }
   } = useForm<Profile>({
-    defaultValues: defaultProfileValues,
+    defaultValues: user ?? undefined,
     mode: 'onBlur',
     resolver: zodResolver(profileSchema)
   });
@@ -34,9 +30,7 @@ export const ProfilePage = () => {
   const [isEditMode, setEditMode] = useState(false);
   const [isShowedModal, setShowModal] = useState(false);
 
-  const onSubmit = (data: Profile) => {
-    console.log('данные формы:', data);
-    console.log(isEditMode);
+  const onSubmit = () => {
     setEditMode(false);
   };
 
@@ -46,7 +40,7 @@ export const ProfilePage = () => {
         <header className={styles.profile__header}>
           <p>Профиль</p>
           <Avatar
-            src=".\src\assets\images\profile.png"
+            src={pic}
             className={styles.profile__avatar}></Avatar>
         </header>
         <form
@@ -60,6 +54,7 @@ export const ProfilePage = () => {
             isInvalid={!!errors.first_name}
             error={errors.first_name?.message as string}
             readOnly={!isEditMode}
+            autoComplete="given-name"
           />
           <Input
             className={styles.profile__field}
@@ -69,6 +64,7 @@ export const ProfilePage = () => {
             error={errors.second_name?.message as string}
             onFocus={() => trigger('second_name')}
             readOnly={!isEditMode}
+            autoComplete="family-name"
           />
           <Input
             className={styles.profile__field}
@@ -78,6 +74,7 @@ export const ProfilePage = () => {
             error={errors.login?.message as string}
             onFocus={() => trigger('login')}
             readOnly={!isEditMode}
+            autoComplete="username"
           />
           <Input
             className={styles.profile__field}
@@ -88,6 +85,7 @@ export const ProfilePage = () => {
             error={errors.email?.message as string}
             onFocus={() => trigger('email')}
             readOnly={!isEditMode}
+            autoComplete="email"
           />
           <Input
             className={styles.profile__field}
@@ -97,6 +95,7 @@ export const ProfilePage = () => {
             error={errors.phone?.message as string}
             onFocus={() => trigger('phone')}
             readOnly={!isEditMode}
+            autoComplete="phone"
           />
 
           {isEditMode ? (

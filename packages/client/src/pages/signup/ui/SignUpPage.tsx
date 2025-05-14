@@ -5,10 +5,9 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Link, useNavigate } from 'react-router-dom';
 import { FieldValues, useForm } from 'react-hook-form';
 import { SignUpProps } from '@/shared/types';
-import { AuthorizationService } from '@/shared/api';
+import { authService } from '@/shared/api';
 
 export const SignUpPage = () => {
-  const authService = new AuthorizationService();
   const navigate = useNavigate();
 
   const {

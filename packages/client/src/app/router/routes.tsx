@@ -4,10 +4,7 @@ import { LoginPage } from '../../pages/login';
 import { SignUpPage } from '../../pages/signup';
 import { ProfilePage } from '@/pages/profile';
 import { ErrorPage } from '@/pages/error/ui';
-
-import { NotFoundPage } from '@/pages/not-found';
 import { GamePage } from '@/pages/game/ui/GamePage';
-
 
 export const router = createBrowserRouter([
   {
@@ -39,11 +36,7 @@ export const router = createBrowserRouter([
       {
         path: '/profile',
         element: <ProfilePage />
-      }
-        path: '/not_found',
-        element: <NotFoundPage />
       },
-
       // {
       //   path: '/home',
       //   element: <SignUpPage />

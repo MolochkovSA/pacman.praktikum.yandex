@@ -8,11 +8,10 @@ import { Login } from '@/shared/model/types';
 import { Link, useNavigate } from 'react-router-dom';
 import { FieldValues, useForm } from 'react-hook-form';
 import { SignInProps } from '@/shared/types';
-import { AuthorizationService } from '@/shared/api';
+import { authService } from '@/shared/api';
 import { userStoreService } from '@/shared/lib';
 
 export const LoginPage = () => {
-  const authService = new AuthorizationService();
   const navigate = useNavigate();
 
   const {

@@ -6,9 +6,9 @@ import { BaseModal } from '@/shared/ui/Modal/modal';
 import { Input } from '@/shared/ui';
 import { avatarSchema } from '@/shared/model/avatarSchema';
 import { Avatar } from '@/shared/model/types';
-import { UserService, AuthorizationService } from '@/shared/api';
+import { userService, authService } from '@/shared/api';
 import { userStoreService } from '@/shared/lib';
-import { ErrorMessage } from '@/shared/ui/Error/error';
+import { ErrorMessage } from '@/shared/ui/Error/Error';
 import { HttpError } from '@/shared/types';
 
 interface AvatarModal {
@@ -17,8 +17,6 @@ interface AvatarModal {
 }
 
 export const AvatarModal: React.FC<AvatarModal> = ({ show, onHide }) => {
-  const userService = new UserService();
-  const authService = new AuthorizationService();
   const {
     register,
     handleSubmit,
@@ -33,7 +31,6 @@ export const AvatarModal: React.FC<AvatarModal> = ({ show, onHide }) => {
 
   const onSubmit = (data: Avatar) => {
     const file = data.avatar?.[0];
-    console.log(file);
     if (file) {
       userService
         .updateAvatar(file as File)
@@ -42,7 +39,6 @@ export const AvatarModal: React.FC<AvatarModal> = ({ show, onHide }) => {
           userStoreService.user = user;
         })
         .catch((error) => {
-          console.log(error);
           if (error instanceof HttpError) {
             setError(error.message);
           }

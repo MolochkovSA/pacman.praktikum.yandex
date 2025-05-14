@@ -11,12 +11,10 @@ export class HttpError extends Error {
 
     const data = await response.json();
     if (data?.reason) {
-      console.log(data);
       reason = data.reason;
     } else {
       reason = response.statusText || 'Unknown error';
     }
-    console.log(reason);
     return new HttpError(response.status, reason);
   }
 }
