@@ -1,9 +1,11 @@
 import { useGameLoop } from '@/features/GameControl/model/useGameLoop';
 import { useMovement } from '@/features/PlayerMovement/useMovement';
-import { Button } from '@/shared/ui';
-import styles from './GameBoard.module.scss';
-import { Game } from './Game';
 import { ghostImages } from '@/shared/const/ghostImages';
+import { Button } from '@/shared/ui';
+import { Game } from './Game';
+
+import styles from './GameBoard.module.scss';
+
 // const ghostImages: HTMLImageElement[] = [];
 // const colors = ['pink', 'green', 'blue'];
 
@@ -26,10 +28,7 @@ export const GameBoard = () => {
         direction={direction}
       />
 
-      <Button
-        handleClick={resetGame}
-        name="Restart"
-      />
+      <Button handleClick={resetGame}>Restart</Button>
     </>
   );
 };

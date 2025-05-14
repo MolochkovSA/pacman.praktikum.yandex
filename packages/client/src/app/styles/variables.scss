@@ -1,11 +1,21 @@
 :root {
   // colors
   --color-yellow-text: #fff200;
+  --color-yellow-opacity15: rgba(255 242 0 / 15%);
+  --color-yellow-opacity50: rgba(255 242 0 / 50%);
   --color-yellow-text-opacity90: rgb(255 242 0 / 90%);
   --color-blue-main: #3369f3;
   --color-white-text: #fff;
+  --color-gainsboro: #dcdcdc;
+  --color-black: #000;
   --color-red-invalidate: #f00;
+  --color-onion: #373710;
+  --color-charcoal-sand: #2e2e0e;
+  --color-mossy-gray: #484836;
 
   // shadows
   --shadow-yellow-text: 1px 1px 10px var(--color-yellow-text-opacity90);
 }
+
+// bootstrap
+$primary: #3369f3;
