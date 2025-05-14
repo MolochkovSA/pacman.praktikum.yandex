@@ -1,10 +1,11 @@
 import styles from './Input.module.scss';
 import React, { forwardRef } from 'react';
+import { ErrorMessage } from '../Error/Error';
 
 export interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
   label: string;
   isInvalid?: boolean;
-  type?: 'text' | 'password';
+  type?: 'text' | 'password' | 'email' | 'file';
   error?: string;
 }
 
@@ -21,7 +22,9 @@ export const Input = forwardRef<HTMLInputElement, Props>(function Input({ error,
         {...props}
         className={`${styles.input} ${isInvalid ? styles.invalid : ''}`}
       />
-      {error && <div className={styles.error}>{error}</div>}
+      <ErrorMessage
+        className={styles.error}
+        error={error}></ErrorMessage>
     </div>
   );
 });

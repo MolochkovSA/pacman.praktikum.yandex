@@ -22,3 +22,8 @@ export interface SignUpProps {
   password: string;
   phone: string;
 }
+
+export interface PasswordProps {
+  oldPassword: string;
+  newPassword: string;
+}
