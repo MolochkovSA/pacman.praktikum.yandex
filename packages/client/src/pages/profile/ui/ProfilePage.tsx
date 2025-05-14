@@ -23,13 +23,7 @@ export const ProfilePage = () => {
     trigger,
     formState: { errors }
   } = useForm<Profile>({
-    defaultValues: user ?? {
-      first_name: 'Aeqweqeqw',
-      second_name: '22222222',
-      login: '333333333',
-      email: '44444444444',
-      phone: '555555555'
-    },
+    defaultValues: user ?? undefined,
     mode: 'onBlur',
     resolver: zodResolver(profileSchema)
   });
