@@ -5,6 +5,10 @@ import { SignUpPage } from '../../pages/signup';
 import { ProfilePage } from '@/pages/profile';
 import { ErrorPage } from '@/pages/error/ui';
 
+import { NotFoundPage } from '@/pages/not-found';
+import { GamePage } from '@/pages/game/ui/GamePage';
+
+
 export const router = createBrowserRouter([
   {
     path: '/',
@@ -36,14 +40,18 @@ export const router = createBrowserRouter([
         path: '/profile',
         element: <ProfilePage />
       }
+        path: '/not_found',
+        element: <NotFoundPage />
+      },
+
       // {
       //   path: '/home',
       //   element: <SignUpPage />
       // },
-      // {
-      //   path: '/game',
-      //   element: <SignUpPage />
-      // },
+      {
+        path: '/game',
+        element: <GamePage />
+      }
       // {
       //   path: '/leaderboard',
       //   element: <SignUpPage />
