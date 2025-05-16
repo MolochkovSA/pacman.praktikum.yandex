@@ -11,7 +11,7 @@ const initialGhosts = [
   { x: 8, y: 15 }
 ];
 
-export const useGameLoop = () => {
+export const useGameLoop = (isGameStarted: boolean) => {
   const [player, setPlayer] = useState<Player>({ position: { x: 1, y: 1 } });
   const [foods, setFoods] = useState(generateFood);
   const [ghosts, setGhosts] = useState<Vector2D[]>(initialGhosts);
@@ -50,6 +50,7 @@ export const useGameLoop = () => {
   }, []);
 
   useEffect(() => {
+    if (!isGameStarted) return;
     const interval = setInterval(() => {
       const vector = directionVectors[directionRef.current];
       const currPlayer = playerRef.current;
@@ -96,7 +97,7 @@ export const useGameLoop = () => {
     }, 300);
 
     return () => clearInterval(interval);
-  }, [resetGame]);
+  }, [isGameStarted, resetGame]);
 
   return {
     player,

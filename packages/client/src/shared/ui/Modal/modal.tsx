@@ -12,9 +12,10 @@ type BaseModalProps = {
   children?: ReactNode;
   onHide: () => void;
   submit: () => void;
+  closeBtn: boolean;
 };
 
-export const BaseModal = ({ show, title, children, btnText, onHide, submit }: BaseModalProps) => {
+export const BaseModal = ({ show, title, children, btnText, onHide, submit, closeBtn = true }: BaseModalProps) => {
   return (
     <Modal
       show={show}
@@ -22,7 +23,7 @@ export const BaseModal = ({ show, title, children, btnText, onHide, submit }: Ba
       centered
       contentClassName={styles.modal__content}>
       <Modal.Header
-        closeButton
+        closeButton={closeBtn}
         className={styles.modal__header}>
         <Modal.Title>{title}</Modal.Title>
       </Modal.Header>
