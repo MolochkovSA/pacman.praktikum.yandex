@@ -1,30 +1,30 @@
+import { useState } from 'react';
 import { useGameLoop } from '@/features/GameControl/model/useGameLoop';
 import { useMovement } from '@/features/PlayerMovement/useMovement';
 import { Button } from '@/shared/ui';
 import styles from './GameBoard.module.scss';
 import { Game } from './Game';
 import { ghostImages } from '@/shared/const/ghostImages';
-// const ghostImages: HTMLImageElement[] = [];
-// const colors = ['pink', 'green', 'blue'];
+import { StartGameModal } from '@/features/StartGame/ui/StartGameModal';
 
-// colors.forEach((color) => {
-//   const img = new Image();
-//   img.src = `/src/assets/images/ghosts/${color}.svg`;
-//   ghostImages.push(img);
-// });
 export const GameBoard = () => {
-  const { player, setDirection, foods, ghosts, score, resetGame, direction } = useGameLoop();
+  const [isGameStarted, setGameStarted] = useState(false);
+  const { player, setDirection, foods, ghosts, score, resetGame, direction } = useGameLoop(isGameStarted);
+
   useMovement(setDirection);
   return (
     <>
       <div className={styles.score}>Очки: {score}</div>
-      <Game
-        player={player}
-        foods={foods}
-        ghosts={ghosts}
-        ghostImages={ghostImages}
-        direction={direction}
-      />
+      {!isGameStarted && <StartGameModal onStart={() => setGameStarted(true)} />}
+      {isGameStarted && (
+        <Game
+          player={player}
+          foods={foods}
+          ghosts={ghosts}
+          ghostImages={ghostImages}
+          direction={direction}
+        />
+      )}
 
       <Button
         handleClick={resetGame}
