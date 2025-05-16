@@ -1,3 +1,4 @@
+import { Card } from 'react-bootstrap';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { useState } from 'react';
@@ -36,22 +37,19 @@ export const ProfilePage = () => {
 
   return (
     <main className={styles.profile}>
-      <section className={styles.profile__panel}>
+      <Card className={styles.profile__card}>
         <header className={styles.profile__header}>
-          <p>Профиль</p>
+          <h1>Профиль</h1>
           <Avatar
             src={pic}
             className={styles.profile__avatar}></Avatar>
         </header>
-        <form
-          className={styles.profile__form}
-          onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <Input
             className={styles.profile__field}
             label="Имя"
             {...register('first_name')}
             onFocus={() => trigger('first_name')}
-            isInvalid={!!errors.first_name}
             error={errors.first_name?.message as string}
             readOnly={!isEditMode}
             autoComplete="given-name"
@@ -102,30 +100,26 @@ export const ProfilePage = () => {
             <div className={styles.profile__buttons}>
               <Button
                 className={styles.profile__button}
-                handleClick={() => setShowModal(true)}
-                type="button"
-                color="white"
-                name="Изменить пароль"
-              />
+                onClick={() => setShowModal(true)}>
+                Изменить пароль
+              </Button>
               <Button
                 className={styles.profile__button}
-                type="submit"
-                name="Сохранить"
-              />
+                type="submit">
+                Сохранить
+              </Button>
             </div>
           ) : (
             <Button
               className={styles.profile__button}
-              type="button"
-              name="Изменить"
-              handleClick={(e) => {
-                e.preventDefault();
+              onClick={() => {
                 setEditMode(true);
-              }}
-            />
+              }}>
+              Изменить
+            </Button>
           )}
         </form>
-      </section>
+      </Card>
       <PasswordModal
         show={isShowedModal}
         onHide={() => setShowModal(false)}></PasswordModal>

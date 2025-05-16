@@ -1,46 +1,14 @@
 @use 'styles/typography';
 @use 'styles/mixins';
-@use 'sass:color';
 
 .button {
   @include typography.font(p3);
 
-  background: var(--color-blue-main);
-  border: none;
   color: var(--color-white-text);
   border-radius: 10px;
-  padding: 15px 40px;
-  cursor: pointer;
-  transition: all 0.3s;
-
-  &:hover {
-    background: color.adjust(#3369f3, $lightness: -10%);
-    transform: scale(1.05);
-    box-shadow: 0 0 15px var(--color-blue-main);
-  }
-
-  &:active {
-    transform: scale(0.9);
-  }
-}
-
-.button__secondary {
-  @include typography.font(p3);
-
-  background: var(--color-white-text);
-  color: var(--color-blue-main);
-  border-radius: 10px;
-  padding: 15px 40px;
-  cursor: pointer;
-  transition: all 0.3s;
-  border: none;
-
-  &:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 15px var(--color-blue-main);
-  }
-
-  &:active {
-    transform: scale(0.9);
-  }
+  padding: 1rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
 }

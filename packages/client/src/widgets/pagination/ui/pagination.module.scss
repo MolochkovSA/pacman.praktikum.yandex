@@ -1,0 +1,14 @@
+@use 'styles/typography';
+
+.pagination {
+  @include typography.font(p3);
+
+  padding: 0 1rem;
+  display: flex;
+  gap: 16px;
+  align-items: center;
+
+  .counter {
+    flex-grow: 1;
+  }
+}
