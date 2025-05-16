@@ -33,7 +33,7 @@ export const Game = ({
     renderFood(ctx, foods);
     renderGhosts(ctx, ghosts, ghostImages);
     renderPlayer(ctx, player, direction);
-  }, [player, foods, ghosts]);
+  }, [player, foods, ghosts, ghostImages, direction]);
 
   return (
     <canvas

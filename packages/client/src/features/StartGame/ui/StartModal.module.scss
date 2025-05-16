@@ -3,8 +3,10 @@
 
 .start {
   @include typography.font(p2);
+
   color: var(--color-white-text);
   margin: 30px;
+
   &__controls {
     display: flex;
     flex-direction: column;
@@ -27,6 +29,7 @@
 
       span {
         @include typography.font(p3);
+
         margin-top: 0.3rem;
       }
     }
