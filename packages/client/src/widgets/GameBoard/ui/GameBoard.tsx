@@ -4,7 +4,6 @@ import { useMovement } from '@/features/PlayerMovement/useMovement';
 import { ghostImages } from '@/shared/const/ghostImages';
 import { Button } from '@/shared/ui';
 import { Game } from './Game';
-import { ghostImages } from '@/shared/const/ghostImages';
 import { StartGameModal } from '@/features/StartGame/ui/StartGameModal';
 
 import styles from './GameBoard.module.scss';
@@ -28,7 +27,7 @@ export const GameBoard = () => {
         />
       )}
 
-      <Button handleClick={resetGame}>Restart</Button>
+      <Button onClick={resetGame}>Restart</Button>
     </>
   );
 };
