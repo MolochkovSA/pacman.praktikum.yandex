@@ -1,10 +1,14 @@
 import { createBrowserRouter, Navigate } from 'react-router-dom';
 import App from '../ui/App';
-import { LoginPage } from '../../pages/login';
-import { SignUpPage } from '../../pages/signup';
+import { LoginPage } from '@/pages/login';
+import { SignUpPage } from '@/pages/signup';
 import { ProfilePage } from '@/pages/profile';
-import { ErrorPage } from '@/pages/error/ui';
-import { GamePage } from '@/pages/game/ui/GamePage';
+import { ErrorPage } from '@/pages/error';
+import { GamePage } from '@/pages/game';
+import { ForumPage } from '@/pages/forum';
+import { LayoutWithTopbar } from '@/pages/layout-with-topbar';
+import { ForumTopicViewPage } from '@/pages/forum-topic-view';
+import { ForumTopicEditPage, topicLoader } from '@/pages/forum-topic-edit';
 
 export const router = createBrowserRouter([
   {
@@ -28,6 +32,21 @@ export const router = createBrowserRouter([
       {
         path: '/signup',
         element: <SignUpPage />
+      },
+      {
+        path: 'forum',
+        lazy: LayoutWithTopbar,
+        children: [
+          { index: true, lazy: ForumPage },
+          { path: 'posting', lazy: ForumTopicEditPage },
+          {
+            path: ':topicId',
+            children: [
+              { index: true, lazy: ForumTopicViewPage },
+              { path: 'edit', loader: topicLoader, lazy: ForumTopicEditPage }
+            ]
+          }
+        ]
       },
       {
         path: '/*',

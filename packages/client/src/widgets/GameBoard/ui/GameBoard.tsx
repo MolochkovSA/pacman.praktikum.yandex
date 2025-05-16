@@ -1,11 +1,15 @@
 import { useState } from 'react';
 import { useGameLoop } from '@/features/GameControl/model/useGameLoop';
 import { useMovement } from '@/features/PlayerMovement/useMovement';
+import { ghostImages } from '@/shared/const/ghostImages';
 import { Button } from '@/shared/ui';
-import styles from './GameBoard.module.scss';
 import { Game } from './Game';
 import { ghostImages } from '@/shared/const/ghostImages';
 import { StartGameModal } from '@/features/StartGame/ui/StartGameModal';
+
+
+import styles from './GameBoard.module.scss';
+
 
 export const GameBoard = () => {
   const [isGameStarted, setGameStarted] = useState(false);
@@ -26,10 +30,7 @@ export const GameBoard = () => {
         />
       )}
 
-      <Button
-        handleClick={resetGame}
-        name="Restart"
-      />
+      <Button handleClick={resetGame}>Restart</Button>
     </>
   );
 };

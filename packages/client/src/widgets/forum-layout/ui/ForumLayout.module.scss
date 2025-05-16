@@ -1,0 +1,21 @@
+@use 'styles/typography';
+@use 'styles/mixins';
+
+.forumLayout {
+  padding: 2rem 4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  overflow: auto;
+
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .title {
+      @include typography.font(h1);
+      @include mixins.text-yellow-neon;
+    }
+  }
+}

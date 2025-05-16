@@ -27,8 +27,9 @@ export const ErrorPage = ({ errorType }: ErrorPageProps) => {
       </div>
       <Button
         type={'button'}
-        name={'На главную'}
-        handleClick={handleClick}></Button>
+        onClick={handleClick}>
+        На главную
+      </Button>
     </div>
   );
 };

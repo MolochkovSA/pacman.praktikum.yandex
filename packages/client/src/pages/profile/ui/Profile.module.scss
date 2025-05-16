@@ -8,23 +8,8 @@
   width: 100vw;
   height: 100vh;
   padding: 20px;
-  position: relative;
 
-  &__form {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    padding: 40px 15px;
-    height: 100%;
-  }
-
-  &__panel {
-    border-radius: 10px;
-    background-color: rgba(255 242 0 / 15%);
-    backdrop-filter: blur(7px);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  &__card {
     width: 750px;
   }
 
@@ -32,10 +17,7 @@
     @include typography.font(h2);
     @include mixins.text-yellow-neon;
 
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
+    margin: -2rem -2rem 2rem;
     padding: 50px;
     position: relative;
     background-color: #505023;
@@ -71,26 +53,18 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 20px;
+    gap: 0.5rem;
 
     label {
-      position: relative;
-      top: 0;
       font-size: 14px;
       line-height: 14px;
     }
 
     input {
-      width: 50%;
-      align-self: flex-end;
       text-align: right;
-      border-bottom: 2px solid #505023;
-    }
-
-    span {
-      position: absolute;
-      bottom: -15px;
-      right: 0;
+      border: none;
+      border-bottom: 2px solid #505023 !important;
+      box-shadow: none !important;
     }
   }
 }

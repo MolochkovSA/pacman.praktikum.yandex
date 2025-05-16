@@ -1,7 +1,6 @@
 import Modal from 'react-bootstrap/Modal';
 import type { ReactNode } from 'react';
 
-import 'bootstrap/dist/css/bootstrap.min.css';
 import styles from './modal.module.scss';
 
 import { Button } from '../Button/Button';
@@ -32,8 +31,9 @@ export const BaseModal = ({ show, title, children, btnText, onHide, submit, clos
       <Modal.Footer className={styles.modal__footer}>
         <Button
           type="submit"
-          name={btnText}
-          handleClick={submit}></Button>
+          onClick={submit}>
+          {btnText}
+        </Button>
       </Modal.Footer>
     </Modal>
   );
