@@ -35,4 +35,16 @@
       color: var(--color-bronze-text);
     }
   }
+
+  .achievement {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    justify-content: center;
+    line-height: 1rem;
+
+    svg {
+      color: var(--color-yellow-text);
+    }
+  }
 }

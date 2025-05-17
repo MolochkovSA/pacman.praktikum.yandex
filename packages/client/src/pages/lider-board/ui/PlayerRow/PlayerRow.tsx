@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { GiTrophyCup } from 'react-icons/gi';
+import { GrFireball } from 'react-icons/gr';
 
 import { PlayerPreview } from '../../model/types';
 
@@ -42,13 +43,12 @@ export const PlayerRow = ({ player: { id, login, achievement, wins, games }, pos
         {position}
       </td>
       <td>
-        <Link
-          className={styles.login}
-          to={playerProfileUrl}>
-          {login}
-        </Link>
+        <Link to={playerProfileUrl}>{login}</Link>
       </td>
-      <td>{achievement}</td>
+      <td className={styles.achievement}>
+        <GrFireball size={12} />
+        {achievement}
+      </td>
       <td>{games}</td>
       <td>{wins}</td>
     </tr>
