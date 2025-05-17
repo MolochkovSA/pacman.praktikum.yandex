@@ -1,0 +1,16 @@
+.title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+
+  span {
+    font-size: 2rem;
+    align-self: end;
+    line-height: 2rem;
+  }
+
+  .flipHorizontal {
+    transform: scaleX(-1);
+  }
+}
