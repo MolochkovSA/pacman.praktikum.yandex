@@ -1,0 +1,38 @@
+@use 'styles/typography';
+
+.row {
+  td {
+    @include typography.font(p3);
+
+    padding: 0.75rem 1rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    background-color: var(--color-mossy-gray);
+    color: var(--color-white-text);
+    vertical-align: middle;
+  }
+
+  .position {
+    position: relative;
+
+    svg {
+      position: absolute;
+      left: 2rem;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    .first {
+      color: var(--color-gold-text);
+    }
+
+    .second {
+      color: var(--color-silver-text);
+    }
+
+    .third {
+      color: var(--color-bronze-text);
+    }
+  }
+}
