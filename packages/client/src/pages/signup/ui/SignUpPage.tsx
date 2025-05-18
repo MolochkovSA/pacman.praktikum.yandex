@@ -6,9 +6,9 @@ import { Button, IconLink, Input } from '@/shared/ui';
 import { signUpSchema } from '@/shared/model';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { SignUpProps } from '@/shared/types';
-import { authService } from '@/shared/api';
 
 import styles from './SignUpPage.module.scss';
+import { authService } from '@/entities/user';
 
 export const SignUpPage = () => {
   const navigate = useNavigate();
