@@ -3911,8 +3911,10 @@ cli-width@^3.0.0:
   dependencies:
     "@hookform/resolvers" "^5.0.1"
     "@types/react-router-dom" "^5.3.3"
-    client "file:C:/Users/User/AppData/Local/Yarn/Cache/v6/npm-client-0.0.0-97d52960-60d3-40a4-934b-bcbe769b3967-1746549405164/node_modules/client"
-    clsx "^2.1.1"
+
+    bootstrap "5.3.6"
+    client "file:../../../AppData/Local/Yarn/Cache/v6/npm-client-0.0.0-187fb08a-daba-4c4e-b66a-8aacb84bd995-1747390919159/node_modules/client"
+
     dotenv "^16.5.0"
     eslint-config-prettier "^10.1.2"
     jsdom "^26.1.0"
@@ -8814,6 +8816,11 @@ pgpass@1.x:
   integrity sha512-FdW9r/jQZhSeohs1Z3sI1yxFQNFvMcnmfuj4WBMUTxOrAyLMaTcE1aAMBiTlbMNaXvBCQuVi0R7hd8udDSP7ug==
   dependencies:
     split2 "^4.1.0"
+
+phosphor-react@^1.4.1:
+  version "1.4.1"
+  resolved "https://registry.yarnpkg.com/phosphor-react/-/phosphor-react-1.4.1.tgz#97b0e034d9937db9b97fe53b186e9646464fd4e7"
+  integrity sha512-gO5j7U0xZrdglTAYDYPACU4xDOFBTJmptrrB/GeR+tHhCZF3nUMyGmV/0hnloKjuTrOmpSFlbfOY78H39rgjUQ==
 
 picocolors@^1.1.1:
   version "1.1.1"
