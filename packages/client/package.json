@@ -20,6 +20,7 @@
     "clsx": "^2.1.1",
     "dotenv": "^16.5.0",
     "jsdom": "^26.1.0",
+    "phosphor-react": "^1.4.1",
     "prettier": "^3.5.3",
     "react": "^19.1.0",
     "react-bootstrap": "^2.10.9",
