@@ -1,10 +1,12 @@
 import { Outlet } from 'react-router-dom';
-import React from 'react';
+import { Notification } from '@/shared/ui/Notification/Notification.tsx';
 
 function App() {
   return (
     <div className="App">
-      <Outlet />
+      <Notification>
+        <Outlet />
+      </Notification>
     </div>
   );
 }

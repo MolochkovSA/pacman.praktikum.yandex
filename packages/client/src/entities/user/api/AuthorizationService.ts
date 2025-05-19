@@ -1,5 +1,8 @@
-import { HttpError, SignInProps, SignUpProps, User } from '@/shared/types';
 import { SERVER_API_URL } from '@/shared/consts';
+import { UserDto } from '@/entities/user/model/dto.ts';
+import { HttpError } from '@/shared/types';
+import { User } from '@/entities/user';
+import { SignInProps, SignUpProps } from '@/entities/user/model/types.ts';
 
 export class AuthorizationService {
   private _URL: string;
@@ -15,7 +18,7 @@ export class AuthorizationService {
   getUser(): Promise<User> {
     return fetch(`${this.URL}/user`, { method: 'GET', credentials: 'include' }).then((response) => {
       if (response.ok) {
-        return response.json() as Promise<User>;
+        return response.json().then((res) => UserDto.parse(res));
       }
       throw new HttpError(response.status, response.statusText);
     });
