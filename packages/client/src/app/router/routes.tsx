@@ -5,10 +5,6 @@ import { SignUpPage } from '@/pages/signup';
 import { ProfilePage } from '@/pages/profile';
 import { ErrorPage } from '@/pages/error';
 import { GamePage } from '@/pages/game';
-import { ForumPage } from '@/pages/forum';
-import { LayoutWithTopbar } from '@/pages/layout-with-topbar';
-import { ForumTopicViewPage } from '@/pages/forum-topic-view';
-import { ForumTopicEditPage, topicLoader } from '@/pages/forum-topic-edit';
 
 export const router = createBrowserRouter([
   {
@@ -34,52 +30,13 @@ export const router = createBrowserRouter([
         element: <SignUpPage />
       },
       {
-        path: 'forum',
-        lazy: LayoutWithTopbar,
-        children: [
-          { index: true, lazy: ForumPage },
-          { path: 'posting', lazy: ForumTopicEditPage },
-          {
-            path: ':topicId',
-            children: [
-              { index: true, lazy: ForumTopicViewPage },
-              { path: 'edit', loader: topicLoader, lazy: ForumTopicEditPage }
-            ]
-          }
-        ]
-      },
-      {
-        path: '/*',
-        element: <ErrorPage errorType="404" />
+        path: '/game',
+        element: <GamePage />
       },
       {
         path: '/profile',
         element: <ProfilePage />
-      },
-      // {
-      //   path: '/home',
-      //   element: <SignUpPage />
-      // },
-      {
-        path: '/game',
-        element: <GamePage />
       }
-      // {
-      //   path: '/leaderboard',
-      //   element: <SignUpPage />
-      // },
-      // {
-      //   path: '/forum',
-      //   element: <SignUpPage />
-      // },
-      // {
-      //   path: '/forum/:id',
-      //   element: <SignUpPage />
-      // },
-      // {
-      //   path: '/server_error',
-      //   element: <SignUpPage />
-      // }
     ]
   }
 ]);
