@@ -1,4 +1,4 @@
-import { HttpError, User, PasswordProps } from '../types';
+import { HttpError, User, PasswordProps } from '../../../shared/types';
 import { SERVER_API_URL } from '@/shared/consts';
 
 export class UserService {

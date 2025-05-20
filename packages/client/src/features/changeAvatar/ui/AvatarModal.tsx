@@ -6,10 +6,11 @@ import { BaseModal } from '@/shared/ui/Modal/modal';
 import { Input } from '@/shared/ui';
 import { avatarSchema } from '@/shared/model/avatarSchema';
 import { Avatar } from '@/shared/model/types';
-import { userService, authService } from '@/shared/api';
-import { userStoreService } from '@/shared/lib';
 import { ErrorMessage } from '@/shared/ui/Error/Error';
 import { HttpError } from '@/shared/types';
+import { authService, userService } from '@/entities/user';
+import { useDispatch } from 'react-redux';
+import { setSucceededStatus } from '@/entities/user/model/slice.ts';
 
 interface AvatarModal {
   show: boolean;
@@ -17,6 +18,8 @@ interface AvatarModal {
 }
 
 export const AvatarModal: React.FC<AvatarModal> = ({ show, onHide }) => {
+  const dispatch = useDispatch();
+
   const {
     register,
     handleSubmit,
@@ -36,7 +39,7 @@ export const AvatarModal: React.FC<AvatarModal> = ({ show, onHide }) => {
         .updateAvatar(file as File)
         .then(() => authService.getUser())
         .then((user) => {
-          userStoreService.user = user;
+          dispatch(setSucceededStatus(user));
         })
         .catch((error) => {
           if (error instanceof HttpError) {

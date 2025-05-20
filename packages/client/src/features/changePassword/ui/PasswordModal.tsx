@@ -7,9 +7,8 @@ import { Input } from '@/shared/ui';
 import { passwordSchema } from '@/shared/model/passwordSchema';
 import { Password } from '@/shared/model/types';
 import { HttpError, PasswordProps } from '@/shared/types';
-import { userService, authService } from '@/shared/api';
-import { userStoreService } from '@/shared/lib';
 import { ErrorMessage } from '@/shared/ui/Error/Error';
+import { userService } from '@/entities/user';
 
 interface PasswordModalProps {
   show: boolean;
@@ -32,17 +31,11 @@ export const PasswordModal: React.FC<PasswordModalProps> = ({ show, onHide }) =>
   const onSubmit = (data: Password) => {
     if (data) {
       const { oldPassword, newPassword } = data;
-      userService
-        .changePassword({ oldPassword, newPassword } as PasswordProps)
-        .then(() => authService.getUser())
-        .then((user) => {
-          userStoreService.user = user;
-        })
-        .catch((error) => {
-          if (error instanceof HttpError) {
-            setError(error.message);
-          }
-        });
+      userService.changePassword({ oldPassword, newPassword } as PasswordProps).catch((error) => {
+        if (error instanceof HttpError) {
+          setError(error.message);
+        }
+      });
     }
   };
   return (
