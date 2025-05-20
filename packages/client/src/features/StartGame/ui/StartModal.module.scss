@@ -11,6 +11,41 @@
     margin-bottom: 20px;
   }
 
+  &__list {
+    list-style: none;
+    cursor: default;
+
+    li {
+      position: relative;
+      padding-left: 20px;
+      margin-bottom: 20px;
+      color: var(--color-white-text);
+    }
+
+    li::before {
+      content: '➤';
+      position: absolute;
+      left: 0;
+      color: #fcd34d;
+      font-weight: bold;
+    }
+  }
+
+  &__keys {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+
+    span {
+      display: block;
+      border: 1.5px solid var(--color-white-text);
+      padding: 10px;
+      border-radius: 10px;
+      margin: 5px;
+    }
+  }
+
   &__controls {
     display: flex;
     flex-direction: column;
@@ -28,7 +63,6 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      font-size: 0.9rem;
       width: 70px;
 
       span {

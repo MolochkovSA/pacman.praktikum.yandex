@@ -17,31 +17,41 @@ export const StartGameModal = ({ onStart }: Props) => {
       submit={onStart}
       closeBtn={false}>
       <div className={styles.start}>
-        <p>{'>'} Cъешь всю еду на карте, избегая встречи с призраками</p>
-        <p>{'>'} Набирай очки и продвигайся по турнирной таблице</p>
-        <p>{'>'} Используй клавиатуру для передвижения:</p>
-        <div className={styles.start__controls}>
-          <div className={styles.start__controls__row}>
-            <div className={styles.start__controls__key}>
-              <ArrowFatUp size={50} />
-              <span>Вверх</span>
+        <ul className={styles.start__list}>
+          <li>Cъешь всю еду на карте, избегая встречи с призраками</li>
+          <li>Набирай очки и продвигайся по турнирной таблице</li>
+          <li>
+            Используй клавиатуру для передвижения:
+            <div className={styles.start__controls}>
+              <div className={styles.start__controls__row}>
+                <div className={styles.start__controls__key}>
+                  <ArrowFatUp size={50} />
+                  <span>Вверх</span>
+                </div>
+              </div>
+              <div className={styles.start__controls__row}>
+                <div className={styles.start__controls__key}>
+                  <ArrowFatLeft size={50} />
+                  <span>Влево</span>
+                </div>
+                <div className={styles.start__controls__key}>
+                  <ArrowFatDown size={50} />
+                  <span>Вниз</span>
+                </div>
+                <div className={styles.start__controls__key}>
+                  <ArrowFatRight size={50} />
+                  <span>Вправо</span>
+                </div>
+              </div>
             </div>
-          </div>
-          <div className={styles.start__controls__row}>
-            <div className={styles.start__controls__key}>
-              <ArrowFatLeft size={50} />
-              <span>Влево</span>
+          </li>
+          <li>
+            Для полноэкранного режима
+            <div className={styles.start__keys}>
+              <span>ALT</span> + <span>F</span>
             </div>
-            <div className={styles.start__controls__key}>
-              <ArrowFatDown size={50} />
-              <span>Вниз</span>
-            </div>
-            <div className={styles.start__controls__key}>
-              <ArrowFatRight size={50} />
-              <span>Вправо</span>
-            </div>
-          </div>
-        </div>
+          </li>
+        </ul>
       </div>
     </BaseModal>
   );

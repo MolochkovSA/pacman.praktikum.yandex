@@ -26,7 +26,6 @@ export const GameBoard = () => {
           direction={direction}
         />
       )}
-
       <Button onClick={resetGame}>Restart</Button>
     </>
   );
