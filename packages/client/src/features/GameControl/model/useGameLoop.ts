@@ -4,7 +4,6 @@ import { canMoveTo } from '@/entities/Map';
 import { generateFood, isSamePosition } from '@/entities/Food';
 import { Player } from '@/entities/Player/model/types';
 import { Direction, directionVectors } from '@/shared/model/direction';
-import { useNavigate } from 'react-router-dom';
 
 const initialGhosts = [
   { x: 14, y: 2 },
@@ -18,7 +17,6 @@ export const useGameLoop = (isGameStarted: boolean) => {
   const [ghosts, setGhosts] = useState<Vector2D[]>(initialGhosts);
   const [direction, setDirection] = useState<Direction>('ArrowRight');
   const [score, setScore] = useState(0);
-  const navigate = useNavigate();
   const playerRef = useRef(player);
   const ghostsRef = useRef(ghosts);
   const directionRef = useRef(direction);
@@ -66,7 +64,7 @@ export const useGameLoop = (isGameStarted: boolean) => {
 
       const collided = currGhosts.some((ghost) => isSamePosition(ghost, newPos));
       if (collided) {
-        navigate('/game_over');
+        alert('Конец игры!');
         resetGame();
         return;
       }
@@ -98,7 +96,7 @@ export const useGameLoop = (isGameStarted: boolean) => {
     }, 300);
 
     return () => clearInterval(interval);
-  }, [isGameStarted, resetGame, navigate]);
+  }, [isGameStarted, resetGame]);
 
   return {
     player,

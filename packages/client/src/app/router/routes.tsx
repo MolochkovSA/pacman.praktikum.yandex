@@ -9,7 +9,6 @@ import { ForumPage } from '@/pages/forum';
 import { LayoutWithTopbar } from '@/pages/layout-with-topbar';
 import { ForumTopicViewPage } from '@/pages/forum-topic-view';
 import { ForumTopicEditPage, topicLoader } from '@/pages/forum-topic-edit';
-import { GameOverPage } from '@/pages/gameOverPage';
 
 export const router = createBrowserRouter([
   {
@@ -68,10 +67,6 @@ export const router = createBrowserRouter([
       {
         path: '/game',
         element: <GamePage />
-      },
-      {
-        path: '/game_over',
-        element: <GameOverPage />
       }
       // {
       //   path: '/leaderboard',

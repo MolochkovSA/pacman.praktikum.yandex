@@ -7,9 +7,11 @@ import { Game } from './Game';
 import { StartGameModal } from '@/features/StartGame/ui/StartGameModal';
 
 import styles from './GameBoard.module.scss';
+// import { EndGameModal } from '@/features/EndGame/ui/EndGameModal';
 
 export const GameBoard = () => {
   const [isGameStarted, setGameStarted] = useState(false);
+
   const { player, setDirection, foods, ghosts, score, resetGame, direction } = useGameLoop(isGameStarted);
 
   useMovement(setDirection);
@@ -17,6 +19,7 @@ export const GameBoard = () => {
     <>
       <div className={styles.score}>Очки: {score}</div>
       {!isGameStarted && <StartGameModal onStart={() => setGameStarted(true)} />}
+
       {isGameStarted && (
         <Game
           player={player}
@@ -26,7 +29,7 @@ export const GameBoard = () => {
           direction={direction}
         />
       )}
-
+      {/* <EndGameModal onEnd={() => {}} /> */}
       <Button onClick={resetGame}>Restart</Button>
     </>
   );
