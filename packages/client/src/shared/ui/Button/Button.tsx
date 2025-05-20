@@ -1,20 +1,14 @@
+import { Button as BootstrapButton, ButtonProps } from 'react-bootstrap';
+import clsx from 'clsx';
+
 import styles from './Button.module.scss';
-import React from 'react';
 
-export interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  className?: string;
-  name: string;
-  type?: 'button' | 'submit';
-  handleClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
-}
-
-export const Button = (props: Props) => {
+export const Button = ({ className, as = 'button', ...props }: ButtonProps) => {
   return (
-    <button
-      className={styles.button + ' ' + props.className}
-      onClick={props.handleClick}
-      type={props.type}>
-      {props.name}
-    </button>
+    <BootstrapButton
+      as={as}
+      {...props}
+      className={clsx(styles.button, className)}
+    />
   );
 };

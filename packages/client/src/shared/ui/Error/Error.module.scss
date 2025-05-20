@@ -1,0 +1,11 @@
+@use 'sass:color';
+@use 'styles/typography';
+
+.error {
+  @include typography.font(p4);
+
+  color: var(--color-red-invalidate);
+  font-size: 10px;
+  margin: auto;
+  display: block;
+}

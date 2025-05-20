@@ -1,14 +1,20 @@
 import { createBrowserRouter, Navigate } from 'react-router-dom';
 import App from '../ui/App';
-import { LoginPage } from '../../pages/login';
-import { SignUpPage } from '../../pages/signup';
-import { NotFoundPage } from '@/pages/not-found';
+import { LoginPage } from '@/pages/login';
+import { SignUpPage } from '@/pages/signup';
+import { ProfilePage } from '@/pages/profile';
+import { ErrorPage } from '@/pages/error';
+import { GamePage } from '@/pages/game';
+import { ForumPage } from '@/pages/forum';
+import { LayoutWithTopbar } from '@/pages/layout-with-topbar';
+import { ForumTopicViewPage } from '@/pages/forum-topic-view';
+import { ForumTopicEditPage, topicLoader } from '@/pages/forum-topic-edit';
 
 export const router = createBrowserRouter([
   {
     path: '/',
     element: <App />,
-    errorElement: <NotFoundPage />,
+    errorElement: <ErrorPage errorType="500" />,
     children: [
       {
         index: true,
@@ -28,23 +34,40 @@ export const router = createBrowserRouter([
         element: <SignUpPage />
       },
       {
-        path: '/not_found',
-        element: <NotFoundPage />
+        path: 'forum',
+        lazy: LayoutWithTopbar,
+        children: [
+          { index: true, lazy: ForumPage },
+          { path: 'posting', lazy: ForumTopicEditPage },
+          {
+            path: ':topicId',
+            children: [
+              { index: true, lazy: ForumTopicViewPage },
+              { path: 'edit', loader: topicLoader, lazy: ForumTopicEditPage }
+            ]
+          }
+        ]
       },
-      { path: 'end', element: <GameOverPage /> }
-
-      // {
-      //   path: '/profile',
-      //   element: <SignUpPage />
-      // },
+      {
+        path: '/*',
+        element: <ErrorPage errorType="404" />
+      },
+      {
+        path: '/500',
+        element: <ErrorPage errorType="500" />
+      },
+      {
+        path: '/profile',
+        element: <ProfilePage />
+      },
       // {
       //   path: '/home',
       //   element: <SignUpPage />
       // },
-      // {
-      //   path: '/game',
-      //   element: <SignUpPage />
-      // },
+      {
+        path: '/game',
+        element: <GamePage />
+      }
       // {
       //   path: '/leaderboard',
       //   element: <SignUpPage />
