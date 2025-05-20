@@ -7,15 +7,14 @@ export const GameOverPage = () => {
 
   return (
     <main>
-      <section className={styles.container}>
-        <div className={styles.game}>
-          <h1 className={styles.title}>{isWin ? 'Вы победили!' : 'Игра окончена'}</h1>
-          <p className={styles.score}>Счет: 200</p>
-          <Button
-            name="Играть"
-            onClick={() => navigate('/game')}
-          />
-        </div>
+      <section className={styles.over}>
+        <h1 className={styles.title}>{isWin ? 'Вы победили!' : 'Игра окончена'}</h1>
+        <p className={styles.text}>Счет: 200</p>
+        <Button
+          className={styles.button}
+          onClick={() => navigate('/game')}>
+          Играть
+        </Button>
       </section>
     </main>
   );

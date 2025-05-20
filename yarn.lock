@@ -3872,10 +3872,11 @@ cli-width@^3.0.0:
     "@hookform/resolvers" "^5.0.1"
     "@reduxjs/toolkit" "^2.8.1"
     bootstrap "^5.3.6"
-    client "file:../../../Library/Caches/Yarn/v6/npm-client-0.0.0-3939bb82-ce29-4af8-bbf6-a315460a8b98-1747565983467/node_modules/client"
+    client "file:../AppData/Local/Yarn/Cache/v6/npm-client-0.0.0-17dc23f5-b2de-4dc3-9202-d7f87fb4282e-1747760258418/node_modules/client"
     clsx "^2.1.1"
     dotenv "^16.5.0"
     jsdom "^26.1.0"
+    phosphor-react "^1.4.1"
     prettier "^3.5.3"
     react "^19.1.0"
     react-bootstrap "^2.10.9"
@@ -8758,6 +8759,11 @@ pgpass@1.x:
   integrity sha512-FdW9r/jQZhSeohs1Z3sI1yxFQNFvMcnmfuj4WBMUTxOrAyLMaTcE1aAMBiTlbMNaXvBCQuVi0R7hd8udDSP7ug==
   dependencies:
     split2 "^4.1.0"
+
+phosphor-react@^1.4.1:
+  version "1.4.1"
+  resolved "https://registry.yarnpkg.com/phosphor-react/-/phosphor-react-1.4.1.tgz#97b0e034d9937db9b97fe53b186e9646464fd4e7"
+  integrity sha512-gO5j7U0xZrdglTAYDYPACU4xDOFBTJmptrrB/GeR+tHhCZF3nUMyGmV/0hnloKjuTrOmpSFlbfOY78H39rgjUQ==
 
 picocolors@^1.1.1:
   version "1.1.1"
