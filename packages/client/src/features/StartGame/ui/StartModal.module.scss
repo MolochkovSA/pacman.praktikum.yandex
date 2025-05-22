@@ -25,6 +25,7 @@
     li::before {
       content: '➤';
       position: absolute;
+      top: -3px;
       left: 0;
       color: #fcd34d;
       font-weight: bold;

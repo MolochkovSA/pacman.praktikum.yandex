@@ -11,7 +11,7 @@ const initialGhosts = [
   { x: 8, y: 15 }
 ];
 
-export const useGameLoop = (isGameStarted: boolean) => {
+export const useGameLoop = (isGameStarted: boolean, handleGameOver: (isWin: boolean) => void) => {
   const [player, setPlayer] = useState<Player>({ position: { x: 1, y: 1 } });
   const [foods, setFoods] = useState(generateFood);
   const [ghosts, setGhosts] = useState<Vector2D[]>(initialGhosts);
@@ -22,7 +22,7 @@ export const useGameLoop = (isGameStarted: boolean) => {
   const playerRef = useRef(player);
   const ghostsRef = useRef(ghosts);
   const directionRef = useRef(direction);
-  const lastDirectionRef = useRef(direction);
+  const prevDirectionRef = useRef(direction);
 
   useEffect(() => {
     playerRef.current = player;
@@ -54,7 +54,7 @@ export const useGameLoop = (isGameStarted: boolean) => {
   useEffect(() => {
     if (!isGameStarted) return;
     const interval = setInterval(() => {
-      const currentDirection = lastDirectionRef.current;
+      const currentDirection = prevDirectionRef.current;
       const desiredDirection = directionRef.current;
 
       const currentVector = directionVectors[currentDirection];
@@ -72,23 +72,19 @@ export const useGameLoop = (isGameStarted: boolean) => {
         x: currPlayer.position.x + currentVector.x,
         y: currPlayer.position.y + currentVector.y
       };
-      let nextPos;
+      let nextPos: Vector2D = currPlayer.position;
 
       if (canMoveTo(desiredPos)) {
         nextPos = desiredPos;
-        lastDirectionRef.current = desiredDirection;
+        prevDirectionRef.current = desiredDirection;
       } else if (canMoveTo(fallbackPos)) {
         nextPos = fallbackPos;
         directionRef.current = currentDirection;
         setDirection(currentDirection);
-      } else {
-        return;
       }
-
       const collided = currGhosts.some((ghost) => isSamePosition(ghost, nextPos));
       if (collided) {
-        alert('Конец игры!');
-        resetGame();
+        handleGameOver(false);
         return;
       }
 
@@ -100,6 +96,9 @@ export const useGameLoop = (isGameStarted: boolean) => {
         const remaining = prevFoods.filter((food) => !isSamePosition(food, nextPos));
         if (remaining.length < prevFoods.length) {
           setScore((prev) => prev + 10);
+        }
+        if (remaining.length === 0) {
+          handleGameOver(true);
         }
         return remaining;
       });
@@ -119,7 +118,7 @@ export const useGameLoop = (isGameStarted: boolean) => {
     }, 300);
 
     return () => clearInterval(interval);
-  }, [isGameStarted, resetGame]);
+  }, [handleGameOver, isGameStarted, resetGame]);
 
   return {
     player,

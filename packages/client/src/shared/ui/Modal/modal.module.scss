@@ -1,21 +1,27 @@
 @use 'styles/typography';
 @use 'styles/mixins';
-@use 'sass:color';
+@use 'styles/bootstrap';
 
 .modal {
   &__content {
-    background-color: #505023;
+    @include mixins.card-background;
+
     border-radius: 10px;
-    padding: 20px;
   }
 
   &__header {
-    @include typography.font(h2);
+    @include typography.font(h1);
     @include mixins.text-yellow-neon;
+
+    font-size: 20px;
+    background-color: #505023;
+    padding: 40px;
+    border-bottom: none;
   }
 
   &__body {
     height: 100%;
+    padding: 30px;
 
     form {
       display: flex;
@@ -30,5 +36,6 @@
   &__footer {
     border-top: none;
     margin: auto;
+    padding-bottom: 40px;
   }
 }

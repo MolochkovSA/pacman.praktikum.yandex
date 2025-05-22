@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/shared/ui';
 import styles from './GameOverPage.module.scss';
+
 export const GameOverPage = () => {
   const isWin = true;
   const navigate = useNavigate();

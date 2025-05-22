@@ -34,8 +34,8 @@ export const router = createBrowserRouter([
         element: <GamePage />
       },
       {
-        path: '/500',
-        element: <ErrorPage errorType="500" />
+        path: '/*',
+        element: <ErrorPage errorType="404" />
       },
       {
         path: '/profile',

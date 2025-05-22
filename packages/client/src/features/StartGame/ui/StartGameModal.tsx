@@ -15,7 +15,8 @@ export const StartGameModal = ({ onStart }: Props) => {
       btnText="Начать игру"
       onHide={() => {}}
       submit={onStart}
-      closeBtn={false}>
+      closeBtn={false}
+      size="lg">
       <div className={styles.start}>
         <ul className={styles.start__list}>
           <li>Cъешь всю еду на карте, избегая встречи с призраками</li>
