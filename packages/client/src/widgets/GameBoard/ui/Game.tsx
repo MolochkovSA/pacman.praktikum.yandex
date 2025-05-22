@@ -9,21 +9,29 @@ import { renderGhosts } from '@/entities/Ghost/ui/render';
 import { Player } from '@/entities/Player/model/types';
 import { Direction } from '@/shared/model/direction';
 import { tileSize } from '@/shared/const/game';
+import styles from './GameBoard.module.scss';
+import { useSetPause } from '@/features/UseSetPause/useSetPause';
 
 export const Game = ({
   player,
   foods,
   ghosts,
   ghostImages,
-  direction
+  direction,
+  isPaused,
+  setIsPaused
 }: {
   player: Player;
   foods: Vector2D[];
   ghosts: Vector2D[];
   ghostImages: HTMLImageElement[];
   direction: Direction;
+  isPaused: boolean;
+  setIsPaused: (isPaused: boolean) => void;
 }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  useSetPause({ isPaused, setIsPaused });
 
   useEffect(() => {
     const canvas = canvasRef.current!;
@@ -36,11 +44,18 @@ export const Game = ({
   }, [player, foods, ghosts, ghostImages, direction]);
 
   return (
-    <canvas
-      ref={canvasRef}
-      width={map[0].length * tileSize}
-      height={map.length * tileSize}
-      style={{ background: 'black' }}
-    />
+    <>
+      {isPaused && (
+        <div className={styles.overlay}>
+          Нажмите <span> space </span> чтобы начать или поставить игру на паузу
+        </div>
+      )}
+      <canvas
+        ref={canvasRef}
+        width={map[0].length * tileSize}
+        height={map.length * tileSize}
+        style={{ background: 'black' }}
+      />
+    </>
   );
 };

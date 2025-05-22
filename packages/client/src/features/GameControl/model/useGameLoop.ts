@@ -17,6 +17,8 @@ export const useGameLoop = (isGameStarted: boolean, handleGameOver: (isWin: bool
   const [ghosts, setGhosts] = useState<Vector2D[]>(initialGhosts);
   const [direction, setDirection] = useState<Direction>('ArrowRight');
 
+  const [isPaused, setIsPaused] = useState(true);
+
   const [score, setScore] = useState(0);
 
   const playerRef = useRef(player);
@@ -52,7 +54,7 @@ export const useGameLoop = (isGameStarted: boolean, handleGameOver: (isWin: bool
   }, []);
 
   useEffect(() => {
-    if (!isGameStarted) return;
+    if (!isGameStarted || isPaused) return;
     const interval = setInterval(() => {
       const currentDirection = prevDirectionRef.current;
       const desiredDirection = directionRef.current;
@@ -118,7 +120,7 @@ export const useGameLoop = (isGameStarted: boolean, handleGameOver: (isWin: bool
     }, 300);
 
     return () => clearInterval(interval);
-  }, [handleGameOver, isGameStarted, resetGame]);
+  }, [handleGameOver, isGameStarted, resetGame, isPaused]);
 
   return {
     player,
@@ -127,6 +129,8 @@ export const useGameLoop = (isGameStarted: boolean, handleGameOver: (isWin: bool
     score,
     direction,
     setDirection,
+    isPaused,
+    setIsPaused,
     resetGame
   };
 };

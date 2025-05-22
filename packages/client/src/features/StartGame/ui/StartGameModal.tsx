@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { BaseModal } from '@/shared/ui/Modal/modal';
 import { ArrowFatUp, ArrowFatDown, ArrowFatLeft, ArrowFatRight } from 'phosphor-react';
 
@@ -8,6 +9,14 @@ type Props = {
 };
 
 export const StartGameModal = ({ onStart }: Props) => {
+  const [isChecked, setChecked] = useState(false);
+
+  const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.checked;
+    setChecked(value);
+    localStorage.setItem('hideGameOverModal', value.toString());
+  };
+
   return (
     <BaseModal
       show={true}
@@ -52,6 +61,14 @@ export const StartGameModal = ({ onStart }: Props) => {
               <span>ALT</span> + <span>F</span>
             </div>
           </li>
+          <label className={styles.start__checkbox}>
+            <input
+              type="checkbox"
+              checked={isChecked}
+              onChange={handleCheckboxChange}
+            />
+            Больше не показывать
+          </label>
         </ul>
       </div>
     </BaseModal>

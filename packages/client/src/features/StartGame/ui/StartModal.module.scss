@@ -37,6 +37,7 @@
     align-items: center;
     justify-content: center;
     margin-top: 20px;
+    text-align: center;
 
     span {
       display: block;
@@ -71,6 +72,15 @@
 
         margin-top: 0.3rem;
       }
+    }
+  }
+
+  &__checkbox {
+    input {
+      width: 18px;
+      height: 18px;
+      accent-color: #fcd34d;
+      margin-right: 15px;
     }
   }
 }

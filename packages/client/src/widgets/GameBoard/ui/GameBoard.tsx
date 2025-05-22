@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { useGameLoop } from '@/features/GameControl/model/useGameLoop';
 import { useMovement } from '@/features/PlayerMovement/useMovement';
 import { ghostImages } from '@/shared/const/ghostImages';
@@ -14,13 +14,19 @@ export const GameBoard = () => {
   const [isGameOver, setGameOver] = useState(false);
   const [isWin, setIsWin] = useState(false);
 
+  useEffect(() => {
+    if (localStorage.getItem('hideGameOverModal')) {
+      setGameStarted(true);
+    }
+  }, [isGameStarted]);
+
   const handleGameOver = useCallback((isWin: boolean) => {
     setGameOver(true);
     setIsWin(isWin);
     setGameStarted(false);
   }, []);
 
-  const { player, setDirection, foods, ghosts, score, resetGame, direction } = useGameLoop(
+  const { player, setDirection, foods, ghosts, score, resetGame, direction, isPaused, setIsPaused } = useGameLoop(
     isGameStarted,
     handleGameOver
   );
@@ -38,11 +44,13 @@ export const GameBoard = () => {
       {!isGameStarted && !isGameOver && <StartGameModal onStart={() => setGameStarted(true)} />}
       {isGameStarted && (
         <Game
+          isPaused={isPaused}
           player={player}
           foods={foods}
           ghosts={ghosts}
           ghostImages={ghostImages}
           direction={direction}
+          setIsPaused={setIsPaused}
         />
       )}
       <Button onClick={resetGame}>Restart</Button>
