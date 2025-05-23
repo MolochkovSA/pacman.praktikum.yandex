@@ -9,6 +9,10 @@
   align-items: center;
   gap: 2rem;
 
+  &__button {
+    @include typography.font(p3);
+  }
+
   .title {
     @include typography.font(h1);
     @include mixins.text-yellow-neon;

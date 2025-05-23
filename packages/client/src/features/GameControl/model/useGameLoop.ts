@@ -16,11 +16,13 @@ export const useGameLoop = (isGameStarted: boolean) => {
   const [foods, setFoods] = useState(generateFood);
   const [ghosts, setGhosts] = useState<Vector2D[]>(initialGhosts);
   const [direction, setDirection] = useState<Direction>('ArrowRight');
+
   const [score, setScore] = useState(0);
 
   const playerRef = useRef(player);
   const ghostsRef = useRef(ghosts);
   const directionRef = useRef(direction);
+  const lastDirectionRef = useRef(direction);
 
   useEffect(() => {
     playerRef.current = player;
@@ -52,30 +54,50 @@ export const useGameLoop = (isGameStarted: boolean) => {
   useEffect(() => {
     if (!isGameStarted) return;
     const interval = setInterval(() => {
-      const vector = directionVectors[directionRef.current];
+      const currentDirection = lastDirectionRef.current;
+      const desiredDirection = directionRef.current;
+
+      const currentVector = directionVectors[currentDirection];
+      const desiredVector = directionVectors[desiredDirection];
+
       const currPlayer = playerRef.current;
       const currGhosts = ghostsRef.current;
 
-      const newPos = {
-        x: currPlayer.position.x + vector.x,
-        y: currPlayer.position.y + vector.y
+      const desiredPos = {
+        x: currPlayer.position.x + desiredVector.x,
+        y: currPlayer.position.y + desiredVector.y
       };
 
-      if (!canMoveTo(newPos)) return;
+      const fallbackPos = {
+        x: currPlayer.position.x + currentVector.x,
+        y: currPlayer.position.y + currentVector.y
+      };
+      let nextPos;
 
-      const collided = currGhosts.some((ghost) => isSamePosition(ghost, newPos));
+      if (canMoveTo(desiredPos)) {
+        nextPos = desiredPos;
+        lastDirectionRef.current = desiredDirection;
+      } else if (canMoveTo(fallbackPos)) {
+        nextPos = fallbackPos;
+        directionRef.current = currentDirection;
+        setDirection(currentDirection);
+      } else {
+        return;
+      }
+
+      const collided = currGhosts.some((ghost) => isSamePosition(ghost, nextPos));
       if (collided) {
         alert('Конец игры!');
         resetGame();
         return;
       }
 
-      const updatedPlayer = { position: newPos };
+      const updatedPlayer = { position: nextPos };
       setPlayer(updatedPlayer);
       playerRef.current = updatedPlayer;
 
       setFoods((prevFoods) => {
-        const remaining = prevFoods.filter((food) => !isSamePosition(food, newPos));
+        const remaining = prevFoods.filter((food) => !isSamePosition(food, nextPos));
         if (remaining.length < prevFoods.length) {
           setScore((prev) => prev + 10);
         }
