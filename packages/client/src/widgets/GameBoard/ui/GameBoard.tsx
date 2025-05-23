@@ -28,7 +28,7 @@ export const GameBoard = () => {
         direction={direction}
       />
 
-      <Button handleClick={resetGame}>Restart</Button>
+      <Button onClick={resetGame}>Restart</Button>
     </>
   );
 };

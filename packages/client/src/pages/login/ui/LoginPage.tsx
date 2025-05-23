@@ -43,7 +43,7 @@ export const LoginPage = () => {
         </Card.Header>
         <Card.Body>
           <form
-            id="login"
+            id="loginForm"
             onSubmit={handleSubmit(onSubmit)}>
             <Input
               label="Логин"
@@ -64,7 +64,7 @@ export const LoginPage = () => {
         <Card.Footer className="d-flex flex-column gap-3 align-items-center mt-5">
           <Button
             className="w-100"
-            form="login"
+            form="loginForm"
             type="submit">
             Авторизироваться
           </Button>
