@@ -11,8 +11,8 @@ import styles from './GameBoard.module.scss';
 
 export const GameBoard = () => {
   const [isGameStarted, setGameStarted] = useState(false);
-  const [isGameOver, setGameOver] = useState(false);
-  const [isWin, setIsWin] = useState(false);
+
+  console.log('rerender');
 
   useEffect(() => {
     if (localStorage.getItem('hideGameOverModal')) {
@@ -20,22 +20,27 @@ export const GameBoard = () => {
     }
   }, [isGameStarted]);
 
-  const handleGameOver = useCallback((isWin: boolean) => {
-    setGameOver(true);
-    setIsWin(isWin);
-    setGameStarted(false);
-  }, []);
-
-  const { player, setDirection, foods, ghosts, score, resetGame, direction, isPaused, setIsPaused } = useGameLoop(
-    isGameStarted,
-    handleGameOver
-  );
+  const {
+    player,
+    setDirection,
+    foods,
+    ghosts,
+    score,
+    resetGame,
+    direction,
+    isPaused,
+    setIsPaused,
+    isWin,
+    isGameOver,
+    setGameOver
+  } = useGameLoop(isGameStarted, setGameStarted);
 
   const handleRestart = useCallback(() => {
     resetGame();
     setGameStarted(true);
     setGameOver(false);
-  }, [resetGame]);
+    setIsPaused(true);
+  }, [resetGame, setGameOver, setIsPaused]);
 
   useMovement(setDirection);
   return (

@@ -11,20 +11,40 @@ const initialGhosts = [
   { x: 8, y: 15 }
 ];
 
-export const useGameLoop = (isGameStarted: boolean, handleGameOver: (isWin: boolean) => void) => {
+type Props = {
+  isGameStarted: boolean;
+  setGameStarted: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+export const useGameLoop = (isGameStarted: boolean, setGameStarted: React.Dispatch<React.SetStateAction<boolean>>) => {
   const [player, setPlayer] = useState<Player>({ position: { x: 1, y: 1 } });
   const [foods, setFoods] = useState(generateFood);
   const [ghosts, setGhosts] = useState<Vector2D[]>(initialGhosts);
   const [direction, setDirection] = useState<Direction>('ArrowRight');
-
+  const [isGameOver, setGameOver] = useState(false);
+  const [isWin, setIsWin] = useState(false);
   const [isPaused, setIsPaused] = useState(true);
-
   const [score, setScore] = useState(0);
 
+  const isGameOverRef = useRef(isGameOver);
   const playerRef = useRef(player);
   const ghostsRef = useRef(ghosts);
   const directionRef = useRef(direction);
   const prevDirectionRef = useRef(direction);
+
+  const handleGameOver = useCallback(
+    (isWin: boolean) => {
+      setGameOver(true);
+      setIsWin(isWin);
+      setGameStarted(false);
+      isGameOverRef.current = true;
+    },
+    [setGameStarted]
+  );
+
+  useEffect(() => {
+    isGameOverRef.current = isGameOver;
+  }, [isGameOver]);
 
   useEffect(() => {
     playerRef.current = player;
@@ -54,7 +74,7 @@ export const useGameLoop = (isGameStarted: boolean, handleGameOver: (isWin: bool
   }, []);
 
   useEffect(() => {
-    if (!isGameStarted || isPaused) return;
+    if (!isGameStarted || isPaused || isGameOverRef.current) return;
     const interval = setInterval(() => {
       const currentDirection = prevDirectionRef.current;
       const desiredDirection = directionRef.current;
@@ -85,6 +105,7 @@ export const useGameLoop = (isGameStarted: boolean, handleGameOver: (isWin: bool
         setDirection(currentDirection);
       }
       const collided = currGhosts.some((ghost) => isSamePosition(ghost, nextPos));
+
       if (collided) {
         handleGameOver(false);
         return;
@@ -131,6 +152,9 @@ export const useGameLoop = (isGameStarted: boolean, handleGameOver: (isWin: bool
     setDirection,
     isPaused,
     setIsPaused,
-    resetGame
+    resetGame,
+    isWin,
+    isGameOver,
+    setGameOver
   };
 };
