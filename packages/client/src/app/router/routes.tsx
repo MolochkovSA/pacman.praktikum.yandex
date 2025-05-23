@@ -54,6 +54,10 @@ export const router = createBrowserRouter([
         element: <ErrorPage errorType="404" />
       },
       {
+        path: '/500',
+        element: <ErrorPage errorType="500" />
+      },
+      {
         path: '/profile',
         element: <ProfilePage />
       },

@@ -6,13 +6,16 @@ import { useNavigate } from 'react-router-dom';
 import { Button, IconLink, Input } from '@/shared/ui';
 import { Login } from '@/shared/model/types';
 import { loginSchema } from '@/shared/model';
-import { authService } from '@/shared/api';
-import { SignInProps } from '@/shared/types';
-import { userStoreService } from '@/shared/lib';
+import { HttpError, SignInProps } from '@/shared/types';
 
 import styles from './LoginPage.module.scss';
+import { useDispatch } from 'react-redux';
+import { setSucceededStatus } from '@/entities/user/model/slice.ts';
+import { notify } from '@/shared/model/notificationSlice.ts';
+import { authService } from '@/entities/user';
 
 export const LoginPage = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const {
@@ -30,8 +33,21 @@ export const LoginPage = () => {
       .signIn(data as SignInProps)
       .then(() => authService.getUser())
       .then((user) => {
-        userStoreService.user = user;
+        dispatch(setSucceededStatus(user));
         navigate('/home');
+      })
+      .catch((error) => {
+        if (error instanceof HttpError) {
+          if (error.status === 401) {
+            dispatch(notify('Неправильный логин или пароль'));
+          } else if (error.status === 400) {
+            dispatch(notify('Пользователь уже авторизован'));
+            navigate('/home');
+          } else if (error.status / 100 === 5) {
+            dispatch(notify('Ошибка сервера'));
+            navigate('/500');
+          }
+        }
       });
   };
 

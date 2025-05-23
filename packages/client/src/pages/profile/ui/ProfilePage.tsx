@@ -11,11 +11,12 @@ import { Input } from '@/shared/ui';
 import { Avatar } from '@/shared/ui';
 import { Profile } from '@/shared/model/types';
 import { PasswordModal } from '@/features/changePassword/ui';
-import { userStoreService } from '@/shared/lib';
 import pic from '@/assets/images/profile.png';
+import { useSelector } from 'react-redux';
+import { selectUserByStatus } from '@/entities/user/model/slice.ts';
 
 export const ProfilePage = () => {
-  const user = userStoreService.user;
+  const user = useSelector(selectUserByStatus);
 
   const {
     register,
