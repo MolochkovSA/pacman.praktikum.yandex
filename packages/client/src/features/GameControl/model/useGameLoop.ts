@@ -17,7 +17,6 @@ export const useGameLoop = (isGameStarted: boolean) => {
   const [ghosts, setGhosts] = useState<Vector2D[]>(initialGhosts);
   const [direction, setDirection] = useState<Direction>('ArrowRight');
   const [score, setScore] = useState(0);
-
   const playerRef = useRef(player);
   const ghostsRef = useRef(ghosts);
   const directionRef = useRef(direction);
