@@ -2,3 +2,22 @@
   text-shadow: var(--shadow-yellow-text);
   color: var(--color-yellow-text);
 }
+
+@mixin screen-score {
+  display: inline-block;
+  padding: 6px 14px;
+  background-color: #1a1a1a;
+  color: var(--color-blue-main);
+  font-size: 16px;
+  border: 2px solid var(--color-blue-main);
+  border-radius: 5px;
+  box-shadow: 0 0 4px var(--color-blue-main) 0 0 8px var(--color-blue-main);
+  text-shadow: 0 0 2px var(--color-blue-main);
+}
+
+@mixin card-background {
+  border-radius: 1rem;
+  background-color: var(--color-yellow-opacity15);
+  backdrop-filter: blur(7px);
+  box-shadow: 0 2px 8px 2px rgb(255 242 0 / 30%);
+}

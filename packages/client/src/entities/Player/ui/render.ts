@@ -12,8 +12,11 @@ const directionToAngle: Record<Direction, number> = {
 
 export const renderPlayer = (ctx: CanvasRenderingContext2D, player: Player, direction: Direction) => {
   const time = Date.now();
-  const mouthOpen = (Math.sin(time / 150) + 1) / 2;
-  const mouthAngle = (mouthOpen * Math.PI) / 4; // угол раскрытия рта (макс 45°)
+  const smoothFactor = 150;
+  const amplitude = 0.25;
+
+  const mouthOpen = (Math.sin(time / smoothFactor) + 1) / 2;
+  const mouthAngle = mouthOpen * Math.PI * amplitude;
 
   const baseAngle = directionToAngle[direction];
   const centerX = player.position.x * tileSize + tileSize / 2;

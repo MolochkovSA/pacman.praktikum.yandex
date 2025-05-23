@@ -10,6 +10,7 @@ export const generateFood = (): Vector2D[] => {
       }
     });
   });
+
   return foodPositions;
 };
 

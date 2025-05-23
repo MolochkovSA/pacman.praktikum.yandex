@@ -12,16 +12,29 @@ type BaseModalProps = {
   children?: ReactNode;
   onHide: () => void;
   submit: () => void;
-  closeBtn: boolean;
+  closeBtn?: boolean;
+  size?: 'sm' | 'lg' | 'xl';
+  footer?: ReactNode;
 };
 
-export const BaseModal = ({ show, title, children, btnText, onHide, submit, closeBtn = true }: BaseModalProps) => {
+export const BaseModal = ({
+  show,
+  title,
+  children,
+  btnText,
+  onHide,
+  submit,
+  closeBtn = true,
+  size = 'sm',
+  footer
+}: BaseModalProps) => {
   return (
     <Modal
       show={show}
       onHide={onHide}
       centered
-      contentClassName={styles.modal__content}>
+      contentClassName={styles.modal__content}
+      size={size}>
       <Modal.Header
         closeButton={closeBtn}
         className={styles.modal__header}>
@@ -34,6 +47,7 @@ export const BaseModal = ({ show, title, children, btnText, onHide, submit, clos
           onClick={submit}>
           {btnText}
         </Button>
+        {footer}
       </Modal.Footer>
     </Modal>
   );
