@@ -11,11 +11,6 @@ const initialGhosts = [
   { x: 8, y: 15 }
 ];
 
-type Props = {
-  isGameStarted: boolean;
-  setGameStarted: React.Dispatch<React.SetStateAction<boolean>>;
-};
-
 export const useGameLoop = (isGameStarted: boolean, setGameStarted: React.Dispatch<React.SetStateAction<boolean>>) => {
   const [player, setPlayer] = useState<Player>({ position: { x: 1, y: 1 } });
   const [foods, setFoods] = useState(generateFood);

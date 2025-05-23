@@ -12,8 +12,6 @@ import styles from './GameBoard.module.scss';
 export const GameBoard = () => {
   const [isGameStarted, setGameStarted] = useState(false);
 
-  console.log('rerender');
-
   useEffect(() => {
     if (localStorage.getItem('hideGameOverModal')) {
       setGameStarted(true);
