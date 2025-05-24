@@ -5,6 +5,7 @@ import { generateFood, isSamePosition } from '@/entities/Food';
 import { Player } from '@/entities/Player/model/types';
 import { Direction, directionVectors } from '@/shared/model/direction';
 import { GhostMode } from '@/shared/model/ghostMode';
+import { totalLives } from '@/shared/const/game';
 
 const initialGhosts = [
   { x: 14, y: 2 },
@@ -18,7 +19,7 @@ export const useGameLoop = (isGameStarted: boolean) => {
   const [ghosts, setGhosts] = useState<Vector2D[]>(initialGhosts);
   const [direction, setDirection] = useState<Direction>('ArrowRight');
   const [score, setScore] = useState(0);
-  const [lives, setLives] = useState(3);
+  const [lives, setLives] = useState(totalLives);
   const [ghostMode, setGhostMode] = useState<GhostMode>('scatter');
 
   const playerRef = useRef(player);
@@ -52,7 +53,7 @@ export const useGameLoop = (isGameStarted: boolean) => {
     setGhosts(initialGhostsCopy);
     setScore(0);
     setDirection('ArrowRight');
-    setLives(3);
+    setLives(totalLives);
 
     playerRef.current = initialPlayer;
     ghostsRef.current = initialGhostsCopy;
