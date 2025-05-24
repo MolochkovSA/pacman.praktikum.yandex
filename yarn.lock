@@ -3872,7 +3872,7 @@ cli-width@^3.0.0:
     "@hookform/resolvers" "^5.0.1"
     "@reduxjs/toolkit" "^2.8.1"
     bootstrap "^5.3.6"
-    client "file:C:/Users/user/AppData/Local/Yarn/Cache/v6/npm-client-0.0.0-80d98e4c-7d7c-43d6-82ef-134c107e36f1-1748027829492/node_modules/client"
+    client "file:../AppData/Local/Yarn/Cache/v6/npm-client-0.0.0-be96be5d-ac08-421c-b70c-2ebf04869287-1748033722539/node_modules/client"
     clsx "^2.1.1"
     dotenv "^16.5.0"
     jsdom "^26.1.0"
