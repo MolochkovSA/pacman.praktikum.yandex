@@ -4,6 +4,7 @@ import { canMoveTo } from '@/entities/Map';
 import { generateFood, isSamePosition } from '@/entities/Food';
 import { Player } from '@/entities/Player/model/types';
 import { Direction, directionVectors } from '@/shared/model/direction';
+import { GhostMode } from '@/shared/model/ghostMode';
 
 const initialGhosts = [
   { x: 14, y: 2 },
@@ -17,11 +18,19 @@ export const useGameLoop = (isGameStarted: boolean) => {
   const [ghosts, setGhosts] = useState<Vector2D[]>(initialGhosts);
   const [direction, setDirection] = useState<Direction>('ArrowRight');
   const [score, setScore] = useState(0);
+  const [lives, setLives] = useState(3);
+  const [ghostMode, setGhostMode] = useState<GhostMode>('scatter');
 
   const playerRef = useRef(player);
   const ghostsRef = useRef(ghosts);
   const directionRef = useRef(direction);
+  useEffect(() => {
+    const modeInterval = setInterval(() => {
+      setGhostMode((prev) => (prev === 'scatter' ? 'chase' : 'scatter'));
+    }, 5000); // каждые 5 секунд меняется режим
 
+    return () => clearInterval(modeInterval);
+  }, []);
   useEffect(() => {
     playerRef.current = player;
   }, [player]);
@@ -43,6 +52,7 @@ export const useGameLoop = (isGameStarted: boolean) => {
     setGhosts(initialGhostsCopy);
     setScore(0);
     setDirection('ArrowRight');
+    setLives(3);
 
     playerRef.current = initialPlayer;
     ghostsRef.current = initialGhostsCopy;
@@ -61,16 +71,34 @@ export const useGameLoop = (isGameStarted: boolean) => {
         y: currPlayer.position.y + vector.y
       };
 
-      if (!canMoveTo(newPos)) return;
+      let updatedPlayer = playerRef.current;
+      if (canMoveTo(newPos)) {
+        updatedPlayer = { position: newPos };
+        setPlayer(updatedPlayer);
+        playerRef.current = updatedPlayer;
 
-      const collided = currGhosts.some((ghost) => isSamePosition(ghost, newPos));
+        setFoods((prevFoods) => {
+          const remaining = prevFoods.filter((food) => !isSamePosition(food, newPos));
+          if (remaining.length < prevFoods.length) {
+            setScore((prev) => prev + 10);
+          }
+          return remaining;
+        });
+      }
+
+      const collided = currGhosts.some((ghost) => isSamePosition(ghost, updatedPlayer.position));
       if (collided) {
-        alert('Конец игры!');
-        resetGame();
+        if (lives > 1) {
+          setLives((prev) => prev - 1);
+          setPlayer({ position: { x: 1, y: 1 } });
+          playerRef.current = { position: { x: 1, y: 1 } };
+        } else {
+          alert('Игра окончена!');
+          resetGame();
+        }
         return;
       }
 
-      const updatedPlayer = { position: newPos };
       setPlayer(updatedPlayer);
       playerRef.current = updatedPlayer;
 
@@ -83,12 +111,26 @@ export const useGameLoop = (isGameStarted: boolean) => {
       });
 
       const newGhosts = currGhosts.map((ghost) => {
+        // приведения движутся за игроком
+        if (ghostMode === 'chase') {
+          const dx = player.position.x - ghost.x;
+          const dy = player.position.y - ghost.y;
+
+          const preferredDir = Math.abs(dx) > Math.abs(dy) ? { x: Math.sign(dx), y: 0 } : { x: 0, y: Math.sign(dy) };
+
+          const targetPos = { x: ghost.x + preferredDir.x, y: ghost.y + preferredDir.y };
+
+          if (canMoveTo(targetPos)) return targetPos;
+        }
+
+        // хаотичное движение
         const dirs = Object.values(directionVectors);
         for (let i = 0; i < dirs.length; i++) {
           const dir = dirs[Math.floor(Math.random() * dirs.length)];
-          const newGhostPos = { x: ghost.x + dir.x, y: ghost.y + dir.y };
-          if (canMoveTo(newGhostPos)) return newGhostPos;
+          const pos = { x: ghost.x + dir.x, y: ghost.y + dir.y };
+          if (canMoveTo(pos)) return pos;
         }
+
         return ghost;
       });
 
@@ -97,7 +139,7 @@ export const useGameLoop = (isGameStarted: boolean) => {
     }, 300);
 
     return () => clearInterval(interval);
-  }, [isGameStarted, resetGame]);
+  }, [isGameStarted, resetGame, lives, ghostMode, player.position.x, player.position.y]);
 
   return {
     player,
@@ -106,6 +148,7 @@ export const useGameLoop = (isGameStarted: boolean) => {
     score,
     direction,
     setDirection,
-    resetGame
+    resetGame,
+    lives
   };
 };
