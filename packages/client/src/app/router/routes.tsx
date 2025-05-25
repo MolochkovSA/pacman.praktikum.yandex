@@ -1,4 +1,4 @@
-import { createBrowserRouter, Navigate } from 'react-router-dom';
+import { createBrowserRouter } from 'react-router-dom';
 import App from '../ui/App';
 import { LoginPage } from '@/pages/login';
 import { SignUpPage } from '@/pages/signup';
@@ -6,10 +6,12 @@ import { ProfilePage } from '@/pages/profile';
 import { ErrorPage } from '@/pages/error';
 import { GamePage } from '@/pages/game';
 import { ForumPage } from '@/pages/forum';
-import { LayoutWithTopbar } from '@/pages/layout-with-topbar';
+import { HomeLayout } from '@/pages/home-layout';
 import { ForumTopicViewPage } from '@/pages/forum-topic-view';
 import { ForumTopicEditPage, topicLoader } from '@/pages/forum-topic-edit';
-import { LeaderBoard } from '@/pages/lider-board';
+import { LeaderBoard } from '@/pages/leader-board';
+import { HomePage } from '@/pages/home';
+import { AuthLayout } from '@/pages/auth-layout';
 
 export const router = createBrowserRouter([
   {
@@ -18,36 +20,51 @@ export const router = createBrowserRouter([
     errorElement: <ErrorPage errorType="500" />,
     children: [
       {
-        index: true,
-        element: (
-          <Navigate
-            to="/login"
-            replace
-          />
-        )
-      },
-      {
-        path: '/login',
-        element: <LoginPage />
-      },
-      {
-        path: '/signup',
-        element: <SignUpPage />
-      },
-      {
-        path: 'forum',
-        lazy: LayoutWithTopbar,
+        path: '',
+        lazy: HomeLayout,
         children: [
-          { index: true, lazy: ForumPage },
-          { path: 'posting', lazy: ForumTopicEditPage },
+          { index: true, lazy: HomePage },
           {
-            path: ':topicId',
+            path: 'profile',
+            lazy: ProfilePage
+          },
+          {
+            path: 'leaderboard',
+            lazy: LeaderBoard
+          },
+          {
+            path: 'forum',
             children: [
-              { index: true, lazy: ForumTopicViewPage },
-              { path: 'edit', loader: topicLoader, lazy: ForumTopicEditPage }
+              { index: true, lazy: ForumPage },
+              { path: 'posting', lazy: ForumTopicEditPage },
+              {
+                path: ':topicId',
+                children: [
+                  { index: true, lazy: ForumTopicViewPage },
+                  { path: 'edit', loader: topicLoader, lazy: ForumTopicEditPage }
+                ]
+              }
             ]
           }
         ]
+      },
+      {
+        path: 'auth',
+        lazy: AuthLayout,
+        children: [
+          {
+            path: 'login',
+            lazy: LoginPage
+          },
+          {
+            path: 'signup',
+            lazy: SignUpPage
+          }
+        ]
+      },
+      {
+        path: '/game',
+        element: <GamePage />
       },
       {
         path: '/*',
@@ -56,36 +73,7 @@ export const router = createBrowserRouter([
       {
         path: '/500',
         element: <ErrorPage errorType="500" />
-      },
-      {
-        path: '/profile',
-        element: <ProfilePage />
-      },
-      // {
-      //   path: '/home',
-      //   element: <SignUpPage />
-      // },
-      {
-        path: '/game',
-        element: <GamePage />
-      },
-      {
-        path: '/leaderboard',
-        lazy: LayoutWithTopbar,
-        children: [{ index: true, lazy: LeaderBoard }]
       }
-      // {
-      //   path: '/forum',
-      //   element: <SignUpPage />
-      // },
-      // {
-      //   path: '/forum/:id',
-      //   element: <SignUpPage />
-      // },
-      // {
-      //   path: '/server_error',
-      //   element: <SignUpPage />
-      // }
     ]
   }
 ]);

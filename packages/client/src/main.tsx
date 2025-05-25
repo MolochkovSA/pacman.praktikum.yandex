@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import ReactDOM from 'react-dom/client';
 import { RouterProvider } from 'react-router-dom';
 import './app/styles/global.scss';
@@ -8,8 +8,10 @@ import { store } from '@/app/store/store.ts';
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
-    <Provider store={store}>
-      <RouterProvider router={router} />
-    </Provider>
+    <Suspense fallback={<div>Загрузка...</div>}>
+      <Provider store={store}>
+        <RouterProvider router={router} />
+      </Provider>
+    </Suspense>
   </React.StrictMode>
 );

@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import clsx from 'clsx';
 import { GrFireball } from 'react-icons/gr';
 
-import defaultAvatar from '@/assets/images/avatar.png';
+import { getAvatarSrc } from '@/shared/lib/getAvatarSrc';
+import { useAuth } from '@/features/auth';
 
 import styles from './UserInfo.module.scss';
 
@@ -13,7 +14,7 @@ interface Props {
 
 function UserInfo({ show, onClick }: Props, ref: React.Ref<HTMLDivElement>) {
   const [isActive, setIsActive] = useState(false);
-  const login = 'Winner of the world'; // Todo: get from store
+  const { user } = useAuth();
   const achievement = 1000; // Todo: get from store
 
   return (
@@ -26,13 +27,11 @@ function UserInfo({ show, onClick }: Props, ref: React.Ref<HTMLDivElement>) {
       }}>
       <img
         className={clsx(styles.avatar, { [styles.active]: show })}
-        src={defaultAvatar}
-        width={48}
-        height={48}
+        src={getAvatarSrc(user?.avatar)}
         alt="avatar"
       />
       <div className={styles.info}>
-        <span className={clsx(styles.login, { [styles.active]: show })}>{login}</span>
+        <span className={clsx(styles.login, { [styles.active]: show })}>{user?.login}</span>
         <div className={styles.achievement}>
           <GrFireball />
           <span>{achievement}</span>

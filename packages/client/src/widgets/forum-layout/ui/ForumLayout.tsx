@@ -8,7 +8,7 @@ type Props = {
 
 export const ForumLayout = ({ top, children }: Props & PropsWithChildren) => {
   return (
-    <div className={styles.forumLayout}>
+    <div className={styles.layout}>
       <div className={styles.header}>{top}</div>
       {children}
     </div>

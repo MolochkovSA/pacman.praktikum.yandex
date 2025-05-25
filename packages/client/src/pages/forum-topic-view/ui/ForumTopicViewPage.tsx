@@ -2,8 +2,9 @@ import { useState } from 'react';
 import { Card } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 
-import { Breadcrumbs, Pagination, Spinner } from '@/shared/ui';
+import { Breadcrumbs, Spinner } from '@/shared/ui';
 import { ForumLayout } from '@/widgets/forum-layout';
+import { Pagination } from '@/widgets/pagination';
 import { CreateCommentForm } from '@/features/comment/create';
 import { MessageBlock } from './MessageBlock/MessageBlock';
 import { useTopicView } from '../hooks/useTopicView';
