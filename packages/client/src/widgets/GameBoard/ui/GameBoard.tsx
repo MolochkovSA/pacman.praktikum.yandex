@@ -5,17 +5,19 @@ import { ghostImages } from '@/shared/const/ghostImages';
 import { Button } from '@/shared/ui';
 import { Game } from './Game';
 import { StartGameModal } from '@/features/StartGame/ui/StartGameModal';
+import { Lives } from '@/entities/Lives';
 
 import styles from './GameBoard.module.scss';
 
 export const GameBoard = () => {
   const [isGameStarted, setGameStarted] = useState(false);
-  const { player, setDirection, foods, ghosts, score, resetGame, direction } = useGameLoop(isGameStarted);
+  const { player, setDirection, foods, ghosts, score, resetGame, direction, lives } = useGameLoop(isGameStarted);
 
   useMovement(setDirection);
   return (
     <>
       <div className={styles.score}>Очки: {score}</div>
+      <Lives lives={lives} />
       {!isGameStarted && <StartGameModal onStart={() => setGameStarted(true)} />}
       {isGameStarted && (
         <Game
