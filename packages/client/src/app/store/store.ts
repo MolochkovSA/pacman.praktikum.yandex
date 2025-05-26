@@ -1,6 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
-import userReducer from '@/entities/user/model/slice.ts';
-import notificationReducer from '@/shared/model/notificationSlice.ts';
+
+import { notificationReducer } from '@/entities/notification';
+import { userReducer } from '@/entities/user';
 
 export const store = configureStore({
   reducer: {

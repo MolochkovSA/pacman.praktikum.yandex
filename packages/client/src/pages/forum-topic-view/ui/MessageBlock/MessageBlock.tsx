@@ -9,25 +9,20 @@ type Props = {
   createdAt: Date;
   author: {
     id: number;
-    display_name: string;
+    login: string;
     avatar: string;
   };
 };
 
-export const MessageBlock = ({
-  themeDescription,
-  text,
-  createdAt,
-  author: { id: authorId, display_name, avatar }
-}: Props) => {
+export const MessageBlock = ({ themeDescription, text, createdAt, author: { id: authorId, login, avatar } }: Props) => {
   return (
     <Card>
       <Card.Body className={styles.messageBlock}>
         <div className={styles.author}>
-          <Link to={`/profile/${authorId}`}>{display_name}</Link>
+          <Link to={`/profile/${authorId}`}>{login}</Link>
           <img
             src={avatar}
-            alt={`avatar of ${display_name}`}
+            alt={`avatar of ${login}`}
           />
         </div>
 

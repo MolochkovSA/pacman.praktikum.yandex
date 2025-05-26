@@ -1,65 +1,49 @@
-import styles from './HomePage.module.scss';
 import { IconLink } from '@/shared/ui';
-import { Icon } from '@/pages/Icon/Icon.tsx';
+import { Icon } from './Icon/Icon';
+
+import styles from './HomePage.module.scss';
 
 export const HomePage = () => {
   return (
-    <main className={styles.home}>
-      <div className={styles.title}>PACMAN</div>
+    <div className={styles.home}>
+      <h1 className={styles.title}>PACMAN</h1>
       <div className={styles.menu}>
-        <hr className={styles.line} />
-        <nav className={styles.navigation}>
-          <IconLink
-            className={styles.link}
-            to={'/game'}>
-            <div className={styles.link__children}>
-              <Icon
-                className={styles.link__icon}
-                src={'pacman'}
-                size={50}
-              />
-              {'Игра'}
-            </div>
+        <hr />
+        <nav>
+          <IconLink to="/game">
+            <Icon
+              src="pacman"
+              size={50}
+            />
+            Игра
           </IconLink>
-          <IconLink
-            className={styles.link}
-            to={'/profile'}>
-            <div className={styles.link__children}>
-              <Icon
-                className={styles.link__icon}
-                src={'pacman'}
-                size={50}
-              />
-              {'Профиль'}
-            </div>
+
+          <IconLink to="/profile">
+            <Icon
+              src="pacman"
+              size={50}
+            />
+            Профиль
           </IconLink>
-          <IconLink
-            className={styles.link}
-            to={'/leaderboard'}>
-            <div className={styles.link__children}>
-              <Icon
-                className={styles.link__icon}
-                src={'pacman'}
-                size={50}
-              />
-              {'Лидерборд'}
-            </div>
+
+          <IconLink to="/leaderboard">
+            <Icon
+              src="pacman"
+              size={50}
+            />
+            Лидерборд
           </IconLink>
-          <IconLink
-            className={styles.link}
-            to={'/forum'}>
-            <div className={styles.link__children}>
-              <Icon
-                className={styles.link__icon}
-                src={'pacman'}
-                size={50}
-              />
-              {'Форум'}
-            </div>
+
+          <IconLink to="/forum">
+            <Icon
+              src="pacman"
+              size={50}
+            />
+            Форум
           </IconLink>
         </nav>
-        <hr className={styles.line} />
+        <hr />
       </div>
-    </main>
+    </div>
   );
 };
