@@ -6,15 +6,9 @@
   border-radius: 8px;
   padding: 16px;
 
-  @include typography.font(p2);
-
-  span {
-    margin-top: 2px;
-  }
-
   .button {
     width: 100%;
-    padding: 8px 12px;
+    padding: 8px;
     margin-bottom: 8px;
     display: flex;
     align-items: center;
@@ -22,7 +16,14 @@
     gap: 12px;
     color: var(--color-gainsboro);
     border: none;
+    border-radius: 8px;
     background-color: inherit;
+
+    span {
+      @include typography.font(p2);
+
+      margin-top: 2px;
+    }
 
     &:hover {
       color: var(--color-yellow-text);
