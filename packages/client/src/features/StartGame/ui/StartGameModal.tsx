@@ -1,5 +1,5 @@
+import { Modal } from '@/shared/ui/Modal/Modal';
 import { useState } from 'react';
-import { BaseModal } from '@/shared/ui/Modal/modal';
 import { ArrowFatUp, ArrowFatDown, ArrowFatLeft, ArrowFatRight } from 'phosphor-react';
 
 import styles from './StartModal.module.scss';
@@ -18,7 +18,7 @@ export const StartGameModal = ({ onStart }: Props) => {
   };
 
   return (
-    <BaseModal
+    <Modal
       show={true}
       title="Начало игры"
       btnText="Начать игру"
@@ -71,6 +71,6 @@ export const StartGameModal = ({ onStart }: Props) => {
           </label>
         </ul>
       </div>
-    </BaseModal>
+    </Modal>
   );
 };

@@ -1,11 +1,11 @@
-import { memo, useRef } from 'react';
+import { useRef } from 'react';
 
-import { GameBoard } from '@/widgets/GameBoard';
 import { useFullscreen } from '@/features/FullScreen/useFullScreen';
-
+import { GameBoard } from '@/widgets/GameBoard';
+import { withAuthGuard } from '@/features/auth';
 import styles from './GamePage.module.scss';
 
-export const GamePage = memo(function GamePage() {
+export const GamePage = withAuthGuard(function GamePage() {
   const gameContainerRef = useRef<HTMLDivElement>(null);
 
   const { isFullscreen, toggleFullscreen } = useFullscreen();

@@ -1,4 +1,4 @@
-import { BaseModal } from '@/shared/ui/Modal/modal';
+import { Modal } from '@/shared/ui/Modal/Modal';
 import styles from './GameOver.module.scss';
 import { useNavigate } from 'react-router-dom';
 
@@ -29,7 +29,7 @@ export const GameOverModal = ({ onRestart, score, isWin }: GameOverModalProps) =
     navigate('/');
   };
   return (
-    <BaseModal
+    <Modal
       show={true}
       title={title}
       btnText="Играть снова"
@@ -44,6 +44,6 @@ export const GameOverModal = ({ onRestart, score, isWin }: GameOverModalProps) =
           Ваши очки: <strong>{score}</strong>
         </p>
       </div>
-    </BaseModal>
+    </Modal>
   );
 };

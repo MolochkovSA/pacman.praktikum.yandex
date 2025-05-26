@@ -6,6 +6,7 @@ import { Button } from '@/shared/ui';
 import { Game } from './Game';
 import { StartGameModal } from '@/features/StartGame/ui/StartGameModal';
 import { GameOverModal } from '@/features/GameOver/ui/GameOverModal';
+import { Lives } from '@/entities/Lives';
 
 import styles from './GameBoard.module.scss';
 
@@ -30,7 +31,8 @@ export const GameBoard = () => {
     setIsPaused,
     isWin,
     isGameOver,
-    setGameOver
+    setGameOver,
+    lives
   } = useGameLoop(isGameStarted, setGameStarted);
 
   const handleRestart = useCallback(() => {
@@ -44,7 +46,9 @@ export const GameBoard = () => {
   return (
     <>
       <div className={styles.score}>Очки: {score}</div>
+      <Lives lives={lives} />
       {!isGameStarted && !isGameOver && <StartGameModal onStart={() => setGameStarted(true)} />}
+
       {isGameStarted && (
         <Game
           isPaused={isPaused}

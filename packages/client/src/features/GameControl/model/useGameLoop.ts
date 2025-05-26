@@ -4,6 +4,8 @@ import { canMoveTo } from '@/entities/Map';
 import { generateFood, isSamePosition } from '@/entities/Food';
 import { Player } from '@/entities/Player/model/types';
 import { Direction, directionVectors } from '@/shared/model/direction';
+import { GhostMode } from '@/shared/model/ghostMode';
+import { totalLives } from '@/shared/const/game';
 
 const initialGhosts = [
   { x: 14, y: 2 },
@@ -20,6 +22,8 @@ export const useGameLoop = (isGameStarted: boolean, setGameStarted: React.Dispat
   const [isWin, setIsWin] = useState(false);
   const [isPaused, setIsPaused] = useState(true);
   const [score, setScore] = useState(0);
+  const [lives, setLives] = useState(totalLives);
+  const [ghostMode, setGhostMode] = useState<GhostMode>('scatter');
 
   const isGameOverRef = useRef(isGameOver);
   const playerRef = useRef(player);
@@ -42,6 +46,14 @@ export const useGameLoop = (isGameStarted: boolean, setGameStarted: React.Dispat
   }, [isGameOver]);
 
   useEffect(() => {
+    const modeInterval = setInterval(() => {
+      setGhostMode((prev) => (prev === 'scatter' ? 'chase' : 'scatter'));
+    }, 5000);
+
+    return () => clearInterval(modeInterval);
+  }, []);
+
+  useEffect(() => {
     playerRef.current = player;
   }, [player]);
 
@@ -62,6 +74,7 @@ export const useGameLoop = (isGameStarted: boolean, setGameStarted: React.Dispat
     setGhosts(initialGhostsCopy);
     setScore(0);
     setDirection('ArrowRight');
+    setLives(totalLives);
 
     playerRef.current = initialPlayer;
     ghostsRef.current = initialGhostsCopy;
@@ -99,12 +112,6 @@ export const useGameLoop = (isGameStarted: boolean, setGameStarted: React.Dispat
         directionRef.current = currentDirection;
         setDirection(currentDirection);
       }
-      const collided = currGhosts.some((ghost) => isSamePosition(ghost, nextPos));
-
-      if (collided) {
-        handleGameOver(false);
-        return;
-      }
 
       const updatedPlayer = { position: nextPos };
       setPlayer(updatedPlayer);
@@ -122,21 +129,55 @@ export const useGameLoop = (isGameStarted: boolean, setGameStarted: React.Dispat
       });
 
       const newGhosts = currGhosts.map((ghost) => {
+        // приведения движутся за игроком
+        if (ghostMode === 'chase') {
+          const dx = player.position.x - ghost.x;
+          const dy = player.position.y - ghost.y;
+
+          const preferredDir = Math.abs(dx) > Math.abs(dy) ? { x: Math.sign(dx), y: 0 } : { x: 0, y: Math.sign(dy) };
+
+          const targetPos = { x: ghost.x + preferredDir.x, y: ghost.y + preferredDir.y };
+
+          if (canMoveTo(targetPos)) return targetPos;
+        }
+
+        // хаотичное движение
         const dirs = Object.values(directionVectors);
         for (let i = 0; i < dirs.length; i++) {
           const dir = dirs[Math.floor(Math.random() * dirs.length)];
-          const newGhostPos = { x: ghost.x + dir.x, y: ghost.y + dir.y };
-          if (canMoveTo(newGhostPos)) return newGhostPos;
+          const pos = { x: ghost.x + dir.x, y: ghost.y + dir.y };
+          if (canMoveTo(pos)) return pos;
         }
+
         return ghost;
       });
-
+      const collided = newGhosts.some((ghost) => isSamePosition(ghost, updatedPlayer.position));
+      if (collided) {
+        if (lives > 1) {
+          setLives((prev) => prev - 1);
+          setPlayer({ position: { x: 1, y: 1 } });
+          playerRef.current = { position: { x: 1, y: 1 } };
+        } else {
+          handleGameOver(false);
+          return;
+        }
+      }
       setGhosts(newGhosts);
       ghostsRef.current = newGhosts;
     }, 300);
 
     return () => clearInterval(interval);
-  }, [handleGameOver, isGameStarted, resetGame, isPaused]);
+  }, [
+    isGameStarted,
+    resetGame,
+    lives,
+    ghostMode,
+    player.position.x,
+    player.position.y,
+    handleGameOver,
+    resetGame,
+    isPaused
+  ]);
 
   return {
     player,
@@ -150,6 +191,7 @@ export const useGameLoop = (isGameStarted: boolean, setGameStarted: React.Dispat
     resetGame,
     isWin,
     isGameOver,
-    setGameOver
+    setGameOver,
+    lives
   };
 };

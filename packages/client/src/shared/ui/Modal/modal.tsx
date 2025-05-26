@@ -1,15 +1,14 @@
-import Modal from 'react-bootstrap/Modal';
-import type { ReactNode } from 'react';
-
-import styles from './modal.module.scss';
+import { PropsWithChildren, ReactNode } from 'react';
+import BootstrapModal from 'react-bootstrap/Modal';
 
 import { Button } from '../Button/Button';
 
-type BaseModalProps = {
+import styles from './Modal.module.scss';
+
+type ModalProps = {
   show: boolean;
   title: string;
   btnText: string;
-  children?: ReactNode;
   onHide: () => void;
   submit: () => void;
   closeBtn?: boolean;
@@ -17,7 +16,7 @@ type BaseModalProps = {
   footer?: ReactNode;
 };
 
-export const BaseModal = ({
+export const Modal = ({
   show,
   title,
   children,
@@ -27,28 +26,28 @@ export const BaseModal = ({
   closeBtn = true,
   size = 'sm',
   footer
-}: BaseModalProps) => {
+}: ModalProps & PropsWithChildren) => {
   return (
-    <Modal
+    <BootstrapModal
       show={show}
       onHide={onHide}
       centered
-      contentClassName={styles.modal__content}
-      size={size}>
-      <Modal.Header
+      size={size}
+      contentClassName={styles.modal__content}>
+      <BootstrapModal.Header
         closeButton={closeBtn}
         className={styles.modal__header}>
-        <Modal.Title>{title}</Modal.Title>
-      </Modal.Header>
-      <Modal.Body className={styles.modal__body}>{children}</Modal.Body>
-      <Modal.Footer className={styles.modal__footer}>
+        <BootstrapModal.Title>{title}</BootstrapModal.Title>
+      </BootstrapModal.Header>
+      <BootstrapModal.Body className={styles.modal__body}>{children}</BootstrapModal.Body>
+      <BootstrapModal.Footer className={styles.modal__footer}>
         <Button
           type="submit"
           onClick={submit}>
           {btnText}
         </Button>
         {footer}
-      </Modal.Footer>
-    </Modal>
+      </BootstrapModal.Footer>
+    </BootstrapModal>
   );
 };
