@@ -3,50 +3,61 @@ import BootstrapModal from 'react-bootstrap/Modal';
 
 import { Button } from '../Button/Button';
 
-import styles from './Modal.module.scss';
+import './Modal.scss';
+
+type ModalButtonProps = {
+  label: ReactNode;
+  type: 'submit' | 'button';
+  onClick?: () => void;
+};
 
 type ModalProps = {
-  show: boolean;
+  showModal: boolean;
+  showCloseButton?: boolean;
   title: string;
-  btnText: string;
-  onHide: () => void;
-  submit: () => void;
-  closeBtn?: boolean;
-  size?: 'sm' | 'lg' | 'xl';
-  footer?: ReactNode;
+  okButton?: ModalButtonProps;
+  cancelButton?: ModalButtonProps;
+  onHide?: () => void;
 };
 
 export const Modal = ({
-  show,
+  showModal,
+  showCloseButton = true,
   title,
   children,
-  btnText,
-  onHide,
-  submit,
-  closeBtn = true,
-  size = 'sm',
-  footer
+  okButton,
+  cancelButton,
+  onHide
 }: ModalProps & PropsWithChildren) => {
   return (
     <BootstrapModal
-      show={show}
+      show={showModal}
       onHide={onHide}
-      centered
-      size={size}
-      contentClassName={styles.modal__content}>
-      <BootstrapModal.Header
-        closeButton={closeBtn}
-        className={styles.modal__header}>
+      centered>
+      <BootstrapModal.Header closeButton={showCloseButton}>
         <BootstrapModal.Title>{title}</BootstrapModal.Title>
       </BootstrapModal.Header>
-      <BootstrapModal.Body className={styles.modal__body}>{children}</BootstrapModal.Body>
-      <BootstrapModal.Footer className={styles.modal__footer}>
-        <Button
-          type="submit"
-          onClick={submit}>
-          {btnText}
-        </Button>
-        {footer}
+
+      <BootstrapModal.Body>{children}</BootstrapModal.Body>
+
+      <BootstrapModal.Footer>
+        {cancelButton && (
+          <Button
+            type={cancelButton.type}
+            variant="outline-secondary"
+            onClick={cancelButton.onClick}>
+            {cancelButton.label}
+          </Button>
+        )}
+
+        {okButton && (
+          <Button
+            type={okButton.type}
+            variant="primary"
+            onClick={okButton.onClick}>
+            {okButton.label}
+          </Button>
+        )}
       </BootstrapModal.Footer>
     </BootstrapModal>
   );

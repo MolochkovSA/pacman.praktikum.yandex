@@ -49,11 +49,18 @@ export const AvatarModal = ({ show, onHide }: AvatarModal) => {
 
   return (
     <Modal
-      show={show}
+      showModal={show}
       title="Сменить аватар"
       onHide={onHide}
-      btnText="Изменить"
-      submit={handleSubmit(onSubmit)}>
+      okButton={{
+        type: 'submit',
+        label: 'Изменить'
+      }}
+      cancelButton={{
+        type: 'button',
+        label: 'Отменить',
+        onClick: onHide
+      }}>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Input
           label=""
