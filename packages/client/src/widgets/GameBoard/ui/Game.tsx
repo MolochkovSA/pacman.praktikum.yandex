@@ -8,9 +8,9 @@ import { useEffect, useRef } from 'react';
 import { renderGhosts } from '@/entities/Ghost/ui/render';
 import { Player } from '@/entities/Player/model/types';
 import { Direction } from '@/shared/model/direction';
-import { tileSize } from '@/shared/const/game';
 import styles from './GameBoard.module.scss';
 import { useSetPause } from '@/features/UseSetPause/useSetPause';
+import { useTileSize } from '@/shared/hooks/useTileSize';
 
 export const Game = ({
   player,
@@ -30,18 +30,18 @@ export const Game = ({
   setIsPaused: (isPaused: boolean) => void;
 }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-
+  const tileSize = useTileSize(map[0].length, map.length);
   useSetPause({ isPaused, setIsPaused });
 
   useEffect(() => {
     const canvas = canvasRef.current!;
     const ctx = canvas.getContext('2d')!;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    renderMap(ctx, map);
-    renderFood(ctx, foods);
-    renderGhosts(ctx, ghosts, ghostImages);
-    renderPlayer(ctx, player, direction);
-  }, [player, foods, ghosts, ghostImages, direction]);
+    renderMap(ctx, map, tileSize);
+    renderFood(ctx, foods, tileSize);
+    renderGhosts(ctx, ghosts, ghostImages, tileSize);
+    renderPlayer(ctx, player, direction, tileSize);
+  }, [player, foods, ghosts, ghostImages, direction, tileSize]);
 
   return (
     <>

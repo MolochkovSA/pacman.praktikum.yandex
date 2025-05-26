@@ -131,8 +131,8 @@ export const useGameLoop = (isGameStarted: boolean, setGameStarted: React.Dispat
       const newGhosts = currGhosts.map((ghost) => {
         // приведения движутся за игроком
         if (ghostMode === 'chase') {
-          const dx = player.position.x - ghost.x;
-          const dy = player.position.y - ghost.y;
+          const dx = playerRef.current.position.x - ghost.x;
+          const dy = playerRef.current.position.y - ghost.y;
 
           const preferredDir = Math.abs(dx) > Math.abs(dy) ? { x: Math.sign(dx), y: 0 } : { x: 0, y: Math.sign(dy) };
 
