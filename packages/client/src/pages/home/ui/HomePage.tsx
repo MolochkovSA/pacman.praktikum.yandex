@@ -1,10 +1,11 @@
-import styles from './HomePage.module.scss';
 import { IconLink } from '@/shared/ui';
-import { Icon } from '@/pages/Icon/Icon.tsx';
+import { Icon } from './Icon/Icon';
+
+import styles from './HomePage.module.scss';
 
 export const HomePage = () => {
   return (
-    <main className={styles.home}>
+    <div className={styles.home}>
       <div className={styles.title}>PACMAN</div>
       <div className={styles.menu}>
         <hr className={styles.line} />
@@ -60,6 +61,6 @@ export const HomePage = () => {
         </nav>
         <hr className={styles.line} />
       </div>
-    </main>
+    </div>
   );
 };
