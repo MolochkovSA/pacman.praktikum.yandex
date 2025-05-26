@@ -1,4 +1,4 @@
-import { PropsWithChildren } from 'react';
+import { PropsWithChildren, ReactNode } from 'react';
 import BootstrapModal from 'react-bootstrap/Modal';
 
 import { Button } from '../Button/Button';
@@ -12,6 +12,8 @@ type ModalProps = {
   onHide: () => void;
   submit: () => void;
   closeBtn?: boolean;
+  size?: 'sm' | 'lg' | 'xl';
+  footer?: ReactNode;
 };
 
 export const Modal = ({
@@ -21,13 +23,16 @@ export const Modal = ({
   btnText,
   onHide,
   submit,
-  closeBtn = true
+  closeBtn = true,
+  size = 'sm',
+  footer
 }: ModalProps & PropsWithChildren) => {
   return (
     <BootstrapModal
       show={show}
       onHide={onHide}
       centered
+      size={size}
       contentClassName={styles.modal__content}>
       <BootstrapModal.Header
         closeButton={closeBtn}
@@ -41,6 +46,7 @@ export const Modal = ({
           onClick={submit}>
           {btnText}
         </Button>
+        {footer}
       </BootstrapModal.Footer>
     </BootstrapModal>
   );
