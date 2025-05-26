@@ -17,7 +17,7 @@ export const changePasswordSchema = z
     repeated_password: z.string({ required_error: 'Поле обязательно' })
   })
   .refine((data) => data.newPassword === data.repeated_password, {
-    path: ['newPassword'],
+    path: ['repeated_password'],
     message: 'Пароли должны совпадать'
   });
 

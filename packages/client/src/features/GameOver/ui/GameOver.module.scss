@@ -5,6 +5,7 @@
 .gameover {
   @include typography.font(h2);
 
+  width: 500px;
   color: var(--color-white-text);
   display: flex;
   align-items: center;
