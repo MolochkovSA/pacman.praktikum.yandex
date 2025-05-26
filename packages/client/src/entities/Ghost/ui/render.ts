@@ -1,7 +1,11 @@
-import { tileSize } from '@/shared/const/game';
 import { Vector2D } from '@/shared/model/vector';
 
-export const renderGhosts = (ctx: CanvasRenderingContext2D, ghosts: Vector2D[], images: HTMLImageElement[]) => {
+export const renderGhosts = (
+  ctx: CanvasRenderingContext2D,
+  ghosts: Vector2D[],
+  images: HTMLImageElement[],
+  tileSize: number
+) => {
   ghosts.forEach((ghost, i) => {
     const img = images[i % images.length];
     const baseX = ghost.x * tileSize;

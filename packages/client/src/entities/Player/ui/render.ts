@@ -1,7 +1,5 @@
 import { Direction } from '@/shared/model/direction';
-
 import { Player } from '../model/types';
-import { tileSize } from '@/shared/const/game';
 
 const directionToAngle: Record<Direction, number> = {
   ArrowRight: 0,
@@ -10,7 +8,7 @@ const directionToAngle: Record<Direction, number> = {
   ArrowUp: -Math.PI / 2
 };
 
-export const renderPlayer = (ctx: CanvasRenderingContext2D, player: Player, direction: Direction) => {
+export const renderPlayer = (ctx: CanvasRenderingContext2D, player: Player, direction: Direction, tileSize: number) => {
   const time = Date.now();
   const smoothFactor = 150;
   const amplitude = 0.25;
