@@ -8,11 +8,9 @@ export const HomePage = () => {
     <div className={styles.home}>
       <h1 className={styles.title}>PACMAN</h1>
       <div className={styles.menu}>
-        <hr className={styles.line} />
-        <nav className={styles.navigation}>
-          <IconLink
-            className={styles.link}
-            to="/game">
+        <hr />
+        <nav>
+          <IconLink to="/game">
             <Icon
               src="pacman"
               size={50}
@@ -20,9 +18,7 @@ export const HomePage = () => {
             Игра
           </IconLink>
 
-          <IconLink
-            className={styles.link}
-            to="/profile">
+          <IconLink to="/profile">
             <Icon
               src="pacman"
               size={50}
@@ -30,9 +26,7 @@ export const HomePage = () => {
             Профиль
           </IconLink>
 
-          <IconLink
-            className={styles.link}
-            to="/leaderboard">
+          <IconLink to="/leaderboard">
             <Icon
               src="pacman"
               size={50}
@@ -40,9 +34,7 @@ export const HomePage = () => {
             Лидерборд
           </IconLink>
 
-          <IconLink
-            className={styles.link}
-            to="/forum">
+          <IconLink to="/forum">
             <Icon
               src="pacman"
               size={50}
@@ -50,7 +42,7 @@ export const HomePage = () => {
             Форум
           </IconLink>
         </nav>
-        <hr className={styles.line} />
+        <hr />
       </div>
     </div>
   );
