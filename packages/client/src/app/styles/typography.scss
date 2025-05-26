@@ -9,6 +9,13 @@ $font-family: (
   )
 );
 $typography: (
+  t1: (
+    font-family: press-start,
+    font-size: 70px,
+    line-height: 70px,
+    font-weight: 100,
+    font-style: normal
+  ),
   h1: (
     font-family: press-start,
     font-size: 24px,

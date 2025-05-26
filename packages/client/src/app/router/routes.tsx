@@ -9,6 +9,7 @@ import { ForumPage } from '@/pages/forum';
 import { LayoutWithTopbar } from '@/pages/layout-with-topbar';
 import { ForumTopicViewPage } from '@/pages/forum-topic-view';
 import { ForumTopicEditPage, topicLoader } from '@/pages/forum-topic-edit';
+import { HomePage } from '@/pages/home/ui/HomePage.tsx';
 import { LeaderBoard } from '@/pages/lider-board';
 
 export const router = createBrowserRouter([
@@ -61,10 +62,10 @@ export const router = createBrowserRouter([
         path: '/profile',
         element: <ProfilePage />
       },
-      // {
-      //   path: '/home',
-      //   element: <SignUpPage />
-      // },
+      {
+        path: '/home',
+        element: <HomePage />
+      },
       {
         path: '/game',
         element: <GamePage />
