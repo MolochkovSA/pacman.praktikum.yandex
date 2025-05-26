@@ -1,10 +1,9 @@
-import { tileSize } from '@/shared/const/game';
 import wall from '../../../assets/textures/wall.jpg';
 
 const tileImage = new Image();
 tileImage.src = wall;
 
-export const renderMap = (ctx: CanvasRenderingContext2D, mapData: number[][]) => {
+export const renderMap = (ctx: CanvasRenderingContext2D, mapData: number[][], tileSize: number) => {
   mapData.forEach((row, y) => {
     row.forEach((cell, x) => {
       if (cell === 1) {
