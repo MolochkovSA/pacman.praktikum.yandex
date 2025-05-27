@@ -22,6 +22,7 @@ export const AvatarModal = ({ show, onHide }: AvatarModal) => {
     register,
     handleSubmit,
     trigger,
+    reset,
     formState: { errors }
   } = useForm<ChangeAvatarType>({
     mode: 'onChange',
@@ -30,6 +31,11 @@ export const AvatarModal = ({ show, onHide }: AvatarModal) => {
 
   const [error, setError] = useState('');
 
+  const onClose = () => {
+    onHide();
+    reset();
+  };
+
   const onSubmit = (data: ChangeAvatarType) => {
     const file = data.avatar?.[0];
     if (file) {
@@ -37,7 +43,7 @@ export const AvatarModal = ({ show, onHide }: AvatarModal) => {
         .updateAvatar(file as File)
         .then((user) => {
           dispatch(userActions.setUser(user));
-          onHide();
+          onClose();
         })
         .catch((error) => {
           if (error instanceof HttpError) {
@@ -51,15 +57,16 @@ export const AvatarModal = ({ show, onHide }: AvatarModal) => {
     <Modal
       showModal={show}
       title="Сменить аватар"
-      onHide={onHide}
+      onHide={onClose}
       okButton={{
         type: 'submit',
-        label: 'Изменить'
+        label: 'Изменить',
+        onClick: handleSubmit(onSubmit)
       }}
       cancelButton={{
         type: 'button',
         label: 'Отменить',
-        onClick: onHide
+        onClick: onClose
       }}>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Input
