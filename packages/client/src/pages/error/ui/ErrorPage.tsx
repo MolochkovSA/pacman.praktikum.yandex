@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 
+import { RoutePath } from '@/shared/config/routeConfig';
 import { Button } from '@/shared/ui';
 
 import styles from './ErrorLayout.module.scss';
@@ -12,7 +13,7 @@ export const ErrorPage = ({ errorType }: ErrorPageProps) => {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    navigate('/');
+    navigate(RoutePath.MAIN);
   };
 
   const getErrorMessage = (errorType?: '404' | '500') => {

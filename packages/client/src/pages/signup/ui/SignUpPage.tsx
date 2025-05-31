@@ -2,6 +2,7 @@ import { Card } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
+import { RoutePath } from '@/shared/config/routeConfig';
 import { Button, IconLink, Input } from '@/shared/ui';
 import { signUpSchema, useAuth } from '@/features/auth';
 
@@ -81,7 +82,7 @@ export const SignUpPage = () => {
           type="submit">
           Зарегистрироваться
         </Button>
-        <IconLink to="/auth/login">Войти</IconLink>
+        <IconLink to={RoutePath.AUTH.LOGIN}>Войти</IconLink>
       </Card.Footer>
     </Card>
   );
