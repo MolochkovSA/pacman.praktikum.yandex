@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 
+import { RoutePath } from '@/shared/config/routeConfig';
 import { Breadcrumbs, Button, Input } from '@/shared/ui';
 import { userActions, userSelectors } from '@/entities/user';
 import { ForumLayout } from '@/widgets/forum-layout';
@@ -51,8 +52,8 @@ export const ProfilePage = () => {
           <>
             <Breadcrumbs
               links={[
-                { label: 'Главная', to: '/' },
-                { label: 'Профиль', to: '/profile' }
+                { label: 'Главная', to: RoutePath.MAIN },
+                { label: 'Профиль', to: RoutePath.PROFILE.ROOT }
               ]}
             />
           </>

@@ -9,7 +9,7 @@ const generateMockTopicView = (id: number) => {
     author: {
       id: 0,
       login: 'Автор темы',
-      avatar: undefined
+      avatar: null
     },
     createdAt: '2022-01-01T00:00:00.000Z'
   };
@@ -22,7 +22,7 @@ const generateMockCommentView = (id: number) => {
     author: {
       id: id * 3 + 1,
       login: 'Автор' + (id + 1),
-      avatar: undefined
+      avatar: null
     },
     createdAt: '2022-01-01T00:00:00.000Z'
   };

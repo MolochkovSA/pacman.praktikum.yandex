@@ -1,5 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom';
+
 import App from '../ui/App';
+import { AppRoutes } from '@/shared/config/routeConfig';
 import { LoginPage } from '@/pages/login';
 import { SignUpPage } from '@/pages/signup';
 import { ProfilePage } from '@/pages/profile';
@@ -15,33 +17,47 @@ import { AuthLayout } from '@/pages/auth-layout';
 
 export const router = createBrowserRouter([
   {
-    path: '/',
+    path: AppRoutes.MAIN,
     element: <App />,
     errorElement: <ErrorPage errorType="500" />,
     children: [
+      {
+        path: AppRoutes.AUTH.ROOT,
+        lazy: AuthLayout,
+        children: [
+          {
+            path: AppRoutes.AUTH.LOGIN,
+            lazy: LoginPage
+          },
+          {
+            path: AppRoutes.AUTH.SIGNUP,
+            lazy: SignUpPage
+          }
+        ]
+      },
       {
         path: '',
         lazy: HomeLayout,
         children: [
           { index: true, lazy: HomePage },
           {
-            path: 'profile',
+            path: AppRoutes.PROFILE.ROOT,
             lazy: ProfilePage
           },
           {
-            path: 'leaderboard',
+            path: AppRoutes.LEADERBOARD,
             lazy: LeaderBoard
           },
           {
-            path: 'forum',
+            path: AppRoutes.FORUM.ROOT,
             children: [
               { index: true, lazy: ForumPage },
-              { path: 'posting', lazy: ForumTopicEditPage },
+              { path: AppRoutes.FORUM.POSTING, lazy: ForumTopicEditPage },
               {
-                path: ':topicId',
+                path: AppRoutes.FORUM.TOPIC.ROOT,
                 children: [
                   { index: true, lazy: ForumTopicViewPage },
-                  { path: 'edit', loader: topicLoader, lazy: ForumTopicEditPage }
+                  { path: AppRoutes.FORUM.TOPIC.EDIT, loader: topicLoader, lazy: ForumTopicEditPage }
                 ]
               }
             ]
@@ -49,30 +65,16 @@ export const router = createBrowserRouter([
         ]
       },
       {
-        path: 'auth',
-        lazy: AuthLayout,
-        children: [
-          {
-            path: 'login',
-            lazy: LoginPage
-          },
-          {
-            path: 'signup',
-            lazy: SignUpPage
-          }
-        ]
-      },
-      {
-        path: '/game',
+        path: AppRoutes.GAME,
         element: <GamePage />
       },
       {
-        path: '/*',
-        element: <ErrorPage errorType="404" />
+        path: AppRoutes.SERVER_ERROR,
+        element: <ErrorPage errorType="500" />
       },
       {
-        path: '/500',
-        element: <ErrorPage errorType="500" />
+        path: AppRoutes.NOT_FOUND,
+        element: <ErrorPage errorType="404" />
       }
     ]
   }

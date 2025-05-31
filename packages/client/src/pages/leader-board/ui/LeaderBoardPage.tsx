@@ -3,6 +3,7 @@ import { Card } from 'react-bootstrap';
 import { GiTrophyCup } from 'react-icons/gi';
 import { GiLibertyWing } from 'react-icons/gi';
 
+import { RoutePath } from '@/shared/config/routeConfig';
 import { Breadcrumbs, Spinner } from '@/shared/ui';
 import { ForumLayout } from '@/widgets/forum-layout';
 import { Pagination } from '@/widgets/pagination';
@@ -22,8 +23,8 @@ export const LeaderBoardPage = () => {
         <>
           <Breadcrumbs
             links={[
-              { label: 'Главная', to: '/' },
-              { label: 'Таблица лидеров', to: '/leaderboard' }
+              { label: 'Главная', to: RoutePath.MAIN },
+              { label: 'Таблица лидеров', to: RoutePath.LEADERBOARD }
             ]}
           />
         </>

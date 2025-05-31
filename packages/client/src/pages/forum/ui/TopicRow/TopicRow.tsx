@@ -3,15 +3,16 @@ import { RiFilePaper2Line } from 'react-icons/ri';
 import styles from './TopicRow.module.scss';
 import { Link } from 'react-router-dom';
 import { TopicPreview } from '../../model/types';
+import { getProfilePath, getTopicPath } from '@/shared/lib/router';
 
 type Props = {
   topic: TopicPreview;
 };
 
 export const TopicRow = ({ topic: { id, title, author, commentsCount, lastComment } }: Props) => {
-  const topicUrl = `/forum/${id}`;
-  const authorProfileUrl = `/profile/${author.id}`;
-  const commentatorProfileUrl = `/profile/${lastComment.author.id}`;
+  const topicUrl = getTopicPath(id);
+  const authorProfileUrl = getProfilePath(author.id);
+  const commentatorProfileUrl = getProfilePath(lastComment.author.id);
 
   return (
     <tr className={styles.row}>
@@ -33,7 +34,7 @@ export const TopicRow = ({ topic: { id, title, author, commentsCount, lastCommen
         <Link
           className={styles.author}
           to={authorProfileUrl}>
-          {author.display_name}
+          {author.login}
         </Link>
       </td>
       <td>{commentsCount}</td>
@@ -42,7 +43,7 @@ export const TopicRow = ({ topic: { id, title, author, commentsCount, lastCommen
         <Link
           className={styles.author}
           to={commentatorProfileUrl}>
-          {lastComment.author.display_name}
+          {lastComment.author.login}
         </Link>
       </td>
     </tr>

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Card } from 'react-bootstrap';
 
+import { RoutePath } from '@/shared/config/routeConfig';
 import { ForumLayout } from '@/widgets/forum-layout';
 import { Pagination } from '@/widgets/pagination';
 import { Breadcrumbs, Spinner } from '@/shared/ui';
@@ -19,8 +20,8 @@ export const ForumPage = () => {
         <>
           <Breadcrumbs
             links={[
-              { label: 'Главная', to: '/' },
-              { label: 'Форум', to: '/forum' }
+              { label: 'Главная', to: RoutePath.MAIN },
+              { label: 'Форум', to: RoutePath.FORUM.ROOT }
             ]}
           />
           <NewTopicButton />

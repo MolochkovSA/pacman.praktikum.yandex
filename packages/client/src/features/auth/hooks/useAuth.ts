@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
+import { RoutePath } from '@/shared/config/routeConfig';
 import { HttpError, User } from '@/shared/types';
 import { useNotification } from '@/entities/notification';
 import { userActions, userSelectors } from '@/entities/user';
@@ -42,10 +43,10 @@ export const useAuth = () => {
             notify('Неправильный логин или пароль');
           } else if (error.status === 400) {
             notify('Пользователь уже авторизован');
-            authApi.logout().then(() => navigate('/auth/login'));
+            authApi.logout().then(() => navigate(RoutePath.AUTH.LOGIN));
           } else if (error.status / 100 === 5) {
             notify('Ошибка сервера');
-            navigate('/500');
+            navigate(RoutePath.SERVER_ERROR);
           }
         }
       }
@@ -56,7 +57,7 @@ export const useAuth = () => {
   const signUp = useCallback(
     async (data: SignUpRequestDto) => {
       await authApi.signUp(data);
-      navigate('/');
+      navigate(RoutePath.MAIN);
     },
     [navigate]
   );
@@ -64,7 +65,7 @@ export const useAuth = () => {
   const logout = useCallback(async () => {
     await authApi.logout();
     dispatch(userActions.setUser(null));
-    navigate('/auth/login');
+    navigate(RoutePath.AUTH.LOGIN);
   }, [navigate, dispatch]);
 
   return { status, user, isAuth: Boolean(user), me, signIn, signUp, logout };
