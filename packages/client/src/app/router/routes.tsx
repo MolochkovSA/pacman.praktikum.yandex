@@ -1,4 +1,5 @@
-import { createBrowserRouter } from 'react-router-dom';
+import { RouteObject } from 'react-router-dom';
+
 import App from '../ui/App';
 import { LoginPage } from '@/pages/login';
 import { SignUpPage } from '@/pages/signup';
@@ -9,11 +10,11 @@ import { ForumPage } from '@/pages/forum';
 import { HomeLayout } from '@/pages/home-layout';
 import { ForumTopicViewPage } from '@/pages/forum-topic-view';
 import { ForumTopicEditPage, topicLoader } from '@/pages/forum-topic-edit';
-import { LeaderBoard } from '@/pages/leader-board';
+import { LeaderBoardPage } from '@/pages/leader-board';
 import { HomePage } from '@/pages/home';
 import { AuthLayout } from '@/pages/auth-layout';
 
-export const router = createBrowserRouter([
+export const routes: RouteObject[] = [
   {
     path: '/',
     element: <App />,
@@ -21,27 +22,27 @@ export const router = createBrowserRouter([
     children: [
       {
         path: '',
-        lazy: HomeLayout,
+        element: <HomeLayout />,
         children: [
-          { index: true, lazy: HomePage },
+          { index: true, element: <HomePage /> },
           {
             path: 'profile',
-            lazy: ProfilePage
+            element: <ProfilePage />
           },
           {
             path: 'leaderboard',
-            lazy: LeaderBoard
+            element: <LeaderBoardPage />
           },
           {
             path: 'forum',
             children: [
-              { index: true, lazy: ForumPage },
-              { path: 'posting', lazy: ForumTopicEditPage },
+              { index: true, element: <ForumPage /> },
+              { path: 'posting', element: <ForumTopicEditPage /> },
               {
                 path: ':topicId',
                 children: [
-                  { index: true, lazy: ForumTopicViewPage },
-                  { path: 'edit', loader: topicLoader, lazy: ForumTopicEditPage }
+                  { index: true, element: <ForumTopicViewPage /> },
+                  { path: 'edit', loader: topicLoader, element: <ForumTopicEditPage /> }
                 ]
               }
             ]
@@ -50,15 +51,15 @@ export const router = createBrowserRouter([
       },
       {
         path: 'auth',
-        lazy: AuthLayout,
+        element: <AuthLayout />,
         children: [
           {
             path: 'login',
-            lazy: LoginPage
+            element: <LoginPage />
           },
           {
             path: 'signup',
-            lazy: SignUpPage
+            element: <SignUpPage />
           }
         ]
       },
@@ -76,4 +77,4 @@ export const router = createBrowserRouter([
       }
     ]
   }
-]);
+];
