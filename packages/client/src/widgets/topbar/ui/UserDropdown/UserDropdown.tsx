@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router';
 import Dropdown from 'react-bootstrap/Dropdown';
 import { SlLogout, SlSettings } from 'react-icons/sl';
 
+import { RoutePath } from '@/shared/config/routeConfig';
 import { useAuth } from '@/features/auth';
 import UserInfo from '../UserInfo/UserInfo';
 
@@ -15,7 +16,7 @@ export const UserDropdown = () => {
   const [dropdownShow, setDropdownShow] = useState(false);
 
   const goToProfile = () => {
-    navigete('/profile');
+    navigete(RoutePath.PROFILE.ROOT);
     setDropdownShow(false);
   };
 

@@ -1,6 +1,8 @@
 import { Modal } from '@/shared/ui/Modal/Modal';
 import { useNavigate } from 'react-router-dom';
 
+import { RoutePath } from '@/shared/config/routeConfig';
+
 import styles from './GameOver.module.scss';
 
 type GameOverModalProps = {
@@ -25,7 +27,7 @@ export const GameOverModal = ({ onRestart, score, isWin }: GameOverModalProps) =
   );
 
   const handleNavigate = () => {
-    navigate('/');
+    navigate(RoutePath.MAIN);
   };
   return (
     <Modal

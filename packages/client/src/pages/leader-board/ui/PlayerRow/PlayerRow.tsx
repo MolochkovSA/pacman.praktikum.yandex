@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { GiTrophyCup } from 'react-icons/gi';
 import { GrFireball } from 'react-icons/gr';
 
+import { getProfilePath } from '@/shared/lib/router';
 import { PlayerPreview } from '../../model/types';
 
 import styles from './PlayerRow.module.scss';
@@ -34,7 +35,7 @@ const cups: Record<number, React.ReactElement | undefined> = {
 };
 
 export const PlayerRow = ({ player: { id, login, achievement, wins, games }, position }: Props) => {
-  const playerProfileUrl = `/profile/${id}`;
+  const playerProfileUrl = getProfilePath(id);
 
   return (
     <tr className={styles.row}>
