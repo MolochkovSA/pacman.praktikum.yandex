@@ -1,14 +1,9 @@
-import { AppDispatch, AppState } from '@/shared/model/redux';
+import { PageInitArgs } from '@/shared/types';
 import { fetchUserThunk, userSelectors } from '../model/slice';
 
-type Args = {
-  dispatch: AppDispatch;
-  getState: () => AppState;
-};
-
-export const preloadUser = async ({ dispatch, getState }: Args) => {
-  if (!userSelectors.selectUser(getState())) {
-    dispatch(fetchUserThunk());
+export const preloadUser = async ({ dispatch, state, ctx }: PageInitArgs) => {
+  if (!userSelectors.selectUser(state)) {
+    dispatch(fetchUserThunk(ctx.clientToken));
   }
 
   return null;

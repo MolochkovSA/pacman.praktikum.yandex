@@ -15,13 +15,16 @@ const initialState: UserState = {
   fetchStatus: 'idle'
 };
 
-export const fetchUserThunk = createAsyncThunk('user/fetchUserThunk', async (): Promise<User> => {
+export const fetchUserThunk = createAsyncThunk('user/fetchUserThunk', async (cookie?: string): Promise<User> => {
   const url = `${API_URL}/auth/user`;
 
   const response = await fetch(url, {
-    credentials: 'include',
-    method: 'GET'
+    headers: {
+      Cookie: cookie || ''
+    }
   });
+
+  console.log('cookie', cookie);
 
   if (!response.ok) {
     throw new HttpError(response.status, response.statusText);

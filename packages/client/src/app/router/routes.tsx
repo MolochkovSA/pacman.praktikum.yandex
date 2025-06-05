@@ -1,5 +1,3 @@
-import { Navigate, RouteObject } from 'react-router-dom';
-
 import App from '../ui/App';
 import { LoginPage } from '@/pages/login';
 import { SignUpPage } from '@/pages/signup';
@@ -14,9 +12,8 @@ import { LeaderBoardPage } from '@/pages/leader-board';
 import { HomePage } from '@/pages/home';
 import { AuthLayout } from '@/pages/auth-layout';
 import { preloadUser } from '@/entities/user/lib/preloadUser';
-import { store } from '../store/store';
 
-export const routes: RouteObject[] = [
+export const routes = [
   {
     path: '/',
     element: <App />,
@@ -24,8 +21,8 @@ export const routes: RouteObject[] = [
     children: [
       {
         path: '',
-        loader: () => preloadUser(store),
         element: <HomeLayout />,
+        fetchData: preloadUser,
         children: [
           { index: true, element: <HomePage /> },
           {
