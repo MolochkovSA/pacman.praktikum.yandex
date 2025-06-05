@@ -7,8 +7,6 @@ type Args = {
 };
 
 export const preloadUser = async ({ dispatch, getState }: Args) => {
-  console.log('preloadUser');
-
   if (!userSelectors.selectUser(getState())) {
     dispatch(fetchUserThunk());
   }

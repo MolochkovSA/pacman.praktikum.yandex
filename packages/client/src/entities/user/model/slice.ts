@@ -17,14 +17,11 @@ const initialState: UserState = {
 
 export const fetchUserThunk = createAsyncThunk('user/fetchUserThunk', async (): Promise<User> => {
   const url = `${API_URL}/auth/user`;
-  console.log(url);
 
   const response = await fetch(url, {
     credentials: 'include',
     method: 'GET'
   });
-
-  console.log(response);
 
   if (!response.ok) {
     throw new HttpError(response.status, response.statusText);

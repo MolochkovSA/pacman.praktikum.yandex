@@ -1,4 +1,4 @@
-import { RouteObject } from 'react-router-dom';
+import { Navigate, RouteObject } from 'react-router-dom';
 
 import App from '../ui/App';
 import { LoginPage } from '@/pages/login';

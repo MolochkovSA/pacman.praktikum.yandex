@@ -46,7 +46,6 @@ async function createServer() {
                 render = (await import((0, url_1.pathToFileURL)(pathToServer).href)).render;
             }
             const { html: appHtml, initialState } = await render(req);
-            console.log(initialState);
             const html = template.replace(`<!--ssr-outlet-->`, appHtml).replace(`<!--ssr-initial-state-->`, `<script>window.APP_INITIAL_STATE = ${(0, serialize_javascript_1.default)(initialState, {
                 isJSON: true
             })}</script>`);

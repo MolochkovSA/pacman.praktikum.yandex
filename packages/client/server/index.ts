@@ -55,7 +55,6 @@ async function createServer() {
         render = (await import(pathToFileURL(pathToServer).href)).render;
       }
       const { html: appHtml, initialState } = await render(req);
-      console.log(initialState);
 
       const html = template.replace(`<!--ssr-outlet-->`, appHtml).replace(
         `<!--ssr-initial-state-->`,
