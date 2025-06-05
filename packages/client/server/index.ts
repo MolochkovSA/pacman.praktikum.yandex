@@ -1,17 +1,21 @@
 import dotenv from 'dotenv';
 dotenv.config();
 
-import express from 'express';
+import express, { Request as ExpressRequest } from 'express';
 import path from 'path';
 import fs from 'fs/promises';
 import { pathToFileURL } from 'url';
+import serialize from 'serialize-javascript';
+import cookieParser from 'cookie-parser';
 
 const port = process.env.CLIENT_PORT || 80;
-const isDev = process.env.NODE_ENV === 'development111';
+const isDev = process.env.NODE_ENV === 'development';
 const clientPath = path.join(__dirname, '..');
 
 async function createServer() {
   const app = express();
+
+  app.use(cookieParser());
 
   const { createServer: createViteServer } = await import('vite');
 
@@ -31,11 +35,11 @@ async function createServer() {
     app.use(express.static(path.join(clientPath, 'dist/client'), { index: false }));
   }
 
-  app.get('/', async (req, res, next) => {
+  app.use(async (req, res, next) => {
     const url = req.originalUrl;
 
     try {
-      let render: () => Promise<string>;
+      let render: (req: ExpressRequest) => Promise<{ html: string; initialState: unknown }>;
       let template: string;
 
       if (vite) {
@@ -50,9 +54,15 @@ async function createServer() {
 
         render = (await import(pathToFileURL(pathToServer).href)).render;
       }
-      const appHtml = await render();
+      const { html: appHtml, initialState } = await render(req);
+      console.log(initialState);
 
-      const html = template.replace(`<!--ssr-outlet-->`, appHtml);
+      const html = template.replace(`<!--ssr-outlet-->`, appHtml).replace(
+        `<!--ssr-initial-state-->`,
+        `<script>window.APP_INITIAL_STATE = ${serialize(initialState, {
+          isJSON: true
+        })}</script>`
+      );
 
       res.status(200).set({ 'Content-Type': 'text/html' }).end(html);
     } catch (e) {
@@ -64,7 +74,7 @@ async function createServer() {
   });
 
   app.listen(port, () => {
-    console.log(`Client is listening on port: ${port}`);
+    console.log(`Client is started on: http://localhost:${port}`);
   });
 }
 

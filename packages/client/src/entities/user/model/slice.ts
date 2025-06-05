@@ -1,6 +1,9 @@
-import { createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { User } from './types';
+import { API_URL } from '@/shared/const/api';
+import { HttpError } from '@/shared/types';
+import { userSchema } from './schemas';
 
 type UserState = {
   user: Nullable<User>;
@@ -12,6 +15,26 @@ const initialState: UserState = {
   fetchStatus: 'idle'
 };
 
+export const fetchUserThunk = createAsyncThunk('user/fetchUserThunk', async (): Promise<User> => {
+  const url = `${API_URL}/auth/user`;
+  console.log(url);
+
+  const response = await fetch(url, {
+    credentials: 'include',
+    method: 'GET'
+  });
+
+  console.log(response);
+
+  if (!response.ok) {
+    throw new HttpError(response.status, response.statusText);
+  }
+
+  const data: unknown = await response.json();
+
+  return userSchema.parse(data);
+});
+
 const userSlice = createSlice({
   name: 'user',
   initialState,
@@ -21,33 +44,28 @@ const userSlice = createSlice({
     selectFetchStatusIsPending: (state) => state.fetchStatus === 'pending',
     selectFetchStatusIsIdle: (state) => state.fetchStatus === 'idle',
     selectFetchStatusIsSucceeded: (state) => state.fetchStatus === 'succeeded',
-    selectFetchStatusIsFailed: (state) => state.fetchStatus === 'failed',
-    selectUserByStatus: createSelector(
-      (state: UserState) => state.user,
-      (state: UserState) => state.fetchStatus,
-      (item, fetchStatus) => {
-        if (fetchStatus !== 'failed') return item;
-        return null;
-      }
-    )
+    selectFetchStatusIsFailed: (state) => state.fetchStatus === 'failed'
   },
   reducers: {
-    setUser: (state, action: PayloadAction<Nullable<User>>) => {
-      state.user = action.payload;
-    },
-    setPendingStatus: (state) => {
-      state.fetchStatus = 'pending';
-    },
-    setIdleStatus: (state) => {
-      state.fetchStatus = 'idle';
-    },
-    setSucceededStatus: (state) => {
-      state.fetchStatus = 'succeeded';
-    },
-    setFailedStatus: (state) => {
+    clearState: (state) => {
       state.user = null;
-      state.fetchStatus = 'failed';
+      state.fetchStatus = 'idle';
     }
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchUserThunk.pending, (state) => {
+        state.user = null;
+        state.fetchStatus = 'pending';
+      })
+      .addCase(fetchUserThunk.fulfilled, (state, { payload }: PayloadAction<User>) => {
+        state.user = payload;
+        state.fetchStatus = 'succeeded';
+      })
+      .addCase(fetchUserThunk.rejected, (state) => {
+        state.user = null;
+        state.fetchStatus = 'failed';
+      });
   }
 });
 

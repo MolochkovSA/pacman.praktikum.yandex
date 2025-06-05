@@ -1,5 +1,5 @@
 import { PropsWithChildren } from 'react';
-import { NavLink } from 'react-router';
+import { NavLink } from 'react-router-dom';
 
 import { UserDropdown } from './UserDropdown/UserDropdown';
 import logo from '@/assets/images/pacman-logo.png';

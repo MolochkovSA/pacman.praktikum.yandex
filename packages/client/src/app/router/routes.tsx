@@ -5,7 +5,7 @@ import { LoginPage } from '@/pages/login';
 import { SignUpPage } from '@/pages/signup';
 import { ProfilePage } from '@/pages/profile';
 import { ErrorPage } from '@/pages/error';
-import { GamePage } from '@/pages/game';
+// import { GamePage } from '@/pages/game';
 import { ForumPage } from '@/pages/forum';
 import { HomeLayout } from '@/pages/home-layout';
 import { ForumTopicViewPage } from '@/pages/forum-topic-view';
@@ -13,6 +13,8 @@ import { ForumTopicEditPage, topicLoader } from '@/pages/forum-topic-edit';
 import { LeaderBoardPage } from '@/pages/leader-board';
 import { HomePage } from '@/pages/home';
 import { AuthLayout } from '@/pages/auth-layout';
+import { preloadUser } from '@/entities/user/lib/preloadUser';
+import { store } from '../store/store';
 
 export const routes: RouteObject[] = [
   {
@@ -22,6 +24,7 @@ export const routes: RouteObject[] = [
     children: [
       {
         path: '',
+        loader: () => preloadUser(store),
         element: <HomeLayout />,
         children: [
           { index: true, element: <HomePage /> },
@@ -63,12 +66,12 @@ export const routes: RouteObject[] = [
           }
         ]
       },
+      // {
+      //   path: '/game',
+      //   element: <GamePage />
+      // },
       {
-        path: '/game',
-        element: <GamePage />
-      },
-      {
-        path: '/*',
+        path: '*',
         element: <ErrorPage errorType="404" />
       },
       {

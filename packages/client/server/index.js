@@ -9,12 +9,14 @@ const express_1 = __importDefault(require("express"));
 const path_1 = __importDefault(require("path"));
 const promises_1 = __importDefault(require("fs/promises"));
 const url_1 = require("url");
+const serialize_javascript_1 = __importDefault(require("serialize-javascript"));
+const cookie_parser_1 = __importDefault(require("cookie-parser"));
 const port = process.env.CLIENT_PORT || 80;
-const clientPath = path_1.default.join(__dirname, '..');
 const isDev = process.env.NODE_ENV === 'development';
-console.log(isDev, port);
+const clientPath = path_1.default.join(__dirname, '..');
 async function createServer() {
     const app = (0, express_1.default)();
+    app.use((0, cookie_parser_1.default)());
     const { createServer: createViteServer } = await import('vite');
     let vite;
     if (isDev) {
@@ -28,7 +30,7 @@ async function createServer() {
     else {
         app.use(express_1.default.static(path_1.default.join(clientPath, 'dist/client'), { index: false }));
     }
-    app.get('/', async (req, res, next) => {
+    app.use(async (req, res, next) => {
         const url = req.originalUrl;
         try {
             let render;
@@ -43,8 +45,11 @@ async function createServer() {
                 const pathToServer = path_1.default.join(clientPath, 'dist/server/entry-server.mjs');
                 render = (await import((0, url_1.pathToFileURL)(pathToServer).href)).render;
             }
-            const appHtml = await render();
-            const html = template.replace(`<!--ssr-outlet-->`, appHtml);
+            const { html: appHtml, initialState } = await render(req);
+            console.log(initialState);
+            const html = template.replace(`<!--ssr-outlet-->`, appHtml).replace(`<!--ssr-initial-state-->`, `<script>window.APP_INITIAL_STATE = ${(0, serialize_javascript_1.default)(initialState, {
+                isJSON: true
+            })}</script>`);
             res.status(200).set({ 'Content-Type': 'text/html' }).end(html);
         }
         catch (e) {
@@ -55,7 +60,7 @@ async function createServer() {
         }
     });
     app.listen(port, () => {
-        console.log(`Client is listening on port: ${port}`);
+        console.log(`Client is started on: http://localhost:${port}`);
     });
 }
 createServer();
