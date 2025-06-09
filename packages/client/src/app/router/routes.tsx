@@ -3,7 +3,7 @@ import { LoginPage } from '@/pages/login';
 import { SignUpPage } from '@/pages/signup';
 import { ProfilePage } from '@/pages/profile';
 import { ErrorPage } from '@/pages/error';
-// import { GamePage } from '@/pages/game';
+import { GamePage } from '@/pages/game';
 import { ForumPage } from '@/pages/forum';
 import { HomeLayout } from '@/pages/home-layout';
 import { ForumTopicViewPage } from '@/pages/forum-topic-view';
@@ -61,10 +61,10 @@ export const routes = [
           }
         ]
       },
-      // {
-      //   path: '/game',
-      //   element: <GamePage />
-      // },
+      {
+        path: '/game',
+        element: <GamePage />
+      },
       {
         path: '*',
         element: <ErrorPage errorType="404" />

@@ -1,9 +1,11 @@
-import wall from '../../../assets/textures/wall.jpg';
-
-const tileImage = new Image();
-tileImage.src = wall;
+import wall from '@/assets/textures/wall.jpg';
 
 export const renderMap = (ctx: CanvasRenderingContext2D, mapData: number[][], tileSize: number) => {
+  const tileImage = new Image();
+  tileImage.src = wall;
+
+  console.log(tileImage);
+
   mapData.forEach((row, y) => {
     row.forEach((cell, x) => {
       if (cell === 1) {

@@ -1,10 +1,10 @@
 import { Vector2D } from '@/shared/model/vector';
 import wall from '../../../assets/textures/food.png';
 
-const foodImage = new Image();
-foodImage.src = wall;
-
 export const renderFood = (ctx: CanvasRenderingContext2D, foods: Vector2D[], tileSize: number) => {
+  const foodImage = new Image();
+  foodImage.src = wall;
+
   const imageSize = tileSize / 2;
 
   foods.forEach(({ x, y }) => {
