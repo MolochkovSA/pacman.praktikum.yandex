@@ -16,7 +16,6 @@ export const Game = ({
   player,
   foods,
   ghosts,
-  ghostSrcs,
   direction,
   isPaused,
   setIsPaused
@@ -24,7 +23,6 @@ export const Game = ({
   player: Player;
   foods: Vector2D[];
   ghosts: Vector2D[];
-  ghostSrcs: string[];
   direction: Direction;
   isPaused: boolean;
   setIsPaused: (isPaused: boolean) => void;
@@ -39,9 +37,9 @@ export const Game = ({
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     renderMap(ctx, map, tileSize);
     renderFood(ctx, foods, tileSize);
-    renderGhosts(ctx, ghosts, ghostSrcs, tileSize);
+    renderGhosts(ctx, ghosts, tileSize);
     renderPlayer(ctx, player, direction, tileSize);
-  }, [player, foods, ghosts, ghostSrcs, direction, tileSize]);
+  }, [player, foods, ghosts, direction, tileSize]);
 
   return (
     <>

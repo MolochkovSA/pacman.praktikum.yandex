@@ -1,7 +1,6 @@
 import { useState, useCallback, useEffect } from 'react';
 import { useGameLoop } from '@/features/GameControl/model/useGameLoop';
 import { useMovement } from '@/features/PlayerMovement/useMovement';
-import { ghostSrcs } from '@/shared/const/ghostSrcs';
 import { Button } from '@/shared/ui';
 import { Game } from './Game';
 import { StartGameModal } from '@/features/StartGame/ui/StartGameModal';
@@ -55,7 +54,6 @@ export const GameBoard = () => {
           player={player}
           foods={foods}
           ghosts={ghosts}
-          ghostSrcs={ghostSrcs}
           direction={direction}
           setIsPaused={setIsPaused}
         />

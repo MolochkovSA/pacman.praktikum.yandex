@@ -18,13 +18,10 @@ export const withAuthGuard = <P extends object>(Component: FC<P>, block?: boolea
     if (status === 'idle' || status === 'pending') return <Spinner />;
 
     if (block && isAuth) {
-      console.log('go to home');
       return <Navigate to="/" />;
     }
 
     if (!block && !isAuth) {
-      console.log('go to login');
-
       return <Navigate to="/auth/login" />;
     }
 
