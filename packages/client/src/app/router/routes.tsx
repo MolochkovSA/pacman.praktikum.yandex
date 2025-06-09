@@ -83,8 +83,6 @@ export const routes = [
       {
         path: AppRoutes.SERVER_ERROR,
         element: <ErrorPage errorType="500" />
-        path: '*',
-        element: <ErrorPage errorType="404" />
       },
       {
         path: AppRoutes.NOT_FOUND,
