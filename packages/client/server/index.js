@@ -14,6 +14,23 @@ const cookie_parser_1 = __importDefault(require("cookie-parser"));
 const port = process.env.CLIENT_PORT || 80;
 const isDev = process.env.NODE_ENV === 'development';
 const clientPath = path_1.default.join(__dirname, '..');
+async function getStyleSheets() {
+    try {
+        const assetsPath = './dist/client/assets';
+        const files = await promises_1.default.readdir(assetsPath);
+        const cssAssets = files.filter((l) => l.endsWith('.css'));
+        const allContent = [];
+        for (const asset of cssAssets) {
+            const content = await promises_1.default.readFile(path_1.default.join(assetsPath, asset), 'utf-8');
+            allContent.push(content);
+        }
+        return `<style type="text/css">${allContent.join('')}</style>`;
+    }
+    catch (e) {
+        console.error(e);
+        return '';
+    }
+}
 async function createServer() {
     const app = (0, express_1.default)();
     app.use((0, cookie_parser_1.default)());
@@ -46,7 +63,10 @@ async function createServer() {
                 render = (await import((0, url_1.pathToFileURL)(pathToServer).href)).render;
             }
             const { html: appHtml, initialState } = await render(req);
-            const html = template.replace(`<!--ssr-outlet-->`, appHtml).replace(`<!--ssr-initial-state-->`, `<script>window.APP_INITIAL_STATE = ${(0, serialize_javascript_1.default)(initialState, {
+            const html = template
+                .replace('<!--ssr-styles-->', await getStyleSheets())
+                .replace(`<!--ssr-outlet-->`, appHtml)
+                .replace(`<!--ssr-initial-state-->`, `<script>window.APP_INITIAL_STATE = ${(0, serialize_javascript_1.default)(initialState, {
                 isJSON: true
             })}</script>`);
             res.status(200).set({ 'Content-Type': 'text/html' }).end(html);

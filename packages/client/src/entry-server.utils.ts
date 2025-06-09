@@ -1,7 +1,5 @@
 import { Request as ExpressRequest } from 'express';
 
-import { PageInitContext } from './shared/types';
-
 export const createUrl = (req: ExpressRequest) => {
   const origin = `${req.protocol}://${req.get('host')}`;
 
@@ -45,7 +43,3 @@ export const createFetchRequest = (req: ExpressRequest) => {
 
   return new Request(url.href, init);
 };
-
-export const createContext = (req: ExpressRequest): PageInitContext => ({
-  clientToken: req.cookies.token
-});

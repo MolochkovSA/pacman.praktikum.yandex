@@ -11,7 +11,6 @@ import { ForumTopicEditPage, topicLoader } from '@/pages/forum-topic-edit';
 import { LeaderBoardPage } from '@/pages/leader-board';
 import { HomePage } from '@/pages/home';
 import { AuthLayout } from '@/pages/auth-layout';
-import { preloadUser } from '@/entities/user/lib/preloadUser';
 
 export const routes = [
   {
@@ -22,7 +21,6 @@ export const routes = [
       {
         path: '',
         element: <HomeLayout />,
-        fetchData: preloadUser,
         children: [
           { index: true, element: <HomePage /> },
           {
