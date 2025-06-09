@@ -3,8 +3,6 @@ import { DEFAULT_COMMENTS_ON_SCREEN } from '../constants';
 import { TopicViewRequestDto, TopicViewResponseDto } from '../model/types';
 import { getMockTopicVew } from './mockData';
 
-import defaultAvatar from '@/assets/images/avatar.png';
-
 type Args = {
   id: TopicId;
   page: number;
@@ -22,14 +20,12 @@ export const getTopicView = async ({ id, page }: Args): Promise<TopicViewRespons
 
   const mappedTopic = {
     ...topic,
-    createdAt: new Date(topic.createdAt),
-    author: { ...topic.author, avatar: topic.author.avatar || defaultAvatar }
+    createdAt: new Date(topic.createdAt)
   };
 
   const mappedComments = comments.map((comment) => ({
     ...comment,
-    createdAt: new Date(comment.createdAt),
-    author: { ...comment.author, avatar: comment.author.avatar || defaultAvatar }
+    createdAt: new Date(comment.createdAt)
   }));
 
   return {

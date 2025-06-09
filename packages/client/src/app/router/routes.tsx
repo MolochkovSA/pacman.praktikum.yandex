@@ -1,4 +1,5 @@
 import App from '../ui/App';
+import { AppRoutes } from '@/shared/config/routeConfig';
 import { LoginPage } from '@/pages/login';
 import { SignUpPage } from '@/pages/signup';
 import { ProfilePage } from '@/pages/profile';
@@ -14,33 +15,47 @@ import { AuthLayout } from '@/pages/auth-layout';
 
 export const routes = [
   {
-    path: '/',
+    path: AppRoutes.MAIN,
     element: <App />,
     errorElement: <ErrorPage errorType="500" />,
     children: [
+      {
+        path: AppRoutes.AUTH.ROOT,
+        lazy: AuthLayout,
+        children: [
+          {
+            path: AppRoutes.AUTH.LOGIN,
+            lazy: LoginPage
+          },
+          {
+            path: AppRoutes.AUTH.SIGNUP,
+            lazy: SignUpPage
+          }
+        ]
+      },
       {
         path: '',
         element: <HomeLayout />,
         children: [
           { index: true, element: <HomePage /> },
           {
-            path: 'profile',
+            path: AppRoutes.PROFILE.ROOT,
             element: <ProfilePage />
           },
           {
-            path: 'leaderboard',
+            path: AppRoutes.LEADERBOARD,
             element: <LeaderBoardPage />
           },
           {
-            path: 'forum',
+            path: AppRoutes.FORUM.ROOT,
             children: [
               { index: true, element: <ForumPage /> },
-              { path: 'posting', element: <ForumTopicEditPage /> },
+              { path: AppRoutes.FORUM.POSTING, element: <ForumTopicEditPage /> },
               {
-                path: ':topicId',
+                path: AppRoutes.FORUM.TOPIC.ROOT,
                 children: [
                   { index: true, element: <ForumTopicViewPage /> },
-                  { path: 'edit', loader: topicLoader, element: <ForumTopicEditPage /> }
+                  { path: AppRoutes.FORUM.TOPIC.EDIT, loader: topicLoader, element: <ForumTopicEditPage /> }
                 ]
               }
             ]
@@ -66,12 +81,14 @@ export const routes = [
         element: <GamePage />
       },
       {
+        path: AppRoutes.SERVER_ERROR,
+        element: <ErrorPage errorType="500" />
         path: '*',
         element: <ErrorPage errorType="404" />
       },
       {
-        path: '/500',
-        element: <ErrorPage errorType="500" />
+        path: AppRoutes.NOT_FOUND,
+        element: <ErrorPage errorType="404" />
       }
     ]
   }

@@ -2,7 +2,7 @@ import { Topic, TopicId } from '@/entities/topic';
 import { User } from '@/entities/user';
 import { Comment } from '@/entities/comment';
 
-type UserPreview = Pick<User, 'id' | 'display_name'>;
+type UserPreview = Pick<User, 'id' | 'login'>;
 
 export type TopicPreview = {
   id: TopicId;

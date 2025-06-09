@@ -2,6 +2,7 @@ import { Card } from 'react-bootstrap';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 
+import { RoutePath } from '@/shared/config/routeConfig';
 import { Button, IconLink, Input } from '@/shared/ui';
 import { SignInDto, signInSchema, useAuth } from '@/features/auth';
 
@@ -50,7 +51,7 @@ export const LoginPage = () => {
           type="submit">
           Авторизироваться
         </Button>
-        <IconLink to="/auth/signup">Нет аккаунта?</IconLink>
+        <IconLink to={RoutePath.AUTH.SIGNUP}>Нет аккаунта?</IconLink>
       </Card.Footer>
     </Card>
   );

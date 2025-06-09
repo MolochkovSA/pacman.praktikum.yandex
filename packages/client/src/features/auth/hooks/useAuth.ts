@@ -1,8 +1,8 @@
 import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-
-import { HttpError } from '@/shared/types';
+import { RoutePath } from '@/shared/config/routeConfig';
 import { useAppDispatch, useAppSelector } from '@/shared/model/redux';
+import { HttpError } from '@/shared/types';
 import { useNotification } from '@/entities/notification';
 import { fetchUserThunk, userActions, userSelectors } from '@/entities/user';
 import { SignInDto, SignUpRequestDto } from '../model/types';
@@ -26,10 +26,10 @@ export const useAuth = () => {
             notify('Неправильный логин или пароль');
           } else if (error.status === 400) {
             notify('Пользователь уже авторизован');
-            authApi.logout().then(() => navigate('/auth/login'));
+            authApi.logout().then(() => navigate(RoutePath.AUTH.LOGIN));
           } else if (error.status / 100 === 5) {
             notify('Ошибка сервера');
-            navigate('/500');
+            navigate(RoutePath.SERVER_ERROR);
           }
         }
       }
@@ -40,7 +40,7 @@ export const useAuth = () => {
   const signUp = useCallback(
     async (data: SignUpRequestDto) => {
       await authApi.signUp(data);
-      navigate('/');
+      navigate(RoutePath.MAIN);
     },
     [navigate]
   );
@@ -48,7 +48,7 @@ export const useAuth = () => {
   const logout = useCallback(async () => {
     await authApi.logout();
     dispatch(userActions.clearState());
-    navigate('/auth/login');
+    navigate(RoutePath.AUTH.LOGIN);
   }, [navigate, dispatch]);
 
   return { status, user, isAuth: Boolean(user), signIn, signUp, logout };
