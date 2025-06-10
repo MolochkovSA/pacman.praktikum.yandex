@@ -46,7 +46,7 @@ export const useYandexAuth = () => {
         }
       }
     },
-    [me, navigate, notify]
+    [me, navigate, notify, logout]
   );
 
   return { redirectOnYandexOauth, signInWithYandex };
