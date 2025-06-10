@@ -21,15 +21,15 @@ export const routes = [
     children: [
       {
         path: AppRoutes.AUTH.ROOT,
-        lazy: AuthLayout,
+        element: <AuthLayout />,
         children: [
           {
             path: AppRoutes.AUTH.LOGIN,
-            lazy: LoginPage
+            element: <LoginPage />
           },
           {
             path: AppRoutes.AUTH.SIGNUP,
-            lazy: SignUpPage
+            element: <SignUpPage />
           }
         ]
       },
