@@ -29,7 +29,7 @@ export const LoginPage = () => {
     if (searchParams.get('code')) {
       signInWithYandex(searchParams.get('code')!);
     }
-  }, []);
+  }, [searchParams, signInWithYandex]);
 
   return (
     <Card>
@@ -64,12 +64,11 @@ export const LoginPage = () => {
           Авторизироваться
         </Button>
         <Button
-          className="w-100"
-          style={{ padding: '0 2rem' }}
+          className="w-100 py-0"
           onClick={redirectOnYandexOauth}
           type="button">
           <Icon
-            src={'yandex'}
+            src="yandex"
             size={45}
           />
         </Button>
