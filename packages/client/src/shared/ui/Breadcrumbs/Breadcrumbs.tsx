@@ -1,4 +1,4 @@
-import { Link, useLocation } from 'react-router';
+import { Link, useLocation } from 'react-router-dom';
 import clsx from 'clsx';
 
 import styles from './Breadcrumbs.module.scss';

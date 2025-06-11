@@ -1,10 +1,9 @@
 import { HttpError } from '@/shared/types';
-import { User, userSchema } from '@/entities/user';
+import { API_URL } from '@/shared/const/api';
 import { SignInDto, SignUpRequestDto, SignUpResponseDto } from '../model/types';
 import { signUpResponseDtoSchema } from '../model/schemas';
 
-const apiUrl: string = import.meta.env.VITE_API_URL;
-const authUrl: string = `${apiUrl}/auth`;
+const authUrl: string = `${API_URL}/auth`;
 
 const signUp = async (args: SignUpRequestDto): Promise<SignUpResponseDto> => {
   const response = await fetch(`${authUrl}/signup`, {
@@ -51,19 +50,4 @@ const logout = async (): Promise<void> => {
   }
 };
 
-const me = async (): Promise<User> => {
-  const response = await fetch(`${authUrl}/user`, {
-    credentials: 'include',
-    method: 'GET'
-  });
-
-  if (!response.ok) {
-    throw new HttpError(response.status, response.statusText);
-  }
-
-  const data: unknown = await response.json();
-
-  return userSchema.parse(data);
-};
-
-export const authApi = { signUp, signIn, logout, me };
+export const authApi = { signUp, signIn, logout };
