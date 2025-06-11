@@ -7,6 +7,7 @@ import { HttpError } from '@/shared/types';
 import { profileApi } from '../../api/profileApi';
 import { ChangePasswordType } from '../../model/types';
 import { changePasswordSchema } from '../../model/schemas';
+import { useNotification } from '@/entities/notification';
 
 interface PasswordModalProps {
   show: boolean;
@@ -26,6 +27,7 @@ export const PasswordModal = ({ show, onHide }: PasswordModalProps) => {
   });
 
   const [error, setError] = useState('');
+  const { notify } = useNotification();
 
   const onClose = () => {
     onHide();
@@ -37,10 +39,14 @@ export const PasswordModal = ({ show, onHide }: PasswordModalProps) => {
 
     profileApi
       .changePassword({ oldPassword, newPassword })
-      .then(onClose)
+      .then(() => {
+        notify('Пароль успешно изменен');
+        onClose();
+      })
       .catch((error) => {
         if (error instanceof HttpError) {
           setError(error.message);
+          throw new Error(error.message);
         }
       });
   };

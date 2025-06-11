@@ -1,12 +1,15 @@
 import { Outlet } from 'react-router-dom';
 import { Notification } from '@/entities/notification';
+import { GlobalErrorHandler } from '@/features/ErrorBoundary/ErrorHandler';
 
 function App() {
   return (
     <div className="App">
-      <Notification>
-        <Outlet />
-      </Notification>
+      <GlobalErrorHandler>
+        <Notification>
+          <Outlet />
+        </Notification>
+      </GlobalErrorHandler>
     </div>
   );
 }
