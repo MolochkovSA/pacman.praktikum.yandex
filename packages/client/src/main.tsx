@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom/client';
 import { RouterProvider } from 'react-router-dom';
 import './app/styles/global.scss';
 import { router } from '@/app';
-import './startServiceWorker.js';
 import { Provider } from 'react-redux';
 import { store } from '@/app/store/store.ts';
 
