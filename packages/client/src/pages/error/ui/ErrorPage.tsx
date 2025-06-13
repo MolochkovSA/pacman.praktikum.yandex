@@ -1,12 +1,21 @@
-import React from 'react';
-import styles from './ErrorLayout.module.scss';
+import { useNavigate } from 'react-router-dom';
+
+import { RoutePath } from '@/shared/config/routeConfig';
 import { Button } from '@/shared/ui';
+
+import styles from './ErrorLayout.module.scss';
 
 type ErrorPageProps = {
   errorType?: '404' | '500';
 };
 
 export const ErrorPage = ({ errorType }: ErrorPageProps) => {
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate(RoutePath.MAIN);
+  };
+
   const getErrorMessage = (errorType?: '404' | '500') => {
     switch (errorType) {
       case '500':
@@ -32,8 +41,4 @@ export const ErrorPage = ({ errorType }: ErrorPageProps) => {
       </Button>
     </div>
   );
-};
-
-const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-  return e;
 };

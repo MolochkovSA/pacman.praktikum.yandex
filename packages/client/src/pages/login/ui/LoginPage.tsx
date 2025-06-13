@@ -1,92 +1,79 @@
 import { Card } from 'react-bootstrap';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
 
+import { RoutePath } from '@/shared/config/routeConfig';
 import { Button, IconLink, Input } from '@/shared/ui';
-import { Login } from '@/shared/model/types';
-import { loginSchema } from '@/shared/model';
-import { HttpError, SignInProps } from '@/shared/types';
-
-import styles from './LoginPage.module.scss';
-import { useDispatch } from 'react-redux';
-import { setSucceededStatus } from '@/entities/user/model/slice.ts';
-import { notify } from '@/shared/model/notificationSlice.ts';
-import { authService } from '@/entities/user';
+import { SignInDto, signInSchema, useAuth } from '@/features/auth';
+import { Icon } from '@/pages/home/ui/Icon/Icon.tsx';
+import { useSearchParams } from 'react-router-dom';
+import { useYandexAuth } from '@/features/auth/hooks/useYandexOauth.ts';
+import { useEffect } from 'react';
 
 export const LoginPage = () => {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const { signIn } = useAuth();
+  const { redirectOnYandexOauth, signInWithYandex } = useYandexAuth();
+  const [searchParams] = useSearchParams();
 
   const {
     register,
     handleSubmit,
     trigger,
     formState: { errors }
-  } = useForm<Login>({
+  } = useForm<SignInDto>({
     mode: 'onBlur',
-    resolver: zodResolver(loginSchema)
+    resolver: zodResolver(signInSchema)
   });
 
-  const onSubmit = (data: Login) => {
-    authService
-      .signIn(data as SignInProps)
-      .then(() => authService.getUser())
-      .then((user) => {
-        dispatch(setSucceededStatus(user));
-        navigate('/home');
-      })
-      .catch((error) => {
-        if (error instanceof HttpError) {
-          if (error.status === 401) {
-            dispatch(notify('Неправильный логин или пароль'));
-          } else if (error.status === 400) {
-            dispatch(notify('Пользователь уже авторизован'));
-            navigate('/home');
-          } else if (error.status / 100 === 5) {
-            dispatch(notify('Ошибка сервера'));
-            navigate('/500');
-          }
-        }
-      });
-  };
+  useEffect(() => {
+    if (searchParams.get('code')) {
+      signInWithYandex(searchParams.get('code')!);
+    }
+  }, [searchParams, signInWithYandex]);
 
   return (
-    <main className={styles.login}>
-      <Card>
-        <Card.Header>
-          <Card.Title className="text-center">Вход</Card.Title>
-        </Card.Header>
-        <Card.Body>
-          <form
-            id="loginForm"
-            onSubmit={handleSubmit(onSubmit)}>
-            <Input
-              label="Логин"
-              {...register('login')}
-              error={errors.login?.message as string}
-              onFocus={() => trigger('login')}
-            />
-            <Input
-              label="Пароль"
-              {...register('password')}
-              type="password"
-              error={errors.password?.message as string}
-              onFocus={() => trigger('password')}
-            />
-          </form>
-        </Card.Body>
+    <Card>
+      <Card.Header>
+        <Card.Title className="text-center">Вход</Card.Title>
+      </Card.Header>
+      <Card.Body>
+        <form
+          id="loginForm"
+          onSubmit={handleSubmit(signIn)}>
+          <Input
+            label="Логин"
+            {...register('login')}
+            error={errors.login?.message as string}
+            onFocus={() => trigger('login')}
+          />
+          <Input
+            label="Пароль"
+            {...register('password')}
+            type="password"
+            error={errors.password?.message as string}
+            onFocus={() => trigger('password')}
+          />
+        </form>
+      </Card.Body>
 
-        <Card.Footer className="d-flex flex-column gap-3 align-items-center mt-5">
-          <Button
-            className="w-100"
-            form="loginForm"
-            type="submit">
-            Авторизироваться
-          </Button>
-          <IconLink to="/signup">Нет аккаунта?</IconLink>
-        </Card.Footer>
-      </Card>
-    </main>
+      <Card.Footer className="d-flex flex-column gap-3 align-items-center mt-5">
+        <Button
+          className="w-100"
+          form="loginForm"
+          type="submit">
+          Авторизироваться
+        </Button>
+        <Button
+          className="w-100 py-0"
+          onClick={redirectOnYandexOauth}
+          type="button">
+          <Icon
+            src="yandex"
+            size={45}
+          />
+        </Button>
+        <IconLink to={RoutePath.AUTH.SIGNUP}>Нет аккаунта?</IconLink>
+      </Card.Footer>
+    </Card>
   );
 };

@@ -1,0 +1,16 @@
+.livesContainer {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.life {
+  color: var(--color-red-invalidate);
+  font-size: 24px;
+}
+
+.lostLife {
+  color: var(--color-mossy-gray);
+  opacity: 0.4;
+  font-size: 24px;
+}

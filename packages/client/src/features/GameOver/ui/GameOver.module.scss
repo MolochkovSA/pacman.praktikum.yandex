@@ -1,0 +1,35 @@
+@use 'styles/typography';
+@use 'styles/mixins';
+@use 'styles/animation';
+
+.gameover {
+  @include typography.font(h2);
+
+  width: 500px;
+  color: var(--color-white-text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+  p {
+    margin-top: 25px;
+    line-height: 25px;
+    text-align: center;
+  }
+
+  &_score {
+    color: var(--color-yellow-text);
+    font-size: 20px;
+
+    strong {
+      @include mixins.screen-score;
+    }
+  }
+
+  &_icon {
+    @include animation.bounce;
+
+    font-size: 25px;
+  }
+}

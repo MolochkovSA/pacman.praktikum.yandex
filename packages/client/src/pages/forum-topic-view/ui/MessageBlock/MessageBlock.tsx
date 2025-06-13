@@ -1,6 +1,9 @@
 import { Link } from 'react-router-dom';
 import { Card } from 'react-bootstrap';
 
+import { getProfilePath } from '@/shared/lib/router';
+import { getAvatarSrc } from '@/shared/lib/getAvatarSrc';
+
 import styles from './MessageBlock.module.scss';
 
 type Props = {
@@ -9,25 +12,20 @@ type Props = {
   createdAt: Date;
   author: {
     id: number;
-    display_name: string;
-    avatar: string;
+    login: string;
+    avatar: string | null;
   };
 };
 
-export const MessageBlock = ({
-  themeDescription,
-  text,
-  createdAt,
-  author: { id: authorId, display_name, avatar }
-}: Props) => {
+export const MessageBlock = ({ themeDescription, text, createdAt, author: { id: authorId, login, avatar } }: Props) => {
   return (
     <Card>
       <Card.Body className={styles.messageBlock}>
         <div className={styles.author}>
-          <Link to={`/profile/${authorId}`}>{display_name}</Link>
+          <Link to={getProfilePath(authorId)}>{login}</Link>
           <img
-            src={avatar}
-            alt={`avatar of ${display_name}`}
+            src={getAvatarSrc(avatar)}
+            alt={`avatar of ${login}`}
           />
         </div>
 

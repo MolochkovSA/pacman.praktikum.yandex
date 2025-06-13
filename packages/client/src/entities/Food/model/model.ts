@@ -10,7 +10,11 @@ export const generateFood = (): Vector2D[] => {
       }
     });
   });
+
   return foodPositions;
 };
 
-export const isSamePosition = (a: Vector2D, b: Vector2D): boolean => a.x === b.x && a.y === b.y;
+export const isSamePosition = (a: Vector2D, b: Vector2D): boolean => {
+  // console.log(a.x === b.x && a.y === b.y, a.x, b.x, a.y, b.y);
+  return a.x === b.x && a.y === b.y;
+};

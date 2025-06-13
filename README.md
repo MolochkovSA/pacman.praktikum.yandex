@@ -74,3 +74,7 @@
 
 Если вам понадобится только один сервис, просто уточните какой в команде
 `docker compose up {sevice_name}`, например `docker compose up server`
+
+## Ссылка на видео с работой нашей игры
+
+https://cloud.mail.ru/public/fwzB/hBvGPJNgy

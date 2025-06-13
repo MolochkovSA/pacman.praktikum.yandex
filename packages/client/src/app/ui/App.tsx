@@ -1,5 +1,5 @@
 import { Outlet } from 'react-router-dom';
-import { Notification } from '@/shared/ui/Notification/Notification.tsx';
+import { Notification } from '@/entities/notification';
 
 function App() {
   return (
