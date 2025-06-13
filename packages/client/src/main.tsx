@@ -5,6 +5,7 @@ import './app/styles/global.scss';
 import { router } from '@/app';
 import { Provider } from 'react-redux';
 import { store } from '@/app/store/store.ts';
+import { registerServiceWorker, unregisterServiceWorker } from './shared/lib/serviceWorker';
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
@@ -15,3 +16,9 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     </Suspense>
   </React.StrictMode>
 );
+
+if (import.meta.env.VITE_MODE === 'development') {
+  unregisterServiceWorker();
+} else {
+  registerServiceWorker();
+}
