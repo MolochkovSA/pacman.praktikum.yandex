@@ -10,13 +10,15 @@ import { Pagination } from '@/widgets/pagination';
 import { usePlayerList } from '../hooks/usePlayerList';
 import { DEFAULT_PAGE, DEFAULT_PLAYERS_ON_SCREEN } from '../constants';
 import { PlayersTable } from './PlayersTable/PlayersTable';
+import { ErrorMessage } from '@/shared/ui';
 
 import styles from './LeaderBoardPage.module.scss';
 
 export const LeaderBoardPage = () => {
   const [page, setPage] = useState(DEFAULT_PAGE);
-  const { players, isLoading, total } = usePlayerList(page);
 
+  const { players, isLoading, isError } = usePlayerList(page);
+  const length = players?.length ?? 0;
   return (
     <ForumLayout
       top={
@@ -44,14 +46,17 @@ export const LeaderBoardPage = () => {
             <GiTrophyCup size={64} />
           </Card.Title>
         </Card.Header>
-
-        <Card.Body>{isLoading ? <Spinner /> : <PlayersTable players={players} />}</Card.Body>
+        {isError ? (
+          <ErrorMessage error={'Произошла ошибка, пожалуйста, обновите страницу'}></ErrorMessage>
+        ) : (
+          <Card.Body>{isLoading ? <Spinner /> : <PlayersTable players={players} />}</Card.Body>
+        )}
 
         <Card.Footer>
           <Pagination
             page={page}
-            total={total}
             limit={DEFAULT_PLAYERS_ON_SCREEN}
+            length={length}
             onNextClick={() => setPage((prev) => prev + 1)}
             onPrevClick={() => setPage((prev) => prev - 1)}
           />

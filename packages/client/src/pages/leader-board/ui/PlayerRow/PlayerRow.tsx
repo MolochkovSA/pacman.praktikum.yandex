@@ -4,12 +4,13 @@ import { GiTrophyCup } from 'react-icons/gi';
 import { GrFireball } from 'react-icons/gr';
 
 import { getProfilePath } from '@/shared/lib/router';
-import { PlayerPreview } from '../../model/types';
+import { Player } from '../../model/types';
+import { formatTime } from '@/features/gameTimer';
 
 import styles from './PlayerRow.module.scss';
 
 type Props = {
-  player: PlayerPreview;
+  player: Player;
   position: number;
 };
 
@@ -34,7 +35,7 @@ const cups: Record<number, React.ReactElement | undefined> = {
   )
 };
 
-export const PlayerRow = ({ player: { id, login, achievement, wins, games }, position }: Props) => {
+export const PlayerRow = ({ player: { id, login, pacman_score, time }, position }: Props) => {
   const playerProfileUrl = getProfilePath(id);
 
   return (
@@ -48,10 +49,9 @@ export const PlayerRow = ({ player: { id, login, achievement, wins, games }, pos
       </td>
       <td className={styles.achievement}>
         <GrFireball size={12} />
-        {achievement}
+        {pacman_score}
       </td>
-      <td>{games}</td>
-      <td>{wins}</td>
+      <td>{formatTime(time)}</td>
     </tr>
   );
 };
