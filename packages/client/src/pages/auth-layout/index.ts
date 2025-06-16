@@ -1,1 +1,2 @@
-export { AuthLayoutAsync as AuthLayout } from './ui/AuthLayout.async';
+export { AuthLayoutAsync } from './ui/AuthLayout.async';
+export { AuthLayout } from './ui/AuthLayout';

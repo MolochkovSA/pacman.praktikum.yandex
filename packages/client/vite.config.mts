@@ -27,5 +27,8 @@ export default defineConfig({
         silenceDeprecations: ['legacy-js-api', 'import']
       }
     }
+  },
+  build: {
+    outDir: path.join(__dirname, 'dist/client')
   }
 });
