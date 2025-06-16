@@ -2,10 +2,12 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit';
 
 import { notificationReducer } from '@/entities/notification';
 import { userReducer } from '@/entities/user';
+import { leaderboardApi } from '@/pages/leader-board/api/api';
 
 export const reducer = combineReducers({
   user: userReducer,
-  notification: notificationReducer
+  notification: notificationReducer,
+  [leaderboardApi.reducerPath]: leaderboardApi.reducer
 });
 
 declare global {
@@ -16,5 +18,6 @@ declare global {
 
 export const store = configureStore({
   reducer,
-  preloadedState: typeof window === 'undefined' ? undefined : window.APP_INITIAL_STATE
+  preloadedState: typeof window === 'undefined' ? undefined : window.APP_INITIAL_STATE,
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(leaderboardApi.middleware)
 });

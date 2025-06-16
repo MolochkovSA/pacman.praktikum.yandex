@@ -1,24 +1,23 @@
 import { Table } from 'react-bootstrap';
 
-import { PlayerPreview } from '../../model/types';
 import { PlayerRow } from '../PlayerRow/PlayerRow';
+import { PlayerListResponseDto } from '../../model/types';
 
 import styles from './PlayersTable.module.scss';
 
 type Props = {
-  players: PlayerPreview[];
+  players: PlayerListResponseDto | undefined;
 };
-
 export const PlayersTable = ({ players }: Props) => {
-  const playersList = players.map((player, index) => (
+  const playersList = players?.map((player, index) => (
     <PlayerRow
-      key={player.id}
+      key={player.data.id}
       position={index + 1}
-      player={player}
+      player={player.data}
     />
   ));
 
-  if (!playersList.length) return <div className={styles.noData}>Список игроков пуст</div>;
+  if (!playersList?.length) return <div className={styles.noData}>Список игроков пуст</div>;
 
   return (
     <Table
@@ -29,8 +28,7 @@ export const PlayersTable = ({ players }: Props) => {
           <th>Позиция</th>
           <th>Логин</th>
           <th>Очки</th>
-          <th>Проведено игр</th>
-          <th>Одержано побед</th>
+          <th>Время</th>
         </tr>
       </thead>
       <tbody>{playersList}</tbody>
