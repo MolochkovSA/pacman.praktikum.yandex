@@ -1,6 +1,6 @@
 import { Outlet } from 'react-router-dom';
 import { Notification } from '@/entities/notification';
-import { GlobalErrorHandler } from '@/features/ErrorBoundary/ErrorHandler';
+import { GlobalErrorHandler } from '../providers';
 
 function App() {
   return (
