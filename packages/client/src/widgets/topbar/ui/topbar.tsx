@@ -1,5 +1,5 @@
 import { PropsWithChildren } from 'react';
-import { NavLink } from 'react-router';
+import { NavLink } from 'react-router-dom';
 
 import { RoutePath } from '@/shared/config/routeConfig';
 import logo from '@/assets/images/pacman-logo.png';

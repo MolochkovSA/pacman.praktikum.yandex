@@ -1,9 +1,9 @@
+import { API_URL } from '@/shared/const/api';
 import { User, userSchema } from '@/entities/user';
 import { HttpError } from '@/shared/types';
 import { PasswordRequestDto, Profile } from '../model/types';
 
-const apiUrl: string = import.meta.env.VITE_API_URL;
-const userUrl: string = `${apiUrl}/user`;
+const userUrl: string = `${API_URL}/user`;
 
 const editProfile = async (profile: Profile): Promise<User> => {
   const response = await fetch(`${userUrl}/profile`, {

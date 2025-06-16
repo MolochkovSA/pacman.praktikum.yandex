@@ -1,1 +1,2 @@
-export { LeaderBoardPageAsync as LeaderBoard } from './ui/LeaderBoardPage.async';
+export { LeaderBoardPageAsync } from './ui/LeaderBoardPage.async';
+export { LeaderBoardPage } from './ui/LeaderBoardPage';

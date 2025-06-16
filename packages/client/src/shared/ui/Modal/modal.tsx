@@ -1,5 +1,5 @@
 import { PropsWithChildren, ReactNode } from 'react';
-import BootstrapModal from 'react-bootstrap/Modal';
+import { Modal as BootstrapModal } from 'react-bootstrap';
 
 import { Button } from '../Button/Button';
 

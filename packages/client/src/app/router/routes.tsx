@@ -1,5 +1,3 @@
-import { createBrowserRouter } from 'react-router-dom';
-
 import App from '../ui/App';
 import { AppRoutes } from '@/shared/config/routeConfig';
 import { LoginPage } from '@/pages/login';
@@ -11,11 +9,11 @@ import { ForumPage } from '@/pages/forum';
 import { HomeLayout } from '@/pages/home-layout';
 import { ForumTopicViewPage } from '@/pages/forum-topic-view';
 import { ForumTopicEditPage, topicLoader } from '@/pages/forum-topic-edit';
-import { LeaderBoard } from '@/pages/leader-board';
+import { LeaderBoardPage } from '@/pages/leader-board';
 import { HomePage } from '@/pages/home';
 import { AuthLayout } from '@/pages/auth-layout';
 
-export const router = createBrowserRouter([
+export const routes = [
   {
     path: AppRoutes.MAIN,
     element: <App />,
@@ -23,41 +21,41 @@ export const router = createBrowserRouter([
     children: [
       {
         path: AppRoutes.AUTH.ROOT,
-        lazy: AuthLayout,
+        element: <AuthLayout />,
         children: [
           {
             path: AppRoutes.AUTH.LOGIN,
-            lazy: LoginPage
+            element: <LoginPage />
           },
           {
             path: AppRoutes.AUTH.SIGNUP,
-            lazy: SignUpPage
+            element: <SignUpPage />
           }
         ]
       },
       {
         path: '',
-        lazy: HomeLayout,
+        element: <HomeLayout />,
         children: [
-          { index: true, lazy: HomePage },
+          { index: true, element: <HomePage /> },
           {
             path: AppRoutes.PROFILE.ROOT,
-            lazy: ProfilePage
+            element: <ProfilePage />
           },
           {
             path: AppRoutes.LEADERBOARD,
-            lazy: LeaderBoard
+            element: <LeaderBoardPage />
           },
           {
             path: AppRoutes.FORUM.ROOT,
             children: [
-              { index: true, lazy: ForumPage },
-              { path: AppRoutes.FORUM.POSTING, lazy: ForumTopicEditPage },
+              { index: true, element: <ForumPage /> },
+              { path: AppRoutes.FORUM.POSTING, element: <ForumTopicEditPage /> },
               {
                 path: AppRoutes.FORUM.TOPIC.ROOT,
                 children: [
-                  { index: true, lazy: ForumTopicViewPage },
-                  { path: AppRoutes.FORUM.TOPIC.EDIT, loader: topicLoader, lazy: ForumTopicEditPage }
+                  { index: true, element: <ForumTopicViewPage /> },
+                  { path: AppRoutes.FORUM.TOPIC.EDIT, loader: topicLoader, element: <ForumTopicEditPage /> }
                 ]
               }
             ]
@@ -65,7 +63,21 @@ export const router = createBrowserRouter([
         ]
       },
       {
-        path: AppRoutes.GAME,
+        path: 'auth',
+        element: <AuthLayout />,
+        children: [
+          {
+            path: 'login',
+            element: <LoginPage />
+          },
+          {
+            path: 'signup',
+            element: <SignUpPage />
+          }
+        ]
+      },
+      {
+        path: '/game',
         element: <GamePage />
       },
       {
@@ -78,4 +90,4 @@ export const router = createBrowserRouter([
       }
     ]
   }
-]);
+];
