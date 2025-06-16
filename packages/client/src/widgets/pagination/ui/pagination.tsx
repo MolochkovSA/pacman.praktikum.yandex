@@ -13,7 +13,7 @@ type Props = {
 
 export function Pagination({ page, length, limit, onNextClick, onPrevClick }: Props) {
   const firstItem = (page - 1) * limit + 1;
-  const lastItem = firstItem + length;
+  const lastItem = firstItem + length - 1;
 
   const isPrevBtnDisabled = page === 1;
   const isNextBtnDisabled = lastItem < 10;

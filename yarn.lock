@@ -3839,7 +3839,7 @@ cli-width@^3.0.0:
     "@hookform/resolvers" "^5.0.1"
     "@reduxjs/toolkit" "^2.8.1"
     bootstrap "^5.3.6"
-    client "file:C:/Users/user/AppData/Local/Yarn/Cache/v6/npm-client-0.0.0-c1b618d8-5b5f-4842-a85a-69fddfc0024c-1749116643619/node_modules/client"
+    client "file:../../../AppData/Local/Yarn/Cache/v6/npm-client-0.0.0-cd4c5954-25b0-4453-b828-0cc41619c37a-1750001479742/node_modules/client"
     clsx "^2.1.1"
     cookie-parser "^1.4.7"
     dotenv "^16.5.0"
@@ -3850,6 +3850,7 @@ cli-width@^3.0.0:
     react "^19.1.0"
     react-bootstrap "^2.10.9"
     react-dom "^19.1.0"
+    react-error-boundary "^6.0.0"
     react-hook-form "^7.56.2"
     react-icons "^5.5.0"
     react-redux "^9.2.0"
@@ -9122,6 +9123,13 @@ react-dom@^19.1.0:
   integrity sha512-Xs1hdnE+DyKgeHJeJznQmYMIBG3TKIHJJT95Q58nHLSrElKlGQqDTR2HQ9fx5CN/Gk6Vh/kupBTDLU11/nDk/g==
   dependencies:
     scheduler "^0.26.0"
+
+react-error-boundary@^6.0.0:
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/react-error-boundary/-/react-error-boundary-6.0.0.tgz#a9e552146958fa77d873b587aa6a5e97544ee954"
+  integrity sha512-gdlJjD7NWr0IfkPlaREN2d9uUZUlksrfOx7SX62VRerwXbMY6ftGCIZua1VG1aXFNOimhISsTq+Owp725b9SiA==
+  dependencies:
+    "@babel/runtime" "^7.12.5"
 
 react-hook-form@^7.56.2:
   version "7.56.2"
