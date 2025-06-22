@@ -1,30 +1,79 @@
 import App from '../ui/App';
+import { AppRoutes } from '@/shared/config/routeConfig';
+import { LoginPage } from '@/pages/login';
+import { SignUpPage } from '@/pages/signup';
+import { ProfilePage } from '@/pages/profile';
 import { ErrorPage } from '@/pages/error';
 import { GamePage } from '@/pages/game';
+import { ForumPage } from '@/pages/forum';
+import { HomeLayout } from '@/pages/home-layout';
+import { ForumTopicViewPage } from '@/pages/forum-topic-view';
+import { ForumTopicEditPage, topicLoader } from '@/pages/forum-topic-edit';
+import { LeaderBoardPage } from '@/pages/leader-board';
 import { HomePage } from '@/pages/home';
-
-// Типизированный ленивый импорт
-const AuthLayout = () => import('@/pages/auth-layout').then((m) => ({ element: <m.AuthLayout /> }));
-const LoginPage = () => import('@/pages/login').then((m) => ({ element: <m.LoginPage /> }));
-const SignUpPage = () => import('@/pages/signup').then((m) => ({ element: <m.SignUpPage /> }));
+import { AuthLayout } from '@/pages/auth-layout';
 
 export const routes = [
   {
-    path: '',
+    path: AppRoutes.MAIN,
     element: <App />,
     errorElement: <ErrorPage errorType="500" />,
     children: [
       {
-        path: '/',
-        element: <HomePage />,
-        children: [{ index: true, element: <HomePage /> }]
+        path: AppRoutes.AUTH.ROOT,
+        element: <AuthLayout />,
+        children: [
+          {
+            path: AppRoutes.AUTH.LOGIN,
+            element: <LoginPage />
+          },
+          {
+            path: AppRoutes.AUTH.SIGNUP,
+            element: <SignUpPage />
+          }
+        ]
+      },
+      {
+        path: '',
+        element: <HomeLayout />,
+        children: [
+          { index: true, element: <HomePage /> },
+          {
+            path: AppRoutes.PROFILE.ROOT,
+            element: <ProfilePage />
+          },
+          {
+            path: AppRoutes.LEADERBOARD,
+            element: <LeaderBoardPage />
+          },
+          {
+            path: AppRoutes.FORUM.ROOT,
+            children: [
+              { index: true, element: <ForumPage /> },
+              { path: AppRoutes.FORUM.POSTING, element: <ForumTopicEditPage /> },
+              {
+                path: AppRoutes.FORUM.TOPIC.ROOT,
+                children: [
+                  { index: true, element: <ForumTopicViewPage /> },
+                  { path: AppRoutes.FORUM.TOPIC.EDIT, loader: topicLoader, element: <ForumTopicEditPage /> }
+                ]
+              }
+            ]
+          }
+        ]
       },
       {
         path: 'auth',
         element: <AuthLayout />,
         children: [
-          { path: 'login', lazy: LoginPage },
-          { path: 'signup', lazy: SignUpPage }
+          {
+            path: 'login',
+            element: <LoginPage />
+          },
+          {
+            path: 'signup',
+            element: <SignUpPage />
+          }
         ]
       },
       {
