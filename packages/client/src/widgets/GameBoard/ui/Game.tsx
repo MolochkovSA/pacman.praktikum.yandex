@@ -16,7 +16,6 @@ export const Game = ({
   player,
   foods,
   ghosts,
-  ghostImages,
   direction,
   isPaused,
   setIsPaused
@@ -39,9 +38,9 @@ export const Game = ({
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     renderMap(ctx, map, tileSize);
     renderFood(ctx, foods, tileSize);
-    renderGhosts(ctx, ghosts, ghostImages, tileSize);
+    renderGhosts(ctx, ghosts, tileSize);
     renderPlayer(ctx, player, direction, tileSize);
-  }, [player, foods, ghosts, ghostImages, direction, tileSize]);
+  }, [player, foods, ghosts, direction, tileSize]);
 
   return (
     <>

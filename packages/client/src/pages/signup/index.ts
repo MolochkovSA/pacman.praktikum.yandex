@@ -1,1 +1,2 @@
-export { SignUpPageAsync as SignUpPage } from './ui/SignUpPage.async';
+export { SignUpPageAsync } from './ui/SignUpPage.async';
+export { SignUpPage } from './ui/SignUpPage';

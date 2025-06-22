@@ -1,7 +1,9 @@
-import { Link, useLocation } from 'react-router';
+import { useLocation } from 'react-router';
+
 import clsx from 'clsx';
 
 import styles from './Breadcrumbs.module.scss';
+import { Link } from 'react-router-dom';
 
 type Props = {
   links: { label: string; to: string }[];
