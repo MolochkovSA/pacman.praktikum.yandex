@@ -1,12 +1,13 @@
 import App from '../ui/App';
-import { LoginPage } from '@/pages/login';
-import { SignUpPage } from '@/pages/signup';
 import { ErrorPage } from '@/pages/error';
 import { GamePage } from '@/pages/game';
 import { HomePage } from '@/pages/home';
-import { AuthLayout } from '@/pages/auth-layout';
 
-// Определяем массив маршрутов
+// Типизированный ленивый импорт
+const AuthLayout = () => import('@/pages/auth-layout').then((m) => ({ element: <m.AuthLayout /> }));
+const LoginPage = () => import('@/pages/login').then((m) => ({ element: <m.LoginPage /> }));
+const SignUpPage = () => import('@/pages/signup').then((m) => ({ element: <m.SignUpPage /> }));
+
 export const routes = [
   {
     path: '',
