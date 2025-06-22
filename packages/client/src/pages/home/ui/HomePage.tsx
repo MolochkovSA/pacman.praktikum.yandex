@@ -1,3 +1,4 @@
+import { RoutePath } from '@/shared/config/routeConfig';
 import { IconLink } from '@/shared/ui';
 import { Icon } from './Icon/Icon';
 
@@ -10,7 +11,7 @@ export const HomePage = () => {
       <div className={styles.menu}>
         <hr />
         <nav>
-          <IconLink to="/game">
+          <IconLink to={RoutePath.GAME}>
             <Icon
               src="pacman"
               size={50}
@@ -18,7 +19,7 @@ export const HomePage = () => {
             Игра
           </IconLink>
 
-          <IconLink to="/profile">
+          <IconLink to={RoutePath.PROFILE.ROOT}>
             <Icon
               src="pacman"
               size={50}
@@ -26,7 +27,7 @@ export const HomePage = () => {
             Профиль
           </IconLink>
 
-          <IconLink to="/leaderboard">
+          <IconLink to={RoutePath.LEADERBOARD}>
             <Icon
               src="pacman"
               size={50}
@@ -34,7 +35,7 @@ export const HomePage = () => {
             Лидерборд
           </IconLink>
 
-          <IconLink to="/forum">
+          <IconLink to={RoutePath.FORUM.ROOT}>
             <Icon
               src="pacman"
               size={50}

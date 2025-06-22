@@ -7,6 +7,7 @@ import { HttpError } from '@/shared/types';
 import { profileApi } from '../../api/profileApi';
 import { ChangePasswordType } from '../../model/types';
 import { changePasswordSchema } from '../../model/schemas';
+import { useNotification } from '@/entities/notification';
 
 interface PasswordModalProps {
   show: boolean;
@@ -18,6 +19,7 @@ export const PasswordModal = ({ show, onHide }: PasswordModalProps) => {
     register,
     handleSubmit,
     trigger,
+    reset,
     formState: { errors }
   } = useForm<ChangePasswordType>({
     mode: 'onBlur',
@@ -25,27 +27,49 @@ export const PasswordModal = ({ show, onHide }: PasswordModalProps) => {
   });
 
   const [error, setError] = useState('');
+  const { notify } = useNotification();
+
+  const onClose = () => {
+    onHide();
+    reset();
+  };
 
   const onSubmit = (data: ChangePasswordType) => {
     const { oldPassword, newPassword } = data;
 
-    profileApi.changePassword({ oldPassword, newPassword }).catch((error) => {
-      if (error instanceof HttpError) {
-        setError(error.message);
-      }
-    });
+    profileApi
+      .changePassword({ oldPassword, newPassword })
+      .then(() => {
+        notify('Пароль успешно изменен');
+        onClose();
+      })
+      .catch((error) => {
+        if (error instanceof HttpError) {
+          setError(error.message);
+          throw new Error(error.message);
+        }
+      });
   };
 
   return (
     <Modal
-      show={show}
+      showModal={show}
       title="Сменить пароль"
-      onHide={onHide}
-      btnText="Изменить"
-      submit={handleSubmit(onSubmit)}>
+      onHide={onClose}
+      okButton={{
+        type: 'submit',
+        label: 'Изменить',
+        onClick: handleSubmit(onSubmit)
+      }}
+      cancelButton={{
+        type: 'button',
+        label: 'Отменить',
+        onClick: onClose
+      }}>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Input
           label="Пароль"
+          type="password"
           {...register('oldPassword')}
           isInvalid={!!errors.oldPassword}
           error={errors.oldPassword?.message as string}
@@ -54,6 +78,7 @@ export const PasswordModal = ({ show, onHide }: PasswordModalProps) => {
         />
         <Input
           label="Новый пароль"
+          type="password"
           {...register('newPassword')}
           isInvalid={!!errors.newPassword}
           error={errors.newPassword?.message as string}
@@ -62,6 +87,7 @@ export const PasswordModal = ({ show, onHide }: PasswordModalProps) => {
         />
         <Input
           label="Повторите пароль"
+          type="password"
           {...register('repeated_password')}
           isInvalid={!!errors.repeated_password}
           error={errors.repeated_password?.message as string}

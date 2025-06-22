@@ -21,7 +21,7 @@ export const routes = [
       },
       {
         path: 'auth',
-        lazy: AuthLayout,
+        element: <AuthLayout />,
         children: [
           { path: 'login', lazy: LoginPage },
           { path: 'signup', lazy: SignUpPage }
@@ -32,12 +32,12 @@ export const routes = [
         element: <GamePage />
       },
       {
-        path: '/*',
-        element: <ErrorPage errorType="404" />
+        path: AppRoutes.SERVER_ERROR,
+        element: <ErrorPage errorType="500" />
       },
       {
-        path: '/500',
-        element: <ErrorPage errorType="500" />
+        path: AppRoutes.NOT_FOUND,
+        element: <ErrorPage errorType="404" />
       }
     ]
   }

@@ -2,11 +2,18 @@ import { Card } from 'react-bootstrap';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 
+import { RoutePath } from '@/shared/config/routeConfig';
 import { Button, IconLink, Input } from '@/shared/ui';
 import { SignInDto, signInSchema, useAuth } from '@/features/auth';
+import { Icon } from '@/pages/home/ui/Icon/Icon.tsx';
+import { useSearchParams } from 'react-router-dom';
+import { useYandexAuth } from '@/features/auth/hooks/useYandexOauth.ts';
+import { useEffect } from 'react';
 
 export const LoginPage = () => {
   const { signIn } = useAuth();
+  const { redirectOnYandexOauth, signInWithYandex } = useYandexAuth();
+  const [searchParams] = useSearchParams();
 
   const {
     register,
@@ -17,6 +24,12 @@ export const LoginPage = () => {
     mode: 'onBlur',
     resolver: zodResolver(signInSchema)
   });
+
+  useEffect(() => {
+    if (searchParams.get('code')) {
+      signInWithYandex(searchParams.get('code')!);
+    }
+  }, [searchParams, signInWithYandex]);
 
   return (
     <Card>
@@ -50,7 +63,16 @@ export const LoginPage = () => {
           type="submit">
           Авторизироваться
         </Button>
-        <IconLink to="/auth/signup">Нет аккаунта?</IconLink>
+        <Button
+          className="w-100 py-0"
+          onClick={redirectOnYandexOauth}
+          type="button">
+          <Icon
+            src="yandex"
+            size={45}
+          />
+        </Button>
+        <IconLink to={RoutePath.AUTH.SIGNUP}>Нет аккаунта?</IconLink>
       </Card.Footer>
     </Card>
   );

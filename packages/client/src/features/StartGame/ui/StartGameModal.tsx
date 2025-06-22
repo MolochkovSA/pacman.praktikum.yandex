@@ -19,13 +19,10 @@ export const StartGameModal = ({ onStart }: Props) => {
 
   return (
     <Modal
-      show={true}
+      showModal={true}
+      showCloseButton={false}
       title="Начало игры"
-      btnText="Начать игру"
-      onHide={() => {}}
-      submit={onStart}
-      closeBtn={false}
-      size="lg">
+      okButton={{ label: 'Начать игру', type: 'button', onClick: onStart }}>
       <div className={styles.start}>
         <ul className={styles.start__list}>
           <li>Cъешь всю еду на карте, избегая встречи с призраками</li>

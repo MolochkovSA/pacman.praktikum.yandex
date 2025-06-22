@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import { string, z } from 'zod';
 
 import { userSchema, passwordSchema } from '@/entities/user';
 
@@ -21,5 +21,9 @@ export const signUpSchema = z
     path: ['password_two'],
     message: 'Пароли должны совпадать'
   });
+
+export const getServiceIdSchema = z.object({
+  service_id: string()
+});
 
 export const signUpResponseDtoSchema = userSchema.pick({ id: true });

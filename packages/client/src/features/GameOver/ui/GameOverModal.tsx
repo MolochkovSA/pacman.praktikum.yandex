@@ -1,8 +1,9 @@
 import { Modal } from '@/shared/ui/Modal/Modal';
-import styles from './GameOver.module.scss';
 import { useNavigate } from 'react-router-dom';
 
-import { Button } from '@/shared/ui';
+import { RoutePath } from '@/shared/config/routeConfig';
+
+import styles from './GameOver.module.scss';
 
 type GameOverModalProps = {
   onRestart: () => void;
@@ -26,18 +27,15 @@ export const GameOverModal = ({ onRestart, score, isWin }: GameOverModalProps) =
   );
 
   const handleNavigate = () => {
-    navigate('/');
+    navigate(RoutePath.MAIN);
   };
   return (
     <Modal
-      show={true}
+      showModal={true}
+      showCloseButton={false}
       title={title}
-      btnText="Играть снова"
-      onHide={() => {}}
-      submit={onRestart}
-      closeBtn={false}
-      size="xl"
-      footer={<Button onClick={handleNavigate}>На главную</Button>}>
+      okButton={{ label: 'Играть снова', type: 'button', onClick: onRestart }}
+      cancelButton={{ label: 'На главную', type: 'button', onClick: handleNavigate }}>
       <div className={styles.gameover}>
         {message}
         <p className={styles.gameover_score}>

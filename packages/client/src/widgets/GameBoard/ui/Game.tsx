@@ -23,7 +23,6 @@ export const Game = ({
   player: Player;
   foods: Vector2D[];
   ghosts: Vector2D[];
-  ghostImages: HTMLImageElement[];
   direction: Direction;
   isPaused: boolean;
   setIsPaused: (isPaused: boolean) => void;
