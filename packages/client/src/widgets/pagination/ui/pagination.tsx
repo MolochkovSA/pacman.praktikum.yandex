@@ -5,23 +5,23 @@ import { Button } from '@/shared/ui';
 
 type Props = {
   page: number;
-  total: number;
+  length: number;
   limit: number;
   onNextClick: () => void;
   onPrevClick: () => void;
 };
 
-export function Pagination({ page, total, limit, onNextClick, onPrevClick }: Props) {
-  const lastItem: number = Math.min(page * limit, total);
-  const firstItem: number = lastItem ? (page - 1) * limit + 1 : 0;
+export function Pagination({ page, length, limit, onNextClick, onPrevClick }: Props) {
+  const firstItem = (page - 1) * limit + 1;
+  const lastItem = firstItem + length - 1;
 
   const isPrevBtnDisabled = page === 1;
-  const isNextBtnDisabled = page === Math.max(Math.ceil(total / limit), 1);
+  const isNextBtnDisabled = lastItem < limit;
 
   return (
     <div className={styles.pagination}>
       <div className={styles.counter}>
-        {firstItem}-{lastItem} из {total}
+        {firstItem}-{lastItem}
       </div>
 
       <Button
@@ -30,7 +30,7 @@ export function Pagination({ page, total, limit, onNextClick, onPrevClick }: Pro
         disabled={isPrevBtnDisabled}
         onClick={onPrevClick}>
         <BsArrowLeft size={16} />
-        <span>Следующие {limit}</span>
+        <span>Предыдущие {limit}</span>
       </Button>
 
       <Button
@@ -38,7 +38,7 @@ export function Pagination({ page, total, limit, onNextClick, onPrevClick }: Pro
         className={styles.button}
         disabled={isNextBtnDisabled}
         onClick={onNextClick}>
-        <span>Предыдущие {limit}</span>
+        <span>Следующие {limit}</span>
         <BsArrowRight size={16} />
       </Button>
     </div>
