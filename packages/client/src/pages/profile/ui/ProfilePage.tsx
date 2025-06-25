@@ -17,6 +17,8 @@ import { Avatar } from './Avatar/Avatar';
 import { useAppDispatch } from '@/shared/model/redux';
 
 import styles from './Profile.module.scss';
+import { requestNotificationPermission } from '@/shared/lib/notification/requestPermission';
+import { showNotification } from '@/shared/lib/notification/showNotification';
 
 export const ProfilePage = () => {
   const dispatch = useAppDispatch();
@@ -38,8 +40,14 @@ export const ProfilePage = () => {
     setIsLoading(true);
     profileApi
       .editProfile(data)
-      .then(() => {
+      .then(async () => {
         dispatch(fetchUserThunk());
+        const granted = await requestNotificationPermission();
+        if (granted) {
+          showNotification('Данные изменены', {
+            body: 'Ваш профиль успешно обновлён!'
+          });
+        }
       })
       .then(() => setEditMode(false))
       .finally(() => setIsLoading(false));
