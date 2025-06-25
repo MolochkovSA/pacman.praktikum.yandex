@@ -17,7 +17,7 @@ export const leaderboardApi = createApi({
         body: data
       })
     }),
-    postPlayerScore: builder.query({
+    postPlayerScore: builder.mutation({
       query: (data: PlayerRequestDto) => ({
         url: `/leaderboard`,
         method: 'POST',
@@ -27,4 +27,4 @@ export const leaderboardApi = createApi({
   })
 });
 
-export const { useFetchLeaderboardQuery, usePostPlayerScoreQuery } = leaderboardApi;
+export const { useFetchLeaderboardQuery, usePostPlayerScoreMutation } = leaderboardApi;

@@ -16,7 +16,7 @@ export function Pagination({ page, length, limit, onNextClick, onPrevClick }: Pr
   const lastItem = firstItem + length - 1;
 
   const isPrevBtnDisabled = page === 1;
-  const isNextBtnDisabled = lastItem < 10;
+  const isNextBtnDisabled = lastItem < limit;
 
   return (
     <div className={styles.pagination}>

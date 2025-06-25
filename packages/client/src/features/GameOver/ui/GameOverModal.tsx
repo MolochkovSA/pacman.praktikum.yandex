@@ -1,8 +1,9 @@
 import { Modal } from '@/shared/ui/Modal/Modal';
 import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 
 import { RoutePath } from '@/shared/config/routeConfig';
-import { useGameOver } from '../hooks/useGameOver';
+import { useSubmitScore } from '../hooks/useSubmitScore';
 import { formatTime } from '@/features/gameTimer';
 
 import styles from './GameOver.module.scss';
@@ -16,8 +17,11 @@ type GameOverModalProps = {
 
 export const GameOverModal = ({ onRestart, score, isWin, seconds }: GameOverModalProps) => {
   const navigate = useNavigate();
+  const { submitScore } = useSubmitScore();
 
-  useGameOver({ seconds, score });
+  useEffect(() => {
+    submitScore({ score, seconds });
+  }, [score, seconds, submitScore]);
 
   const title = isWin ? 'Вы победили!' : 'Игра окончена!';
   const message = isWin ? (
