@@ -9,14 +9,15 @@ import UserInfo from '../UserInfo/UserInfo';
 
 import styles from './UserDropdown.module.scss';
 import { Button } from '@/shared/ui';
+import { ThemeToggle } from '@/widgets/topbar/ui/ThemeToggle/ThemeToggle';
 
 export const UserDropdown = () => {
-  const navigete = useNavigate();
+  const navigate = useNavigate();
   const { logout } = useAuth();
   const [dropdownShow, setDropdownShow] = useState(false);
 
   const goToProfile = () => {
-    navigete(RoutePath.PROFILE.ROOT);
+    navigate(RoutePath.PROFILE.ROOT);
     setDropdownShow(false);
   };
 
@@ -47,6 +48,7 @@ export const UserDropdown = () => {
           <SlLogout className={styles.icon} />
           <span>Выйти</span>
         </Button>
+        <ThemeToggle></ThemeToggle>
       </Dropdown.Menu>
     </Dropdown>
   );

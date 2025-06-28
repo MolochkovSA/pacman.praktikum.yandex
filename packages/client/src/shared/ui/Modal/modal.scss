@@ -15,7 +15,7 @@
     @include typography.font(h2);
     @include mixins.text-yellow-neon;
 
-    background-color: #505023;
+    background-color: var(--color-modal-background);
     padding: 1.5rem 2rem;
     border-bottom: none;
   }
@@ -31,5 +31,13 @@
     display: flex;
     justify-content: center;
     gap: 0.5rem;
+  }
+}
+
+[data-theme='light'] {
+  .modal-body {
+    label {
+      color: var(--color-white-text);
+    }
   }
 }

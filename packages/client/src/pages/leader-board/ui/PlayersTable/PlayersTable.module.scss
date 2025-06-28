@@ -6,15 +6,15 @@
   text-align: center;
 
   tr {
-    border-color: var(--color-yellow-opacity50);
+    border-color: var(--color-text-opacity50);
   }
 
   th {
     @include typography.font(p2);
 
     padding: 1rem;
-    background-color: var(--color-onion);
-    color: var(--color-yellow-text);
+    background-color: var(--color-table-top);
+    color: var(--color-text);
     vertical-align: middle;
 
     &:first-child {
