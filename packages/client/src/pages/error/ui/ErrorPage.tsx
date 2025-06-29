@@ -5,18 +5,34 @@ import { Button } from '@/shared/ui';
 
 import styles from './ErrorLayout.module.scss';
 
-type ErrorPageProps = {
-  errorType?: '404' | '500';
+type ErrorBoundaryProps = {
+  error?: Error;
+  resetErrorBoundary?: () => void;
 };
 
-export const ErrorPage = ({ errorType }: ErrorPageProps) => {
+// Объединяем пропсы
+type ErrorPageProps = {
+  errorType?: '404' | '500';
+} & ErrorBoundaryProps;
+// type ErrorPageProps = {
+//   errorType?: '404' | '500';
+// };
+
+export const ErrorPage = ({ errorType, error, resetErrorBoundary }: ErrorPageProps) => {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    navigate(RoutePath.MAIN);
+    if (resetErrorBoundary) {
+      resetErrorBoundary();
+    } else {
+      navigate(RoutePath.MAIN);
+    }
   };
 
   const getErrorMessage = (errorType?: '404' | '500') => {
+    if (error?.message) {
+      return [error.message];
+    }
     switch (errorType) {
       case '500':
         return ['Woops: internal server error', 'try again later'];

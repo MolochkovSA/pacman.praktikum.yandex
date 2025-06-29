@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import { Card } from 'react-bootstrap';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 
 import { RoutePath } from '@/shared/config/routeConfig';
 import { Breadcrumbs, Button, Input } from '@/shared/ui';
-import { userActions, userSelectors } from '@/entities/user';
+import { fetchUserThunk, userSelectors } from '@/entities/user';
 import { ForumLayout } from '@/widgets/forum-layout';
 import { getAvatarSrc } from '@/shared/lib/getAvatarSrc';
 import { Profile } from '../model/types';
@@ -14,11 +14,14 @@ import { profileSchema } from '../model/schemas';
 import { profileApi } from '../api/profileApi';
 import { PasswordModal } from './PasswordModal/PasswordModal';
 import { Avatar } from './Avatar/Avatar';
+import { useAppDispatch } from '@/shared/model/redux';
 
 import styles from './Profile.module.scss';
+import { requestNotificationPermission } from '@/shared/lib/notification/requestPermission';
+import { showNotification } from '@/shared/lib/notification/showNotification';
 
 export const ProfilePage = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const user = useSelector(userSelectors.selectUser);
   const [isLoading, setIsLoading] = useState(false);
   const [isEditMode, setEditMode] = useState(false);
@@ -33,13 +36,18 @@ export const ProfilePage = () => {
     mode: 'onBlur',
     resolver: zodResolver(profileSchema)
   });
-
   const onSubmit = (data: Profile) => {
     setIsLoading(true);
     profileApi
       .editProfile(data)
-      .then((user) => {
-        dispatch(userActions.setUser(user));
+      .then(async () => {
+        dispatch(fetchUserThunk());
+        const granted = await requestNotificationPermission();
+        if (granted) {
+          showNotification('Данные изменены', {
+            body: 'Ваш профиль успешно обновлён!'
+          });
+        }
       })
       .then(() => setEditMode(false))
       .finally(() => setIsLoading(false));

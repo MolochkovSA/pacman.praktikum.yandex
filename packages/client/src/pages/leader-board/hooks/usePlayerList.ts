@@ -1,33 +1,23 @@
-import { useEffect, useState } from 'react';
-import { PlayerPreview } from '../model/types';
-import { getPlayerList } from '../api/getPlayerList';
+import { useFetchLeaderboardQuery } from '../api/api';
+import { FIELD_NAME } from '../constants';
+import { DEFAULT_PLAYERS_ON_SCREEN } from '../constants';
 
 export const usePlayerList = (page: number) => {
-  const [players, setPlayers] = useState<PlayerPreview[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [total, setTotal] = useState<number>(0);
+  const cursor: number = (page - 1) * DEFAULT_PLAYERS_ON_SCREEN;
 
-  useEffect(() => {
-    let isLive = true;
-
-    setIsLoading(true);
-
-    getPlayerList(page).then(({ players, total }) => {
-      if (isLive) {
-        setPlayers(players);
-        setTotal(total);
-        setIsLoading(false);
-      }
-    });
-
-    return () => {
-      isLive = false;
-    };
-  }, [page]);
+  const {
+    data: players,
+    isLoading,
+    isError
+  } = useFetchLeaderboardQuery({
+    ratingFieldName: FIELD_NAME,
+    cursor: cursor,
+    limit: DEFAULT_PLAYERS_ON_SCREEN
+  });
 
   return {
     players,
     isLoading,
-    total
+    isError
   };
 };
