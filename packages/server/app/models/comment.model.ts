@@ -2,6 +2,7 @@ import { Column, DataType, Table, HasMany, Model, ForeignKey, BelongsTo } from '
 import { CreationOptional, InferAttributes, InferCreationAttributes, NonAttribute } from 'sequelize';
 import { Reply } from './reply.model';
 import { Topic } from './topic.model';
+import { CommentReaction } from './comment_reactions.model';
 
 @Table({
   tableName: 'comments',
@@ -42,4 +43,7 @@ export class Comment extends Model<InferAttributes<Comment>, InferCreationAttrib
     as: 'replies'
   })
   declare replies?: NonAttribute<Reply[]>;
+
+  @HasMany(() => CommentReaction)
+  declare commentReactions?: NonAttribute<CommentReaction[]>;
 }

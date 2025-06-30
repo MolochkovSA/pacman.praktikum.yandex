@@ -5,7 +5,10 @@ dotenv.config();
 import express from 'express';
 import { dbConnect } from './db';
 import { ensureAuthenticated } from './app/middleware/ensureAuthenticated';
-import topicRouter from './app/routers/topicRouter';
+import topicRouter from './app/routers/topic.router';
+import commentRouter from './app/routers/comment.router';
+import replyRouter from './app/routers/reply.router';
+import reactionRouter from './app/routers/reaction.router';
 
 var cookieParser = require('cookie-parser');
 
@@ -23,6 +26,9 @@ app.get('/', (_, res) => {
 
 app.use('/api', ensureAuthenticated);
 app.use('/api', topicRouter);
+app.use('/api', commentRouter);
+app.use('/api', replyRouter);
+app.use('/api', reactionRouter);
 
 app.listen(port, () => {
   console.log(`  ➜ 🎸 Server is listening on port: ${port}`);

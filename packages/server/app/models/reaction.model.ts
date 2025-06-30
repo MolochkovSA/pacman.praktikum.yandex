@@ -1,6 +1,6 @@
-import { BelongsTo, Column, DataType, ForeignKey, Model, Table } from 'sequelize-typescript';
+import { Column, DataType, HasMany, Model, Table } from 'sequelize-typescript';
 import { CreationOptional, InferAttributes, InferCreationAttributes, NonAttribute } from 'sequelize';
-import { Comment } from './comment.model';
+import { CommentReaction } from './comment_reactions.model';
 
 @Table({
   tableName: 'reactions',
@@ -20,13 +20,6 @@ export class Reaction extends Model<InferAttributes<Reaction>, InferCreationAttr
   })
   declare emoji: string;
 
-  @ForeignKey(() => Comment)
-  @Column({
-    type: DataType.INTEGER,
-    allowNull: false
-  })
-  declare commentId: number;
-
-  @BelongsTo(() => Comment)
-  declare comment?: NonAttribute<Comment>;
+  @HasMany(() => CommentReaction)
+  declare commentReactions?: NonAttribute<CommentReaction[]>;
 }

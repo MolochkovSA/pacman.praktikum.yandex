@@ -29,9 +29,9 @@ export class Reply extends Model<InferAttributes<Reply>, InferCreationAttributes
   @ForeignKey(() => Comment)
   @Column({
     type: DataType.INTEGER,
-    allowNull: false
+    allowNull: true
   })
-  declare commentId: number;
+  declare commentId: number | null;
 
   @BelongsTo(() => Comment)
   declare comment?: NonAttribute<Comment>;
