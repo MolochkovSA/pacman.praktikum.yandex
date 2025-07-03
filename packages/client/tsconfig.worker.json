@@ -12,7 +12,7 @@
     "isolatedModules": true,
     "noEmit": false,
     "allowImportingTsExtensions": false,
-    "outDir": "public",
+    "outDir": "dist",
     "rootDir": "."
   },
   "include": ["serviceWorker.ts"]

@@ -14,7 +14,7 @@ const clientPath = path.join(__dirname, '..');
 
 async function createServer() {
   const app = express();
-
+  app.use(express.static(path.resolve(__dirname)));
   app.use(cookieParser());
 
   const { createServer: createViteServer } = await import('vite');
