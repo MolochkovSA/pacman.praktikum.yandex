@@ -17,9 +17,9 @@ services:
       dockerfile: Dockerfile.client
     restart: always
     env_file: ./packages/client/.env
-    # depends_on:
-    #   server:
-    #     condition: service_healthy
+    depends_on:
+      server:
+        condition: service_healthy
     ports:
       - '3000:3000'
     networks:

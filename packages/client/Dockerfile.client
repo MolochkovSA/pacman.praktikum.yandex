@@ -9,9 +9,7 @@ FROM node:alpine
 WORKDIR /app
 COPY package*.json .
 RUN npm i --only=production
-COPY --from=build /app/index.html /app/
 COPY --from=build /app/dist/ /app/dist/
-COPY --from=build /app/server/index.js /app/server/
 EXPOSE 3000
-CMD [ "node", "server/index.js" ]
+CMD [ "node", "dist/index.js" ]
 
