@@ -1,8 +1,8 @@
-import { Modal } from '@/shared/ui/Modal/Modal';
 import { useState } from 'react';
 import { ArrowFatUp, ArrowFatDown, ArrowFatLeft, ArrowFatRight } from 'phosphor-react';
 
 import styles from './StartModal.module.scss';
+import { Modal } from '@/shared/ui';
 
 type Props = {
   onStart: () => void;

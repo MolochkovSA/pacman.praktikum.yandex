@@ -24,7 +24,9 @@ app.get('/', (_, res) => {
   res.json('👋 Howdy from the server :)');
 });
 
-app.use('/api', ensureAuthenticated);
+if (process.env.NODE_ENV === 'production') {
+  app.use('/api', ensureAuthenticated);
+}
 app.use('/api', topicRouter);
 app.use('/api', commentRouter);
 app.use('/api', replyRouter);

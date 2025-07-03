@@ -57,7 +57,26 @@ services:
     networks:
       - internet
       - localnet
-
+  init-reactions:
+    container_name: init-reactions
+    build:
+      context: ./packages/server
+      dockerfile: Dockerfile.server
+    depends_on:
+      server:
+        condition: service_healthy
+    environment:
+      - API_URL=http://server:3001/api/v2/reactions
+    healthcheck:
+      test:
+        ['CMD', 'node', '-e', "process.exit(!!require('fs').existsSync('/app/app/scripts/init.reaction.js') ? 0 : 1)"]
+      interval: 5s
+      timeout: 3s
+      retries: 3
+    command: ['node', '/app/app/scripts/init.reaction.js']
+    networks:
+      - internet
+      - localnet
   postgres:
     container_name: db
     image: postgres:16
@@ -67,9 +86,11 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
-    # ports:
-    #   - '5432:5432'
+    ports:
+      - '5432:5432'
     volumes:
-      - ./tmp/pgdata:/var/lib/postgresql/data
+      - pgdata:/var/lib/postgresql/data
     networks:
       - localnet
+volumes:
+  pgdata:
