@@ -9,20 +9,22 @@ networks:
     driver: bridge
 
 services:
-  # client:
-  #     container_name: prakticum-client
-  #     image: prakticum-client
-  #     build:
-  #         context: .
-  #         dockerfile: Dockerfile.client
-  #         args:
-  #           CLIENT_PORT: ${CLIENT_PORT}
-  #     restart: localhost
-  #     ports:
-  #         - "${CLIENT_PORT}:80"
-  #     environment:
-  #       - CLIENT_PORT=${CLIENT_PORT}
-  #       - SERVER_PORT=${SERVER_PORT}
+  client:
+    container_name: client
+    image: prakticum-client
+    build:
+      context: ./packages/client
+      dockerfile: Dockerfile.client
+    restart: always
+    env_file: ./packages/client/.env
+    # depends_on:
+    #   server:
+    #     condition: service_healthy
+    ports:
+      - '3000:3000'
+    networks:
+      - localnet
+
   server:
     container_name: server
     image: prackicum-server
@@ -31,6 +33,11 @@ services:
       dockerfile: Dockerfile.server
     restart: always
     env_file: ./packages/server/.env
+    healthcheck:
+      test: ['CMD', 'curl', '-f', 'http://localhost:3001']
+      interval: 10s
+      timeout: 5s
+      retries: 3
     depends_on:
       postgres:
         condition: service_healthy
@@ -45,16 +52,12 @@ services:
     image: postgres:16
     env_file: ./packages/server/.env
     healthcheck:
-      test: ['CMD-SHELL', 'pg_isready -U $${DB_USER} -d $${DB_DB}']
+      test: ['CMD-SHELL', 'pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}']
       interval: 10s
       timeout: 5s
       retries: 5
     ports:
       - '5432:5432'
-    environment:
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-      POSTGRES_DB: ${POSTGRES_DB}
     volumes:
       - ./tmp/pgdata:/var/lib/postgresql/data
     networks:

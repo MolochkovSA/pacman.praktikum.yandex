@@ -10,6 +10,9 @@ COPY tsconfig.prod.json ./
 RUN npm run build
 
 FROM node:alpine 
+# Установка curl
+RUN apk add --no-cache curl
+
 WORKDIR /app
 COPY package*.json .
 RUN npm i --only=production

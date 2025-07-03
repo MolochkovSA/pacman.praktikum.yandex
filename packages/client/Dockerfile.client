@@ -1,0 +1,17 @@
+FROM node:alpine AS build
+WORKDIR /app
+COPY package*.json .
+RUN npm i
+COPY . .
+RUN npm run build
+
+FROM node:alpine
+WORKDIR /app
+COPY package*.json .
+RUN npm i --only=production
+COPY --from=build /app/index.html /app/
+COPY --from=build /app/dist/ /app/dist/
+COPY --from=build /app/server/index.js /app/server/
+EXPOSE 3000
+CMD [ "node", "server/index.js" ]
+

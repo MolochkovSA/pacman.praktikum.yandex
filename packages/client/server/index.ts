@@ -9,7 +9,7 @@ import serialize from 'serialize-javascript';
 import cookieParser from 'cookie-parser';
 
 const port = process.env.CLIENT_PORT || 80;
-const isDev = process.env.NODE_ENV === 'development';
+const isDev = process.env.VITE_MODE === 'development';
 const clientPath = path.join(__dirname, '..');
 
 async function createServer() {

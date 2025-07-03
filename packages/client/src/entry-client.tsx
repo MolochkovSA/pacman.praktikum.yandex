@@ -17,8 +17,8 @@ ReactDOM.hydrateRoot(
   </React.StrictMode>
 );
 
-if (import.meta.env.VITE_MODE === 'development') {
-  unregisterServiceWorker();
-} else {
+unregisterServiceWorker();
+
+if (import.meta.env.VITE_MODE !== 'development') {
   registerServiceWorker();
 }
