@@ -25,7 +25,11 @@ export class ReactionService {
 
   async addReaction(emoji: string) {
     await Reaction.create({
-      emoji: emoji
+      emoji
     });
+  }
+
+  async addManyReactions(emojis: string[]) {
+    await Reaction.bulkCreate(emojis.map((emoji) => ({ emoji })));
   }
 }
