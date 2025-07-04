@@ -9,7 +9,7 @@ import { Topic } from '@/entities/topic';
 
 export const ForumTopicEditPage = () => {
   const navigate = useNavigate();
-  const topic = useLoaderData<Topic | undefined>();
+  const topic = useLoaderData() as Topic | undefined;
 
   const lastLink = topic
     ? { label: topic.title, to: getTopicEditPath(topic.id) }

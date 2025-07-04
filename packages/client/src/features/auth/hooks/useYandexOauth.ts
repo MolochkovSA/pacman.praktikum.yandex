@@ -8,7 +8,7 @@ import { yandexOauthApi } from '@/features/auth/api/yandexOauthApi.ts';
 
 export const useYandexAuth = () => {
   const navigate = useNavigate();
-  const { me, logout } = useAuth();
+  const { logout } = useAuth();
   const { notify } = useNotification();
 
   const redirectOnYandexOauth = useCallback(async () => {
@@ -31,7 +31,6 @@ export const useYandexAuth = () => {
     async (code: string) => {
       try {
         await yandexOauthApi.signInWithYandex({ code, redirect_uri: yandexOauthApi.redirectUri });
-        await me();
       } catch (error) {
         if (error instanceof HttpError) {
           if (error.status === 401) {
@@ -46,7 +45,7 @@ export const useYandexAuth = () => {
         }
       }
     },
-    [me, navigate, notify, logout]
+    [navigate, notify, logout]
   );
 
   return { redirectOnYandexOauth, signInWithYandex };

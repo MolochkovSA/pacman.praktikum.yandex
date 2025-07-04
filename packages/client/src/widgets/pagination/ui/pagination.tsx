@@ -5,15 +5,15 @@ import { Button } from '@/shared/ui';
 
 type Props = {
   page: number;
-  length: number;
+  total: number;
   limit: number;
   onNextClick: () => void;
   onPrevClick: () => void;
 };
 
-export function Pagination({ page, length, limit, onNextClick, onPrevClick }: Props) {
-  const firstItem = (page - 1) * limit + 1;
-  const lastItem = firstItem + length - 1;
+export function Pagination({ page, total, limit, onNextClick, onPrevClick }: Props) {
+  const lastItem: number = Math.min(page * limit, total);
+  const firstItem: number = lastItem ? (page - 1) * limit + 1 : 0;
 
   const isPrevBtnDisabled = page === 1;
   const isNextBtnDisabled = lastItem < limit;

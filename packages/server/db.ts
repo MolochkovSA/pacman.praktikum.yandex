@@ -7,8 +7,10 @@ import { CommentReaction } from './app/models/comment_reactions.model';
 
 const { POSTGRES_USER, POSTGRES_PASSWORD, POSTGRES_DB, POSTGRES_PORT } = process.env;
 
+const isDev = process.env.NODE_ENV === 'development';
+
 const sequelizeOptions: SequelizeOptions = {
-  host: 'localhost',
+  host: isDev ? 'localhost' : 'db',
   port: Number(POSTGRES_PORT),
   username: POSTGRES_USER,
   password: POSTGRES_PASSWORD,

@@ -1,0 +1,21 @@
+FROM node:alpine AS build
+WORKDIR /app
+COPY package*.json .
+RUN npm i
+COPY ./app ./app
+COPY ./index.ts ./
+COPY ./db.ts ./
+COPY tsconfig.json ./
+COPY tsconfig.prod.json ./
+RUN npm run build
+
+FROM node:alpine 
+# Установка curl
+RUN apk add --no-cache curl
+
+WORKDIR /app
+COPY package*.json .
+RUN npm i --only=production
+COPY --from=build /app/dist ./
+EXPOSE 3001
+CMD [ "node", "./index.js" ]
