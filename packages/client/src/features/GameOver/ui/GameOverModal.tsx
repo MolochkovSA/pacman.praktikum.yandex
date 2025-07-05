@@ -1,4 +1,4 @@
-import { Modal } from '@/shared/ui/Modal/Modal';
+import { Modal } from '@/shared/ui';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 
