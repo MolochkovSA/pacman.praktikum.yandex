@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
-import Dropdown from 'react-bootstrap/Dropdown';
+import { Dropdown } from 'react-bootstrap';
 import { SlLogout, SlSettings } from 'react-icons/sl';
 
 import { RoutePath } from '@/shared/config/routeConfig';

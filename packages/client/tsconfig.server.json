@@ -7,7 +7,10 @@
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "lib": ["es2019", "DOM"]
+    "lib": ["es2019", "DOM"],
+    "rootDir": "server",
+    "outDir": "dist",
+    "tsBuildInfoFile": "dist/tsconfig.server.tsbuildinfo"
   },
   "include": ["server/index.ts"]
 }

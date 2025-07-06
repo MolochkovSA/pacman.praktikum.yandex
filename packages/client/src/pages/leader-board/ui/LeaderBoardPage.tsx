@@ -56,7 +56,7 @@ export const LeaderBoardPage = () => {
           <Pagination
             page={page}
             limit={DEFAULT_PLAYERS_ON_SCREEN}
-            length={length}
+            total={length}
             onNextClick={() => setPage((prev) => prev + 1)}
             onPrevClick={() => setPage((prev) => prev - 1)}
           />
