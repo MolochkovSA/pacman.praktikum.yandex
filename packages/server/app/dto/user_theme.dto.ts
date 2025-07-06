@@ -5,10 +5,6 @@ export interface UserThemeDto {
   themeId: number;
 }
 
-// export interface UserThemeResponseDto {
-//   externalUserId: string;
-//   theme: string;
-// }
 export interface UserThemeResponseDto {
   externalUserId: string;
   theme: ThemeName;
