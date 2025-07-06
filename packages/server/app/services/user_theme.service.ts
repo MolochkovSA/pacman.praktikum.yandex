@@ -1,8 +1,7 @@
 import { UserTheme } from '../models/user_theme.model';
 import { Theme } from '../models/theme.model';
 import { UserThemeDto } from '../dto/user_theme.dto';
-
-const DEFAULT_THEME_NAME = 'dark';
+import { DEFAULT_THEME_NAME } from '../types/theme.types';
 
 export class UserThemeService {
   private async findUserThemeById(id: number) {
