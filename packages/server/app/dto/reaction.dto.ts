@@ -14,4 +14,5 @@ export interface ReactionDto {
 export interface DeleteReactionDto {
   commentId: number;
   reactionId: number;
+  author: string;
 }

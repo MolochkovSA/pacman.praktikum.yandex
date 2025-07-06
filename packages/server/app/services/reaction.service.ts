@@ -7,26 +7,11 @@ export class ReactionService {
   }
 
   async setReaction(commentId: number, reactionId: number, author: string) {
-    await CommentReaction.create({
-      commentId: commentId,
-      author: author,
-      reactionId: reactionId
-    });
+    await CommentReaction.create({ commentId, author, reactionId });
   }
 
-  async deleteReaction(commentId: number, reactionId: number) {
-    await CommentReaction.destroy({
-      where: {
-        commentId: commentId,
-        reactionId: reactionId
-      }
-    });
-  }
-
-  async addReaction(emoji: string) {
-    await Reaction.create({
-      emoji
-    });
+  async deleteReaction(commentId: number, reactionId: number, author: string) {
+    await CommentReaction.destroy({ where: { commentId, author, reactionId } });
   }
 
   async addManyReactions(emojis: string[]) {
