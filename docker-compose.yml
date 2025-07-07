@@ -70,9 +70,9 @@ services:
     ports:
       - '5432:5432'
     volumes:
-      # - ./tmp/pgdata:/var/lib/postgresql/data
-      - pgdata:/var/lib/postgresql/data
+      - ./tmp/pgdata:/var/lib/postgresql/data
+      # - pgdata:/var/lib/postgresql/data
     networks:
       - localnet
-volumes:
-  pgdata:
+# volumes:
+#   pgdata:
