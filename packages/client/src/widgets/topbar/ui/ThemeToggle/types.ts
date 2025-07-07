@@ -1,8 +1,9 @@
+import { Theme } from '@/app/providers/ThemeProvider/ThemeContext';
+
 export interface UserThemeResponseDto {
   externalUserId: string;
-  theme: ThemeName;
+  theme: Theme;
 }
-export type ThemeName = 'light' | 'dark';
 
 export interface UserThemeDto {
   externalUserId: string;
