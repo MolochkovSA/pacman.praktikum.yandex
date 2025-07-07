@@ -1,7 +1,7 @@
 @use 'styles/typography';
 
 .toggle {
-  margin-left: 10px;
+  margin: 0 0 12px 5px;
 
   label {
     @include typography.font(p2);
@@ -12,7 +12,7 @@
   input {
     cursor: pointer;
 
-    --bs-form-switch-bg: url('./../../../../assets/svg/pacman-toggle.svg') !important;
+    --bs-form-switch-bg: url('../../../../../assets/svg/pacman-toggle.svg') !important;
     --bs-form-check-bg: var(--color-button-main);
   }
 }

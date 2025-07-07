@@ -10,3 +10,10 @@ body {
   background: url('./../../assets/images/background.jpg');
   color: var(--color-white-text);
 }
+
+body[data-theme='light'] {
+  background: url('./../../assets/images/background-light.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: var(--color-white-text);
+}

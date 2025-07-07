@@ -1,4 +1,4 @@
-import { Modal } from '@/shared/ui/Modal/Modal';
+import { Modal } from '@/shared/ui';
 import { useState } from 'react';
 import { ArrowFatUp, ArrowFatDown, ArrowFatLeft, ArrowFatRight } from 'phosphor-react';
 

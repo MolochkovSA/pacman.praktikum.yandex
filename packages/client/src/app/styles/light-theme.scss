@@ -20,13 +20,6 @@
   --color-button-darken: #292e1e;
   --shadow-text-opacity90: 1px 1px 10px var(--color-text-opacity90);
 
-  body {
-    background: url('./../../assets/images/background-light.jpg');
-    background-repeat: no-repeat;
-    background-size: cover;
-    color: var(--color-white-text);
-  }
-
   .btn-primary {
     --bs-btn-color: #fff;
     --bs-btn-bg: var(--color-button-main);

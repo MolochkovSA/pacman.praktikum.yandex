@@ -16,7 +16,12 @@ import { setThemes } from './app/utils/setThemes';
 var cookieParser = require('cookie-parser');
 
 const app = express();
-app.use(cors());
+app.use(
+  cors({
+    origin: `http://localhost:3000`,
+    credentials: true
+  })
+);
 app.use(express.json());
 app.use(cookieParser());
 const port = Number(process.env.SERVER_PORT) || 3001;
@@ -35,7 +40,7 @@ app.use('/api', commentRouter);
 app.use('/api', replyRouter);
 app.use('/api', reactionRouter);
 app.use('/api', themeRouter);
-app.use('/app', userThemeRouter);
+app.use('/api', userThemeRouter);
 
 app.listen(port, () => {
   console.log(`  ➜ 🎸 Server is listening on port: ${port}`);

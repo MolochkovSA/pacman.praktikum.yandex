@@ -9,7 +9,7 @@ import UserInfo from '../UserInfo/UserInfo';
 
 import styles from './UserDropdown.module.scss';
 import { Button } from '@/shared/ui';
-import { ThemeToggle } from '@/widgets/topbar/ui/ThemeToggle/ThemeToggle';
+import { ThemeToggle } from '../ThemeToggle';
 
 export const UserDropdown = () => {
   const navigate = useNavigate();
@@ -35,6 +35,7 @@ export const UserDropdown = () => {
         className={styles.menu}
         align="end"
         popperConfig={{ modifiers: [{ name: 'offset', options: { offset: [0, 20] } }] }}>
+        <ThemeToggle></ThemeToggle>
         <Button
           className={styles.button}
           onClick={goToProfile}>
@@ -48,7 +49,6 @@ export const UserDropdown = () => {
           <SlLogout className={styles.icon} />
           <span>Выйти</span>
         </Button>
-        <ThemeToggle></ThemeToggle>
       </Dropdown.Menu>
     </Dropdown>
   );
