@@ -25,6 +25,7 @@ export class CommentMapper {
 
   commentModelToDto(comment: Comment): CommentDto {
     return {
+      id: comment.id,
       author: comment.author,
       createdAt: comment.createdAt,
       text: comment.text,

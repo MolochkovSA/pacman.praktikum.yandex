@@ -12,6 +12,7 @@ import reactionRouter from './app/routers/reaction.router';
 import themeRouter from './app/routers/theme.router';
 import userThemeRouter from './app/routers/user_theme.router';
 import { setThemes } from './app/utils/setThemes';
+import { setEmojis } from './app/utils/setEmojis';
 
 var cookieParser = require('cookie-parser');
 
@@ -28,6 +29,7 @@ const port = Number(process.env.SERVER_PORT) || 3001;
 
 dbConnect().then(() => {
   setThemes();
+  setEmojis();
 });
 
 app.get('/', (_, res) => {

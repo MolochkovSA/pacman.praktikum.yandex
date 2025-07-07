@@ -51,6 +51,7 @@
     p {
       @include typography.font(p3);
 
+      flex: 1;
       line-height: 1.5;
     }
   }

@@ -23,6 +23,7 @@ export const ForumTopicViewPage = () => {
   const messages = comments.map((comment) => (
     <MessageBlock
       key={comment.id}
+      type="comment"
       {...comment}
     />
   ));
@@ -56,7 +57,12 @@ export const ForumTopicViewPage = () => {
         <div className={styles.messages}>
           {paginationCard}
 
-          {topic && page === DEFAULT_PAGE && <MessageBlock {...topic} />}
+          {topic && page === DEFAULT_PAGE && (
+            <MessageBlock
+              type="topic"
+              {...topic}
+            />
+          )}
 
           {messages}
 
