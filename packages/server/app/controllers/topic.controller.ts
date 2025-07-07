@@ -35,7 +35,7 @@ export const getTopicsByAmountAndPage = async (req: Request, res: Response) => {
 
     const responseBody = topicMapper.topicsModelToDto(topics);
 
-    return res.status(201).json(responseBody);
+    return res.status(200).json(responseBody);
   } catch (error) {
     return res.status(500).json({ message: 'Server error' });
   }
@@ -49,7 +49,7 @@ export const getTopicById = async (req: Request, res: Response) => {
   if (topic) {
     const topicDto = topicMapper.topicModelToDto(topic);
 
-    return res.status(201).json(topicDto);
+    return res.status(200).json(topicDto);
   }
 
   return res.status(404).json({ message: 'Topic not found' });

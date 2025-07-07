@@ -3,7 +3,7 @@ import { Modal as BootstrapModal } from 'react-bootstrap';
 
 import { Button } from '../Button/Button';
 
-import './Modal.scss';
+import './CustomModal.scss';
 
 type ModalButtonProps = {
   label: ReactNode;

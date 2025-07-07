@@ -8,6 +8,7 @@ export interface CreateCommentDto {
 }
 
 export interface CommentDto {
+  id: number;
   author: string;
   text: string;
   createdAt: string;

@@ -24,6 +24,11 @@ const generateMockCommentView = (id: number) => {
       login: 'Автор' + (id + 1),
       avatar: null
     },
+    reactions: [
+      { commentId: 1, reactionId: 2, author: 'Bob' },
+      { commentId: 1, reactionId: 1, author: 'Alice' },
+      { commentId: 1, reactionId: 2, author: 'Charlie' }
+    ],
     createdAt: '2022-01-01T00:00:00.000Z'
   };
 };
