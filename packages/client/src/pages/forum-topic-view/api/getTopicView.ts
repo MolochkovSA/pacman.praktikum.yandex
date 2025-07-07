@@ -1,15 +1,11 @@
 import { TopicId } from '@/entities/topic';
-import { DEFAULT_COMMENTS_ON_SCREEN } from '../constants';
 import { CommentView, TopicView } from '../model/types';
 import { PACMAN_API_URL } from '@/shared/const/api';
 
 type Args = {
   id: TopicId;
-  page: number;
 };
-export const getTopicView = async ({ id, page }: Args): Promise<TopicView> => {
-  const skip: number = (page - 1) * DEFAULT_COMMENTS_ON_SCREEN;
-  console.log(skip);
+export const getTopicView = async ({ id }: Args): Promise<TopicView> => {
   const params = new URLSearchParams({
     topicId: String(id)
   });
@@ -26,7 +22,6 @@ export const getTopicView = async ({ id, page }: Args): Promise<TopicView> => {
   }
 
   const json = await response.json();
-  console.log(json);
 
   const mappedTopic: TopicView = {
     ...json,

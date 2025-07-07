@@ -2,7 +2,6 @@ import { PACMAN_API_URL } from '@/shared/const/api';
 import { CreateTopicRequestDto, Topic, TopicId, UpdateTopicRequestDto } from '../model/types';
 
 const createTopic = async (data: CreateTopicRequestDto): Promise<void> => {
-  console.log('Topic created1:', data);
   const response = await fetch(`${PACMAN_API_URL}/topic`, {
     method: 'POST',
     headers: {
