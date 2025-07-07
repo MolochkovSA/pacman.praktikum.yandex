@@ -37,7 +37,7 @@ app.use('/api', commentRouter);
 app.use('/api', replyRouter);
 app.use('/api', reactionRouter);
 app.use('/api', themeRouter);
-app.use('/app', userThemeRouter);
+app.use('/api', userThemeRouter);
 
 app.listen(port, () => {
   console.log(`  ➜ 🎸 Server is listening on port: ${port}`);

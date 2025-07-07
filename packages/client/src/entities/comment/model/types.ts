@@ -9,4 +9,5 @@ export type Comment = {
 export type CreateCommentRequestDto = {
   topicId: number;
   text: string;
+  author: string;
 };

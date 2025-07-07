@@ -1,8 +1,8 @@
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import { Card } from 'react-bootstrap';
 
-import { getProfilePath } from '@/shared/lib/router';
-import { getAvatarSrc } from '@/shared/lib/getAvatarSrc';
+// import { getProfilePath } from '@/shared/lib/router';
+// import { getAvatarSrc } from '@/shared/lib/getAvatarSrc';
 import { CommentId } from '@/entities/comment';
 import { CommentReaction } from '@/features/rection';
 import { MessageType } from '../../model/types';
@@ -16,32 +16,22 @@ type Props = {
   themeDescription?: string;
   text: string;
   createdAt: Date;
-  author: {
-    id: number;
-    login: string;
-    avatar: string | null;
-  };
+  author: string;
   reactions?: CommentReaction[];
 };
 
-export const MessageBlock = ({
-  type,
-  id,
-  themeDescription,
-  text,
-  createdAt,
-  author: { id: authorId, login, avatar },
-  reactions
-}: Props) => {
+export const MessageBlock = ({ type, id, themeDescription, text, createdAt, author, reactions }: Props) => {
   return (
     <Card>
       <Card.Body className={styles.messageBlock}>
         <div className={styles.author}>
-          <Link to={getProfilePath(authorId)}>{login}</Link>
+          <div>{author}</div>
+
+          {/* <Link to={getProfilePath(authorId)}>{author}</Link>
           <img
             src={getAvatarSrc(avatar)}
             alt={`avatar of ${login}`}
-          />
+          /> */}
         </div>
 
         <div className={styles.separator}></div>

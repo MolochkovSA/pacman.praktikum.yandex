@@ -19,12 +19,15 @@ export const ForumTopicViewPage = () => {
   const id = Number(topicId);
   const [page, setPage] = useState(DEFAULT_PAGE);
   const { isLoading, topic, comments, total, loadTopicView } = useTopicView(id, page);
-
   const messages = comments.map((comment) => (
     <MessageBlock
       key={comment.id}
       type="comment"
-      {...comment}
+      id={comment.id}
+      text={comment.text}
+      createdAt={comment.createdAt}
+      author={comment.author}
+      reactions={comment.reactions}
     />
   ));
 
@@ -56,14 +59,17 @@ export const ForumTopicViewPage = () => {
       {!isLoading && (
         <div className={styles.messages}>
           {paginationCard}
-
           {topic && page === DEFAULT_PAGE && (
             <MessageBlock
               type="topic"
-              {...topic}
+              id={topic.id}
+              text={topic.text}
+              themeDescription={topic.themeDescription}
+              createdAt={topic.createdAt}
+              author={topic.author}
+              reactions={[]}
             />
           )}
-
           {messages}
 
           {paginationCard}

@@ -8,8 +8,9 @@ import { topicSchema } from '../model/schema';
 import { TopicData } from '../model/types';
 
 import './EditTopicForm.scss';
-
-const authorId = 1; // TODO: сделать авторизацию
+import { useSelector } from 'react-redux';
+import { userSelectors } from '@/entities/user';
+// const authorId = 1; // TODO: сделать авторизацию
 
 type Props = {
   topic?: Topic;
@@ -19,7 +20,7 @@ type Props = {
 
 export const EditTopicForm = ({ topic, onSubmit, onCancel }: Props) => {
   const { isLoading, createTopic, updateTopic } = useTopic();
-
+  const user = useSelector(userSelectors.selectUser);
   const {
     register,
     handleSubmit,
@@ -32,10 +33,13 @@ export const EditTopicForm = ({ topic, onSubmit, onCancel }: Props) => {
   });
 
   const save = async (data: TopicData) => {
+    console.log('user', user);
     if (topic) {
       await updateTopic({ topicId: topic.id, topic: data });
     } else {
-      await createTopic({ authorId, topic: data });
+      if (user) {
+        await createTopic({ author: user?.id, ...data });
+      }
     }
 
     onSubmit(data);

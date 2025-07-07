@@ -8,7 +8,7 @@ import styles from './TopicsTable.module.scss';
 const topicHeaders: Record<keyof Omit<TopicPreview, 'id'>, string> = {
   title: 'Тема',
   author: 'Автор',
-  commentsCount: 'Сообщений',
+  amountComments: 'Сообщений',
   lastComment: 'Последнее сообщение'
 };
 

@@ -1,9 +1,9 @@
 import { Topic, TopicId } from '@/entities/topic';
-import { User } from '@/entities/user';
+// import { User } from '@/entities/user';
 import { Comment } from '@/entities/comment';
 import { CommentReaction } from '@/features/rection';
 
-type UserView = Pick<User, 'id' | 'login' | 'avatar'>;
+// type UserView = Pick<User, 'id' | 'login' | 'avatar'>;
 
 export type TopicViewRequestDto = {
   id: TopicId;
@@ -12,12 +12,14 @@ export type TopicViewRequestDto = {
 };
 
 export type CommentView = Comment & {
-  author: UserView;
+  author: string;
   reactions: CommentReaction[];
+  // "replies": [],
 };
 
 export type TopicView = Topic & {
-  author: UserView;
+  author: string;
+  comments: CommentView[];
 };
 
 export type TopicViewResponseDto = {

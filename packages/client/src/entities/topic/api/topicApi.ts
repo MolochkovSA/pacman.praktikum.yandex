@@ -1,21 +1,18 @@
+import { PACMAN_API_URL } from '@/shared/const/api';
 import { CreateTopicRequestDto, Topic, TopicId, UpdateTopicRequestDto } from '../model/types';
 
-// TODO: add real api
-
-const mockTopic = {
-  id: 1,
-  title: 'Mock topic',
-  themeDescription: 'Mock description',
-  text: 'Mock text',
-  createdAt: '2022-01-01T00:00:00.000Z'
-};
-
 const createTopic = async (data: CreateTopicRequestDto): Promise<void> => {
-  await new Promise((resolve) => setTimeout(resolve, 2000));
+  console.log('Topic created1:', data);
+  const response = await fetch(`${PACMAN_API_URL}/topic`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  });
 
-  console.log('Topic created:', data);
+  console.log('Topic created:', response);
 };
-
 const updateTopic = async (data: UpdateTopicRequestDto): Promise<void> => {
   await new Promise((resolve) => setTimeout(resolve, 2000));
 
@@ -23,15 +20,15 @@ const updateTopic = async (data: UpdateTopicRequestDto): Promise<void> => {
 };
 
 const getTopicByid = async (id: TopicId): Promise<Topic> => {
-  await new Promise((resolve) => setTimeout(resolve, 2000));
+  const response = await fetch(`${PACMAN_API_URL}/topic?id=${id}`, {
+    method: 'GET'
+  });
 
-  const topic = {
-    ...mockTopic,
-    id,
-    createdAt: new Date(mockTopic.createdAt)
-  };
-  console.log('Topic:', topic);
+  if (!response.ok) {
+    throw new Error(`Failed to fetch topic: ${response.status} ${response.statusText}`);
+  }
 
+  const topic: Topic = await response.json();
   return topic;
 };
 

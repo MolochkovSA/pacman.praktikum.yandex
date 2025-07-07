@@ -9,6 +9,8 @@ import { CommentData } from '../model/types';
 import { commentSchema } from '../model/schema';
 
 import './CreateCommentForm.scss';
+import { useSelector } from 'react-redux';
+import { userSelectors } from '@/entities/user';
 
 type Props = {
   topicId: TopicId;
@@ -17,7 +19,7 @@ type Props = {
 
 export const CreateCommentForm = ({ topicId, onSubmit }: Props) => {
   const { isLoading, createComment } = useComment();
-
+  const user = useSelector(userSelectors.selectUser);
   const { register, handleSubmit, reset, watch } = useForm<CommentData>({
     mode: 'onBlur',
     resolver: zodResolver(commentSchema)
@@ -26,7 +28,7 @@ export const CreateCommentForm = ({ topicId, onSubmit }: Props) => {
   const save = async (data: CommentData) => {
     if (!data.text) return;
 
-    await createComment({ topicId, text: data.text });
+    await createComment({ topicId, text: data.text, author: user?.first_name ? user?.first_name : '' });
 
     onSubmit?.(data);
     reset();

@@ -1,36 +1,44 @@
 import { TopicId } from '@/entities/topic';
 import { DEFAULT_COMMENTS_ON_SCREEN } from '../constants';
-import { TopicViewRequestDto, TopicViewResponseDto } from '../model/types';
-import { getMockTopicVew } from './mockData';
+import { CommentView, TopicView } from '../model/types';
+import { PACMAN_API_URL } from '@/shared/const/api';
 
 type Args = {
   id: TopicId;
   page: number;
 };
-
-export const getTopicView = async ({ id, page }: Args): Promise<TopicViewResponseDto> => {
+export const getTopicView = async ({ id, page }: Args): Promise<TopicView> => {
   const skip: number = (page - 1) * DEFAULT_COMMENTS_ON_SCREEN;
-  const data: TopicViewRequestDto = { id, skip, limit: DEFAULT_COMMENTS_ON_SCREEN };
+  console.log(skip);
+  const params = new URLSearchParams({
+    topicId: String(id)
+  });
 
-  console.log('Loading topics...', data);
+  const response = await fetch(`${PACMAN_API_URL}/topic/?${params.toString()}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  });
 
-  await new Promise((resolve) => setTimeout(resolve, 2000));
+  if (!response.ok) {
+    throw new Error(`Failed to fetch topic view: ${response.status} ${response.statusText}`);
+  }
 
-  const { topic, comments, total } = getMockTopicVew(data);
+  const json = await response.json();
+  console.log(json);
 
-  const mappedTopic = {
-    ...topic,
-    createdAt: new Date(topic.createdAt)
+  const mappedTopic: TopicView = {
+    ...json,
+    createdAt: new Date(json.createdAt),
+    author: String(json.author),
+    comments: json.comments.map((c: CommentView) => ({
+      id: c.id,
+      text: c.text,
+      createdAt: new Date(c.createdAt),
+      author: String(c.author),
+      reactions: c.reactions || []
+    }))
   };
-
-  const mappedComments = comments.map((comment) => ({
-    ...comment,
-    createdAt: new Date(comment.createdAt)
-  }));
-
-  return {
-    topic: mappedTopic,
-    comments: mappedComments,
-    total
-  };
+  return mappedTopic;
 };

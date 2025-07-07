@@ -7,12 +7,12 @@ type UserPreview = Pick<User, 'id' | 'login'>;
 export type TopicPreview = {
   id: TopicId;
   title: Topic['title'];
-  author: UserPreview;
-  commentsCount: number;
+  author?: UserPreview;
+  amountComments: number;
   lastComment: {
     author: UserPreview;
     createdAt: Comment['createdAt'];
-  };
+  } | null;
 };
 
 export type TopicListResponseDto = {
@@ -21,6 +21,6 @@ export type TopicListResponseDto = {
 };
 
 export type TopicListRequestDto = {
-  skip: number;
-  limit: number;
+  amount: string;
+  page: string;
 };
