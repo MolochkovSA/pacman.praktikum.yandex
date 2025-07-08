@@ -2,7 +2,7 @@ import { useCallback, useMemo, useState } from 'react';
 
 import { CommentId } from '@/entities/comment';
 import { useAuth } from '@/features/auth';
-import { Reaction, ReactionId, useReactionsList } from '@/entities/reaction';
+import { Reaction, ReactionId, useReaction } from '@/entities/reaction';
 import { addReaction, deleteReaction } from '@/features/rection';
 import { CommentReaction } from '@/features/rection';
 import { ReactionDropdown } from '../ReactionDropdown/ReactionDropdown';
@@ -16,7 +16,7 @@ type Props = {
 
 export const ReactionBlock = ({ commentId, reactions: currentReactions }: Props) => {
   const { user } = useAuth();
-  const { reactionsList, isLoading } = useReactionsList();
+  const { reactionsList, isLoading } = useReaction();
   const [reactions, setReactions] = useState<CommentReaction[]>(currentReactions);
 
   const handleAddReaction = useCallback(

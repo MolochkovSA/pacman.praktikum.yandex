@@ -64,8 +64,8 @@ async function networkFirst(request: Request) {
 
   try {
     const response = await fetch(request);
-    if (response && response.status === 200) {
-      cache.put(request, response.clone());
+    if (response) {
+      if (response.status === 200) cache.put(request, response.clone());
       return response;
     }
 
