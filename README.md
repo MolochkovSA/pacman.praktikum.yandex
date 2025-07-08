@@ -77,4 +77,4 @@
 ## Ссылка на видео с работой нашей игры
 
 1. 5-6 спринты: https://cloud.mail.ru/public/qDKQ/Wp4M3ZWbx
-2. 7-8 спринты: https://cloud.mail.ru/public/2DgG/2R5rHdGZy
+2. 7-8 спринты: https://cloud.mail.ru/public/6i89/fPWLXoYu3
