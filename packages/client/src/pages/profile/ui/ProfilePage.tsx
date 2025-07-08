@@ -36,6 +36,7 @@ export const ProfilePage = () => {
     mode: 'onBlur',
     resolver: zodResolver(profileSchema)
   });
+
   const onSubmit = (data: Profile) => {
     setIsLoading(true);
     profileApi

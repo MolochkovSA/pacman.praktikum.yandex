@@ -3,3 +3,9 @@
 .timer {
   @include typography.font(h2);
 }
+
+[data-theme='light'] {
+  strong {
+    color: var(--color-text);
+  }
+}

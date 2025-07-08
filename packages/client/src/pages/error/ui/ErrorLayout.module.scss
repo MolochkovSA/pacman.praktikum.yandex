@@ -11,7 +11,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  color: var(--color-yellow-text);
+  color: var(--color-text);
   text-align: center;
   position: relative;
   gap: 3rem;
@@ -22,7 +22,7 @@
     font-size: 5rem;
     margin-bottom: 2rem;
     position: relative;
-    text-shadow: var(--shadow-yellow-text);
+    text-shadow: var(--shadow-text-opacity90);
   }
 
   .message {
