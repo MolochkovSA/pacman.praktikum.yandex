@@ -1,5 +1,5 @@
 import { useTheme } from '@/app/providers/ThemeProvider';
-import Form from 'react-bootstrap/Form';
+import Form from 'react-bootstrap/cjs/Form.js';
 import styles from './ThemeToggle.module.scss';
 import { useSelector } from 'react-redux';
 import { userSelectors } from '@/entities/user';
