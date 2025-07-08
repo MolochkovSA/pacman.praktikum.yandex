@@ -13,16 +13,16 @@ import themeRouter from './app/routers/theme.router';
 import userThemeRouter from './app/routers/user_theme.router';
 import { setThemes } from './app/utils/setThemes';
 import { setEmojis } from './app/utils/setEmojis';
-import { CLIENT_URL } from './shared/api';
 
 var cookieParser = require('cookie-parser');
 
 const app = express();
 app.use(
-  cors({
-    origin: CLIENT_URL,
-    credentials: true
-  })
+  // Если дев мод, то разрешаем все запросы с localhost:3000 и 127.0.0.1:3000
+  cors(process.env.NODE_ENV === 'development' ? {
+    origin: ['http://127.0.0.1:3000', 'http://localhost:3000'],
+    credentials: true,
+  } : undefined)
 );
 app.use(express.json());
 app.use(cookieParser());
