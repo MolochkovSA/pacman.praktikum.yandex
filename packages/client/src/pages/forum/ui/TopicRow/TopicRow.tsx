@@ -10,10 +10,10 @@ type Props = {
 
 export const TopicRow = ({ topic: { id, title, author, amountComments, lastComment } }: Props) => {
   const topicUrl = getTopicPath(id);
-  const authorProfileUrl = getProfilePath(author?.id ?? 0);
+  // const authorProfileUrl = getProfilePath(author?? 0);
 
   // Проверяем lastComment перед использованием
-  const commentatorProfileUrl = lastComment ? getProfilePath(lastComment.author.id) : '';
+  const commentatorProfileUrl = lastComment ? getProfilePath(lastComment.author) : '';
 
   return (
     <tr className={styles.row}>
@@ -32,11 +32,12 @@ export const TopicRow = ({ topic: { id, title, author, amountComments, lastComme
         </Link>
       </td>
       <td>
-        <Link
+        <span className={styles.author}> {author ?? 'Неизвестный автор'}</span>
+        {/* <Link
           className={styles.author}
           to={authorProfileUrl}>
-          {author?.login ?? 'Неизвестный автор'}
-        </Link>
+          {author ?? 'Неизвестный автор'}
+        </Link> */}
       </td>
       <td>{amountComments}</td>
       <td className={styles.lastComment}>
@@ -46,7 +47,7 @@ export const TopicRow = ({ topic: { id, title, author, amountComments, lastComme
             <Link
               className={styles.author}
               to={commentatorProfileUrl}>
-              {lastComment.author.login}
+              {lastComment.author}
             </Link>
           </>
         ) : (

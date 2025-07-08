@@ -35,7 +35,7 @@ export const getTopicsByAmountAndPage = async (req: Request, res: Response) => {
 
     return res.status(200).json(responseBody);
   } catch (error) {
-    console.log(error);
+    console.error(error);
     return res.status(500).json({ message: 'Server error' });
   }
 };

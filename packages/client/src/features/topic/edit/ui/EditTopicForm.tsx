@@ -33,12 +33,11 @@ export const EditTopicForm = ({ topic, onSubmit, onCancel }: Props) => {
   });
 
   const save = async (data: TopicData) => {
-    console.log('user', user);
     if (topic) {
       await updateTopic({ topicId: topic.id, topic: data });
     } else {
       if (user) {
-        await createTopic({ author: user?.id, ...data });
+        await createTopic({ author: user?.login ? user?.login : '', ...data });
       }
     }
 

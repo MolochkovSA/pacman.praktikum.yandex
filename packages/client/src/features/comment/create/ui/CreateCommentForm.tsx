@@ -28,7 +28,7 @@ export const CreateCommentForm = ({ topicId, onSubmit }: Props) => {
   const save = async (data: CommentData) => {
     if (!data.text) return;
 
-    await createComment({ topicId, text: data.text, author: user?.first_name ? user?.first_name : '' });
+    await createComment({ topicId, text: data.text, author: user?.login ? user?.login : '' });
 
     onSubmit?.(data);
     reset();

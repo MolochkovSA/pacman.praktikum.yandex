@@ -8,11 +8,8 @@ type TopicContent = {
 
 export type Topic = TopicContent & { id: TopicId; createdAt: Date };
 
-export type CreateTopicRequestDto = {
-  author: number;
-  title: string;
-  themeDescription: string;
-  text: string;
+export type CreateTopicRequestDto = TopicContent & {
+  author: string;
 };
 
 export type UpdateTopicRequestDto = {

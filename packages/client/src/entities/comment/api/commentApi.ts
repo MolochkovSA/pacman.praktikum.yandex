@@ -14,7 +14,6 @@ const createComment = async (data: CreateCommentRequestDto): Promise<void> => {
   if (!response.ok) {
     throw await HttpError.setMessage(response);
   }
-  console.log('Comment created:', data);
 };
 
 export const commentApi = { createComment };

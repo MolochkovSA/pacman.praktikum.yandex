@@ -1,5 +1,6 @@
 import { PACMAN_API_URL } from '@/shared/const/api';
 import { CreateTopicRequestDto, Topic, TopicId, UpdateTopicRequestDto } from '../model/types';
+import { topicSchema } from '../model/schema';
 
 const createTopic = async (data: CreateTopicRequestDto): Promise<void> => {
   const response = await fetch(`${PACMAN_API_URL}/topic`, {
@@ -9,8 +10,9 @@ const createTopic = async (data: CreateTopicRequestDto): Promise<void> => {
     },
     body: JSON.stringify(data)
   });
-
-  console.log('Topic created:', response);
+  if (!response.ok) {
+    throw new Error(`Failed to fetch topic: ${response.status} ${response.statusText}`);
+  }
 };
 const updateTopic = async (data: UpdateTopicRequestDto): Promise<void> => {
   await new Promise((resolve) => setTimeout(resolve, 2000));
@@ -26,9 +28,13 @@ const getTopicByid = async (id: TopicId): Promise<Topic> => {
   if (!response.ok) {
     throw new Error(`Failed to fetch topic: ${response.status} ${response.statusText}`);
   }
+  const json = await response.json();
 
-  const topic: Topic = await response.json();
+  const topic = topicSchema.parse(json);
+
   return topic;
+  // const topic: Topic = await response.json();
+  // return topic;
 };
 
 export const topicApi = { createTopic, updateTopic, getTopicByid };

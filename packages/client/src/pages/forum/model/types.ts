@@ -1,16 +1,16 @@
 import { Topic, TopicId } from '@/entities/topic';
-import { User } from '@/entities/user';
+// import { User } from '@/entities/user';
 import { Comment } from '@/entities/comment';
 
-type UserPreview = Pick<User, 'id' | 'login'>;
+// type UserPreview = Pick<User, 'id' | 'login'>;
 
 export type TopicPreview = {
   id: TopicId;
   title: Topic['title'];
-  author?: UserPreview;
+  author?: string;
   amountComments: number;
   lastComment: {
-    author: UserPreview;
+    author: string;
     createdAt: Comment['createdAt'];
   } | null;
 };
