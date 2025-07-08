@@ -13,13 +13,14 @@ import themeRouter from './app/routers/theme.router';
 import userThemeRouter from './app/routers/user_theme.router';
 import { setThemes } from './app/utils/setThemes';
 import { setEmojis } from './app/utils/setEmojis';
+import { CLIENT_URL } from './shared/api';
 
 var cookieParser = require('cookie-parser');
 
 const app = express();
 app.use(
   cors({
-    origin: `http://localhost:3000`,
+    origin: CLIENT_URL,
     credentials: true
   })
 );

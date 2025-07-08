@@ -7,12 +7,7 @@ import { Theme } from '@/app/providers/ThemeProvider/ThemeContext';
 const THEME_API_URL = `${PACMAN_API_URL}/user/theme`;
 
 export const getUserTheme = async (userId: UserId): Promise<UserThemeResponseDto> => {
-  const response = await fetch(`${THEME_API_URL}/${userId}`, {
-    credentials: 'include',
-    headers: {
-      'Content-Type': 'application/json;charset=utf-8'
-    }
-  });
+  const response = await fetch(`${THEME_API_URL}/${userId}`);
 
   if (!response.ok) {
     throw await HttpError.setMessage(response);

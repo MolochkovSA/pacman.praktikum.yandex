@@ -21,3 +21,8 @@
   backdrop-filter: blur(7px);
   box-shadow: 0 2px 8px 2px var(--color-text-opacity50);
 }
+
+@mixin light-breadcrumbs {
+  color: var(--color-user-dropdown-text);
+  text-shadow: 1px 1px 10px rgb(25, 23, 23);
+}
