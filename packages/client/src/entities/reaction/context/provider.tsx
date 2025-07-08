@@ -1,9 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, PropsWithChildren, useMemo } from 'react';
 
+import { ReactionContext } from './context';
 import { Reaction } from '../model/types';
 import { getReactionList } from '../api/getReactionList';
 
-export const useReactionsList = () => {
+export const ReactionProvider = ({ children }: PropsWithChildren) => {
   const [reactionsList, setReactionsList] = useState<Reaction[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -24,8 +25,13 @@ export const useReactionsList = () => {
     };
   }, []);
 
-  return {
-    reactionsList,
-    isLoading
-  };
+  const values = useMemo(
+    () => ({
+      reactionsList,
+      isLoading
+    }),
+    [reactionsList, isLoading]
+  );
+
+  return <ReactionContext.Provider value={values}>{children}</ReactionContext.Provider>;
 };

@@ -13,6 +13,7 @@ import { useTopicView } from '../hooks/useTopicView';
 import { DEFAULT_COMMENTS_ON_SCREEN, DEFAULT_PAGE } from '../constants';
 
 import styles from './ForumTopicViewPage.module.scss';
+import { ReactionProvider } from '@/entities/reaction';
 
 export const ForumTopicViewPage = () => {
   const { topicId } = useParams();
@@ -41,39 +42,41 @@ export const ForumTopicViewPage = () => {
   );
 
   return (
-    <ForumLayout
-      top={
-        <Breadcrumbs
-          links={[
-            { label: 'Главная', to: RoutePath.MAIN },
-            { label: 'Форум', to: RoutePath.FORUM.ROOT },
-            { label: topic?.title ?? `Топик ${id}`, to: getTopicPath(String(id)) }
-          ]}
-        />
-      }>
-      {isLoading && <Spinner />}
-
-      {!isLoading && (
-        <div className={styles.messages}>
-          {paginationCard}
-
-          {topic && page === DEFAULT_PAGE && (
-            <MessageBlock
-              type="topic"
-              {...topic}
-            />
-          )}
-
-          {messages}
-
-          {paginationCard}
-
-          <CreateCommentForm
-            topicId={id}
-            onSubmit={loadTopicView}
+    <ReactionProvider>
+      <ForumLayout
+        top={
+          <Breadcrumbs
+            links={[
+              { label: 'Главная', to: RoutePath.MAIN },
+              { label: 'Форум', to: RoutePath.FORUM.ROOT },
+              { label: topic?.title ?? `Топик ${id}`, to: getTopicPath(String(id)) }
+            ]}
           />
-        </div>
-      )}
-    </ForumLayout>
+        }>
+        {isLoading && <Spinner />}
+
+        {!isLoading && (
+          <div className={styles.messages}>
+            {paginationCard}
+
+            {topic && page === DEFAULT_PAGE && (
+              <MessageBlock
+                type="topic"
+                {...topic}
+              />
+            )}
+
+            {messages}
+
+            {paginationCard}
+
+            <CreateCommentForm
+              topicId={id}
+              onSubmit={loadTopicView}
+            />
+          </div>
+        )}
+      </ForumLayout>
+    </ReactionProvider>
   );
 };
