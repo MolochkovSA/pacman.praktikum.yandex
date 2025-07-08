@@ -19,7 +19,11 @@ export const ForumTopicViewPage = () => {
   const id = Number(topicId);
   const [page, setPage] = useState(DEFAULT_PAGE);
   const { isLoading, topic, comments, total, loadTopicView } = useTopicView(id);
-  const visibleComments = comments.slice((page - 1) * DEFAULT_COMMENTS_ON_SCREEN, page * DEFAULT_COMMENTS_ON_SCREEN);
+  const sortedComments = [...comments].sort((a, b) => a.createdAt.getTime() - b.createdAt.getTime());
+  const visibleComments = sortedComments.slice(
+    (page - 1) * DEFAULT_COMMENTS_ON_SCREEN,
+    page * DEFAULT_COMMENTS_ON_SCREEN
+  );
   const messages = visibleComments.map((comment) => (
     <MessageBlock
       key={comment.id}

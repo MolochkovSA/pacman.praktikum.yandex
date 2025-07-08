@@ -3,7 +3,7 @@ import { getTopicView } from '../api/getTopicView';
 import { TopicView, CommentView } from '../model/types';
 
 export const useTopicView = (id: number) => {
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [topic, setTopic] = useState<TopicView | null>(null);
   const [comments, setComments] = useState<CommentView[]>([]);
   const [total, setTotal] = useState(0);

@@ -23,7 +23,6 @@ export const MessageBlock = ({ type, id, themeDescription, text, createdAt, auth
         <div className={styles.author}>
           <span>{author}</span>
         </div>
-
         <div className={styles.separator}></div>
 
         <div className={styles.content}>
