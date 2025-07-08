@@ -92,7 +92,7 @@ export const ForumTopicViewPage = () => {
 
           <CreateCommentForm
             topicId={id}
-            // onSubmit={loadTopicView}
+            //  onSubmit={loadTopicView}
           />
         </div>
       )}
