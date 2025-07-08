@@ -4,7 +4,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import './app/styles/global.scss';
 import { routes, store } from '@/app';
-// import { registerServiceWorker, unregisterServiceWorker } from './shared/lib/serviceWorker';
+import { registerServiceWorker, unregisterServiceWorker } from './shared/lib/serviceWorker';
 
 const router = createBrowserRouter(routes);
 
@@ -17,8 +17,8 @@ ReactDOM.hydrateRoot(
   </React.StrictMode>
 );
 
-// if (import.meta.env.VITE_MODE === 'development') {
-//   unregisterServiceWorker();
-// } else {
-//   registerServiceWorker();
-// }
+if (import.meta.env.VITE_MODE === 'development') {
+  unregisterServiceWorker();
+} else {
+  registerServiceWorker();
+}
