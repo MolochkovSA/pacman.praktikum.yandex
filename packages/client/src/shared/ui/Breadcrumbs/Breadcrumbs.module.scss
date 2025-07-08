@@ -36,6 +36,7 @@
   .link {
     @include mixins.light-breadcrumbs;
   }
+
   .item {
     &::before {
       @include mixins.light-breadcrumbs;
