@@ -1,8 +1,4 @@
-// import { Link } from 'react-router-dom';
 import { Card } from 'react-bootstrap';
-
-// import { getProfilePath } from '@/shared/lib/router';
-// import { getAvatarSrc } from '@/shared/lib/getAvatarSrc';
 import { CommentId } from '@/entities/comment';
 import { CommentReaction } from '@/features/rection';
 import { MessageType } from '../../model/types';
@@ -26,11 +22,6 @@ export const MessageBlock = ({ type, id, themeDescription, text, createdAt, auth
       <Card.Body className={styles.messageBlock}>
         <div className={styles.author}>
           <span>{author}</span>
-          {/* <Link to={getProfilePath(author)}>{author}</Link> */}
-          {/* <img
-            src={getAvatarSrc(null)}
-            alt={`avatar of ${author}`}
-          /> */}
         </div>
 
         <div className={styles.separator}></div>

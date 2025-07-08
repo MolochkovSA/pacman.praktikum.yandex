@@ -33,8 +33,6 @@ const getTopicByid = async (id: TopicId): Promise<Topic> => {
   const topic = topicSchema.parse(json);
 
   return topic;
-  // const topic: Topic = await response.json();
-  // return topic;
 };
 
 export const topicApi = { createTopic, updateTopic, getTopicByid };
