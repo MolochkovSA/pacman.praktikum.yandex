@@ -15,6 +15,10 @@ services:
     build:
       context: ./packages/nginx
       dockerfile: Dockerfile.proxy
+    restart: always
+    depends_on:
+      client:
+        condition: service_healthy
     ports:
       - 80:80
     networks:
@@ -28,6 +32,11 @@ services:
       dockerfile: Dockerfile.client
     restart: always
     env_file: ./packages/client/.env
+    healthcheck:
+      test: ['CMD', 'curl', '-f', 'http://localhost:3000']
+      interval: 10s
+      timeout: 5s
+      retries: 3
     depends_on:
       server:
         condition: service_healthy
