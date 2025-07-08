@@ -8,7 +8,7 @@ import { pathToFileURL } from 'url';
 import serialize from 'serialize-javascript';
 import cookieParser from 'cookie-parser';
 
-const port = process.env.CLIENT_PORT || 80;
+const port = process.env.CLIENT_PORT || 3000;
 const isDev = process.env.VITE_MODE === 'development';
 const clientPath = path.join(__dirname, '..');
 
