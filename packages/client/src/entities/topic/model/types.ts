@@ -1,6 +1,6 @@
 export type TopicId = number;
 
-type TopicContent = {
+export type TopicContent = {
   title: string;
   themeDescription: string;
   text: string;

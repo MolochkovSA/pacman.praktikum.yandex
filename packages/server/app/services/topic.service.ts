@@ -44,8 +44,9 @@ export class TopicService {
   }
 
   async getTopicsByAmountAndPage(amount: number, page: number) {
+    const pageNumber = page > 0 ? page : 1;
     return await Topic.findAll({
-      offset: page * amount,
+      offset: (pageNumber - 1) * amount,
       limit: amount,
       order: [['id', 'ASC']],
       include: [

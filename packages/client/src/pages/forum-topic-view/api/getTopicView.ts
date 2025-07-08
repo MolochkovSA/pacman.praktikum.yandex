@@ -7,6 +7,7 @@ type Args = {
   id: TopicId;
   signal?: AbortSignal;
 };
+
 export const getTopicView = async ({ id, signal }: Args): Promise<TopicView> => {
   const params = new URLSearchParams({
     topicId: String(id)
@@ -23,21 +24,17 @@ export const getTopicView = async ({ id, signal }: Args): Promise<TopicView> => 
 
   const json = await response.json();
 
-  const parsed = topicViewResponseDtoSchema.parse(json);
+  const parsed = topicViewResponseDtoSchema.parse({
+    id,
+    ...json
+  });
 
-  return parsed.topic;
-
-  // const mappedTopic: TopicView = {
-  //   ...json,
-  //   createdAt: new Date(json.createdAt),
-  //   author: String(json.author),
-  //   comments: json.comments.map((c: CommentView) => ({
-  //     id: c.id,
-  //     text: c.text,
-  //     createdAt: new Date(c.createdAt),
-  //     author: String(c.author),
-  //     reactions: c.reactions || []
-  //   }))
-  // };
-  // return mappedTopic;
+  return {
+    ...parsed,
+    createdAt: new Date(parsed.createdAt),
+    comments: parsed.comments.map((c) => ({
+      ...c,
+      createdAt: new Date(c.createdAt)
+    }))
+  };
 };
