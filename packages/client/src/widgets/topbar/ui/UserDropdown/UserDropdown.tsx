@@ -9,14 +9,15 @@ import UserInfo from '../UserInfo/UserInfo';
 
 import styles from './UserDropdown.module.scss';
 import { Button } from '@/shared/ui';
+import { ThemeToggle } from '../ThemeToggle';
 
 export const UserDropdown = () => {
-  const navigete = useNavigate();
+  const navigate = useNavigate();
   const { logout } = useAuth();
   const [dropdownShow, setDropdownShow] = useState(false);
 
   const goToProfile = () => {
-    navigete(RoutePath.PROFILE.ROOT);
+    navigate(RoutePath.PROFILE.ROOT);
     setDropdownShow(false);
   };
 
@@ -34,6 +35,7 @@ export const UserDropdown = () => {
         className={styles.menu}
         align="end"
         popperConfig={{ modifiers: [{ name: 'offset', options: { offset: [0, 20] } }] }}>
+        <ThemeToggle></ThemeToggle>
         <Button
           className={styles.button}
           onClick={goToProfile}>

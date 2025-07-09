@@ -17,7 +17,13 @@ import { setEmojis } from './app/utils/setEmojis';
 var cookieParser = require('cookie-parser');
 
 const app = express();
-app.use(cors());
+app.use(
+  // Если дев мод, то разрешаем все запросы с localhost:3000 и 127.0.0.1:3000
+  cors(process.env.NODE_ENV === 'development' ? {
+    origin: ['http://127.0.0.1:3000', 'http://localhost:3000'],
+    credentials: true,
+  } : undefined)
+);
 app.use(express.json());
 app.use(cookieParser());
 const port = Number(process.env.SERVER_PORT) || 3001;

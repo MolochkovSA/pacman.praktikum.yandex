@@ -1,14 +1,17 @@
 import { Outlet } from 'react-router-dom';
 import { Notification } from '@/entities/notification';
-import { GlobalErrorHandler } from '../providers';
+import { GlobalErrorHandler } from '../providers/ErrorBoundary';
+import { ThemeProvider } from '../providers/ThemeProvider';
 
 function App() {
   return (
     <div className="App">
       <GlobalErrorHandler>
-        <Notification>
-          <Outlet />
-        </Notification>
+        <ThemeProvider>
+          <Notification>
+            <Outlet />
+          </Notification>
+        </ThemeProvider>
       </GlobalErrorHandler>
     </div>
   );

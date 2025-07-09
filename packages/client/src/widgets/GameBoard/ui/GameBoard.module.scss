@@ -3,8 +3,8 @@
 .score {
   @include typography.font(h2);
 
-  color: var(--color-yellow-text);
-  text-shadow: var(--shadow-yellow-text);
+  color: var(--color-text);
+  text-shadow: var(--shadow-text-opacity90);
 }
 
 .overlay {

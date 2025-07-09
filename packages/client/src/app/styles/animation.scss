@@ -2,25 +2,25 @@
   0% {
     text-shadow:
       3px 0 0 var(--color-red-invalidate),
-      -3px 0 0 var(--color-blue-main);
+      -3px 0 0 var(--color-glitch-pacman);
   }
 
   25% {
     text-shadow:
       -3px 0 0 var(--color-red-invalidate),
-      3px 0 0 var(--color-blue-main);
+      3px 0 0 var(--color-glitch-pacman);
   }
 
   50% {
     text-shadow:
       3px 0 0 var(--color-red-invalidate),
-      -3px 0 0 var(--color-blue-main);
+      -3px 0 0 var(--color-glitch-pacman);
   }
 
   100% {
     text-shadow:
       -3px 0 0 var(--color-red-invalidate),
-      3px 0 0 var(--color-blue-main);
+      3px 0 0 var(--color-glitch-pacman);
   }
 }
 
