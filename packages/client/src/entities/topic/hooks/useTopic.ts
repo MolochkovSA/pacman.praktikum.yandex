@@ -3,8 +3,6 @@ import { useState } from 'react';
 import { topicApi } from '../api/topicApi';
 import { CreateTopicRequestDto, UpdateTopicRequestDto } from '../model/types';
 
-// TODO: add real api
-
 export const useTopic = () => {
   const [isLoading, setIsLoading] = useState(false);
 

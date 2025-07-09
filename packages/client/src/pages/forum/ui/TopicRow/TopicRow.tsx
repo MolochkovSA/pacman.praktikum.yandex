@@ -1,18 +1,15 @@
 import { RiFilePaper2Line } from 'react-icons/ri';
-
 import styles from './TopicRow.module.scss';
 import { Link } from 'react-router-dom';
 import { TopicPreview } from '../../model/types';
-import { getProfilePath, getTopicPath } from '@/shared/lib/router';
+import { getTopicPath } from '@/shared/lib/router';
 
 type Props = {
   topic: TopicPreview;
 };
 
-export const TopicRow = ({ topic: { id, title, author, commentsCount, lastComment } }: Props) => {
+export const TopicRow = ({ topic: { id, title, author, amountComments, lastComment } }: Props) => {
   const topicUrl = getTopicPath(id);
-  const authorProfileUrl = getProfilePath(author.id);
-  const commentatorProfileUrl = getProfilePath(lastComment.author.id);
 
   return (
     <tr className={styles.row}>
@@ -31,20 +28,18 @@ export const TopicRow = ({ topic: { id, title, author, commentsCount, lastCommen
         </Link>
       </td>
       <td>
-        <Link
-          className={styles.author}
-          to={authorProfileUrl}>
-          {author.login}
-        </Link>
+        <span className={styles.author}> {author ?? 'Неизвестный автор'}</span>
       </td>
-      <td>{commentsCount}</td>
+      <td>{amountComments}</td>
       <td className={styles.lastComment}>
-        <time>{lastComment.createdAt.toLocaleString()}</time>
-        <Link
-          className={styles.author}
-          to={commentatorProfileUrl}>
-          {lastComment.author.login}
-        </Link>
+        {lastComment ? (
+          <>
+            <time>{lastComment.createdAt.toLocaleString()}</time>{' '}
+            <span className={styles.author}>{lastComment.author}</span>
+          </>
+        ) : (
+          <span>Комментариев нет</span>
+        )}
       </td>
     </tr>
   );

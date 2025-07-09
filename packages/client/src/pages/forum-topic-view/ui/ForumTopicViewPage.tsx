@@ -19,13 +19,21 @@ export const ForumTopicViewPage = () => {
   const { topicId } = useParams();
   const id = Number(topicId);
   const [page, setPage] = useState(DEFAULT_PAGE);
-  const { isLoading, topic, comments, total, loadTopicView } = useTopicView(id, page);
-
-  const messages = comments.map((comment) => (
+  const { isLoading, topic, comments, total, loadTopicView } = useTopicView(id);
+  const sortedComments = [...comments].sort((a, b) => a.createdAt.getTime() - b.createdAt.getTime());
+  const visibleComments = sortedComments.slice(
+    (page - 1) * DEFAULT_COMMENTS_ON_SCREEN,
+    page * DEFAULT_COMMENTS_ON_SCREEN
+  );
+  const messages = visibleComments.map((comment) => (
     <MessageBlock
       key={comment.id}
       type="comment"
-      {...comment}
+      id={comment.id}
+      text={comment.text}
+      createdAt={comment.createdAt}
+      author={comment.author}
+      reactions={comment.reactions}
     />
   ));
 
@@ -35,8 +43,16 @@ export const ForumTopicViewPage = () => {
         page={page}
         total={total}
         limit={DEFAULT_COMMENTS_ON_SCREEN}
-        onNextClick={() => setPage((prev) => prev + 1)}
-        onPrevClick={() => setPage((prev) => prev - 1)}
+        onNextClick={() => {
+          if (page < Math.ceil(total / DEFAULT_COMMENTS_ON_SCREEN)) {
+            setPage((prev) => prev + 1);
+          }
+        }}
+        onPrevClick={() => {
+          if (page > 1) {
+            setPage((prev) => prev - 1);
+          }
+        }}
       />
     </Card>
   );
@@ -58,14 +74,17 @@ export const ForumTopicViewPage = () => {
         {!isLoading && (
           <div className={styles.messages}>
             {paginationCard}
-
             {topic && page === DEFAULT_PAGE && (
               <MessageBlock
                 type="topic"
-                {...topic}
+                id={topic.id}
+                text={topic.text}
+                themeDescription={topic.themeDescription}
+                createdAt={topic.createdAt}
+                author={topic.author}
+                reactions={[]}
               />
             )}
-
             {messages}
 
             {paginationCard}

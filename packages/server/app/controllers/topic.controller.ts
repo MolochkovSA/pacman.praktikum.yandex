@@ -26,17 +26,16 @@ export const createTopic = async (req: Request, res: Response) => {
 export const getTopicsByAmountAndPage = async (req: Request, res: Response) => {
   try {
     const { amount, page } = req.query as { amount: string; page: string };
-
-    if (!amount || !page) {
-      return res.status(500).json({ message: 'Invalid amount' });
+    if (amount === undefined || page === undefined) {
+      return res.status(400).json({ message: 'Missing amount or page' });
     }
-
     const topics = await topicService.getTopicsByAmountAndPage(Number(amount), Number(page));
 
     const responseBody = topicMapper.topicsModelToDto(topics);
 
     return res.status(200).json(responseBody);
   } catch (error) {
+    console.error(error);
     return res.status(500).json({ message: 'Server error' });
   }
 };
