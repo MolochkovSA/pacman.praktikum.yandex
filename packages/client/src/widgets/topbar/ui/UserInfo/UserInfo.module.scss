@@ -6,13 +6,17 @@
   padding: 4px 12px 4px 43px;
   gap: 12px;
   cursor: pointer;
-  color: var(--color-gainsboro);
+  color: var(--color-user-dropdown-text);
 
   .avatar {
+    border: 2px solid var(--color-user-dropdown-text);
     border-radius: 50%;
+    object-fit: cover;
+    width: 48px;
+    height: 48px;
 
     &.active {
-      border: 2px solid var(--color-yellow-text);
+      border: 2px solid var(--color-text);
     }
   }
 
@@ -25,7 +29,7 @@
       @include typography.font(h3);
 
       &.active {
-        color: var(--color-yellow-text);
+        color: var(--color-text);
       }
     }
 
@@ -35,7 +39,7 @@
       gap: 0.25rem;
 
       svg {
-        color: var(--color-yellow-text);
+        color: var(--color-text);
       }
 
       span {

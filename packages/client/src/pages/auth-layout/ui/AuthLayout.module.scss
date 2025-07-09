@@ -1,0 +1,12 @@
+.layout {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+
+  & > div {
+    width: 380px;
+    min-width: max-content;
+  }
+}

@@ -1,11 +1,16 @@
-import { tileSize } from '@/shared/const/game';
 import { Vector2D } from '@/shared/model/vector';
-import wall from '../../../assets/textures/food.png';
+import wall from '@/assets/textures/food.png';
 
-const foodImage = new Image();
-foodImage.src = wall;
+let foodImage: HTMLImageElement | null = null;
 
-export const renderFood = (ctx: CanvasRenderingContext2D, foods: Vector2D[]) => {
+if (typeof window !== 'undefined') {
+  foodImage = new Image();
+  foodImage.src = wall;
+}
+
+export const renderFood = (ctx: CanvasRenderingContext2D, foods: Vector2D[], tileSize: number) => {
+  if (!foodImage) return;
+
   const imageSize = tileSize / 2;
 
   foods.forEach(({ x, y }) => {

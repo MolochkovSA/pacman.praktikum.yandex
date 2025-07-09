@@ -2,27 +2,32 @@
 
 .menu {
   width: 300px;
-  background-color: var(--color-charcoal-sand);
+  background-color: var(--color-header-dropdown);
   border-radius: 8px;
   padding: 16px;
 
-  @include typography.font(p2);
-
-  span {
-    margin-top: 2px;
-  }
-
-  .link {
-    padding: 8px 12px;
+  .button {
+    width: 100%;
+    padding: 8px;
     margin-bottom: 8px;
     display: flex;
     align-items: center;
+    justify-content: start;
     gap: 12px;
-    color: var(--color-gainsboro);
+    color: var(--color-user-dropdown-text);
+    border: none;
+    border-radius: 8px;
+    background-color: inherit;
+
+    span {
+      @include typography.font(p2);
+
+      margin-top: 2px;
+    }
 
     &:hover {
-      color: var(--color-yellow-text);
-      background-color: var(--color-yellow-opacity15);
+      color: var(--color-text);
+      background-color: var(--color-text-opacity15);
     }
 
     &:last-child {

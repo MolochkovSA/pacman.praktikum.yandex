@@ -1,68 +1,68 @@
-import { User } from '@/entities/user';
-import { createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-type Nullable<T> = T | null;
+import { User } from './types';
+import { API_URL } from '@/shared/const/api';
+import { HttpError } from '@/shared/types';
+import { userSchema } from './schemas';
 
 type UserState = {
-  item: Nullable<User>;
+  user: Nullable<User>;
   fetchStatus: 'succeeded' | 'failed' | 'pending' | 'idle';
 };
 
 const initialState: UserState = {
-  item: null,
+  user: null,
   fetchStatus: 'idle'
 };
+
+export const fetchUserThunk = createAsyncThunk('user/fetchUserThunk', async (): Promise<User> => {
+  const url = `${API_URL}/auth/user`;
+
+  const response = await fetch(url, {
+    credentials: 'include'
+  });
+
+  if (!response.ok) {
+    throw new HttpError(response.status, response.statusText);
+  }
+
+  const data: unknown = await response.json();
+
+  return userSchema.parse(data);
+});
 
 const userSlice = createSlice({
   name: 'user',
   initialState,
   selectors: {
-    selectUser: (state) => state.item,
+    selectUser: (state) => state.user,
     selectStatus: (state) => state.fetchStatus,
     selectFetchStatusIsPending: (state) => state.fetchStatus === 'pending',
     selectFetchStatusIsIdle: (state) => state.fetchStatus === 'idle',
     selectFetchStatusIsSucceeded: (state) => state.fetchStatus === 'succeeded',
-    selectFetchStatusIsFailed: (state) => state.fetchStatus === 'failed',
-    selectUserByStatus: createSelector(
-      (state: UserState) => state.item,
-      (state: UserState) => state.fetchStatus,
-      (item, fetchStatus) => {
-        if (fetchStatus !== 'failed') return item;
-        return null;
-      }
-    )
+    selectFetchStatusIsFailed: (state) => state.fetchStatus === 'failed'
   },
   reducers: {
-    setUser: (state, action: PayloadAction<Nullable<User>>) => {
-      state.item = action.payload;
-    },
-    setPendingStatus: (state) => {
-      state.fetchStatus = 'pending';
-    },
-    setIdleStatus: (state) => {
+    clearState: (state) => {
+      state.user = null;
       state.fetchStatus = 'idle';
-    },
-    setSucceededStatus: (state, action: PayloadAction<Nullable<User>>) => {
-      state.item = action.payload;
-      state.fetchStatus = 'succeeded';
-    },
-    setFailedStatus: (state) => {
-      state.item = null;
-      state.fetchStatus = 'failed';
     }
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchUserThunk.pending, (state) => {
+        state.user = null;
+        state.fetchStatus = 'pending';
+      })
+      .addCase(fetchUserThunk.fulfilled, (state, { payload }: PayloadAction<User>) => {
+        state.user = payload;
+        state.fetchStatus = 'succeeded';
+      })
+      .addCase(fetchUserThunk.rejected, (state) => {
+        state.user = null;
+        state.fetchStatus = 'failed';
+      });
   }
 });
 
-export const { setUser, setFailedStatus, setSucceededStatus, setPendingStatus, setIdleStatus } = userSlice.actions;
-
-export const {
-  selectUser,
-  selectFetchStatusIsFailed,
-  selectFetchStatusIsIdle,
-  selectFetchStatusIsPending,
-  selectFetchStatusIsSucceeded,
-  selectUserByStatus,
-  selectStatus
-} = userSlice.selectors;
-
-export default userSlice.reducer;
+export const { reducer: userReducer, selectors: userSelectors, actions: userActions } = userSlice;

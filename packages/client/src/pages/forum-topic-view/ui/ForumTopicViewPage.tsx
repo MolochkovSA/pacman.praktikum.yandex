@@ -2,14 +2,18 @@ import { useState } from 'react';
 import { Card } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 
-import { Breadcrumbs, Pagination, Spinner } from '@/shared/ui';
+import { RoutePath } from '@/shared/config/routeConfig';
+import { Breadcrumbs, Spinner } from '@/shared/ui';
+import { getTopicPath } from '@/shared/lib/router';
 import { ForumLayout } from '@/widgets/forum-layout';
+import { Pagination } from '@/widgets/pagination';
 import { CreateCommentForm } from '@/features/comment/create';
 import { MessageBlock } from './MessageBlock/MessageBlock';
 import { useTopicView } from '../hooks/useTopicView';
 import { DEFAULT_COMMENTS_ON_SCREEN, DEFAULT_PAGE } from '../constants';
 
 import styles from './ForumTopicViewPage.module.scss';
+import { ReactionProvider } from '@/entities/reaction';
 
 export const ForumTopicViewPage = () => {
   const { topicId } = useParams();
@@ -20,6 +24,7 @@ export const ForumTopicViewPage = () => {
   const messages = comments.map((comment) => (
     <MessageBlock
       key={comment.id}
+      type="comment"
       {...comment}
     />
   ));
@@ -37,34 +42,41 @@ export const ForumTopicViewPage = () => {
   );
 
   return (
-    <ForumLayout
-      top={
-        <Breadcrumbs
-          links={[
-            { label: 'Главная', to: '/' },
-            { label: 'Форум', to: '/forum' },
-            { label: topic?.title ?? `Топик ${id}`, to: `/forum/${id}` }
-          ]}
-        />
-      }>
-      {isLoading && <Spinner />}
-
-      {!isLoading && (
-        <div className={styles.messages}>
-          {paginationCard}
-
-          {topic && page === DEFAULT_PAGE && <MessageBlock {...topic} />}
-
-          {messages}
-
-          {paginationCard}
-
-          <CreateCommentForm
-            topicId={id}
-            onSubmit={loadTopicView}
+    <ReactionProvider>
+      <ForumLayout
+        top={
+          <Breadcrumbs
+            links={[
+              { label: 'Главная', to: RoutePath.MAIN },
+              { label: 'Форум', to: RoutePath.FORUM.ROOT },
+              { label: topic?.title ?? `Топик ${id}`, to: getTopicPath(String(id)) }
+            ]}
           />
-        </div>
-      )}
-    </ForumLayout>
+        }>
+        {isLoading && <Spinner />}
+
+        {!isLoading && (
+          <div className={styles.messages}>
+            {paginationCard}
+
+            {topic && page === DEFAULT_PAGE && (
+              <MessageBlock
+                type="topic"
+                {...topic}
+              />
+            )}
+
+            {messages}
+
+            {paginationCard}
+
+            <CreateCommentForm
+              topicId={id}
+              onSubmit={loadTopicView}
+            />
+          </div>
+        )}
+      </ForumLayout>
+    </ReactionProvider>
   );
 };

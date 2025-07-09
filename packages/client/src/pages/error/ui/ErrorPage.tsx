@@ -1,13 +1,38 @@
-import React from 'react';
-import styles from './ErrorLayout.module.scss';
+import { useNavigate } from 'react-router-dom';
+
+import { RoutePath } from '@/shared/config/routeConfig';
 import { Button } from '@/shared/ui';
 
-type ErrorPageProps = {
-  errorType?: '404' | '500';
+import styles from './ErrorLayout.module.scss';
+
+type ErrorBoundaryProps = {
+  error?: Error;
+  resetErrorBoundary?: () => void;
 };
 
-export const ErrorPage = ({ errorType }: ErrorPageProps) => {
+// Объединяем пропсы
+type ErrorPageProps = {
+  errorType?: '404' | '500';
+} & ErrorBoundaryProps;
+// type ErrorPageProps = {
+//   errorType?: '404' | '500';
+// };
+
+export const ErrorPage = ({ errorType, error, resetErrorBoundary }: ErrorPageProps) => {
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    if (resetErrorBoundary) {
+      resetErrorBoundary();
+    } else {
+      navigate(RoutePath.MAIN);
+    }
+  };
+
   const getErrorMessage = (errorType?: '404' | '500') => {
+    if (error?.message) {
+      return [error.message];
+    }
     switch (errorType) {
       case '500':
         return ['Woops: internal server error', 'try again later'];
@@ -32,8 +57,4 @@ export const ErrorPage = ({ errorType }: ErrorPageProps) => {
       </Button>
     </div>
   );
-};
-
-const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-  return e;
 };

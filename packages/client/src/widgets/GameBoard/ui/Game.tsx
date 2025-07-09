@@ -8,39 +8,52 @@ import { useEffect, useRef } from 'react';
 import { renderGhosts } from '@/entities/Ghost/ui/render';
 import { Player } from '@/entities/Player/model/types';
 import { Direction } from '@/shared/model/direction';
-import { tileSize } from '@/shared/const/game';
+import styles from './GameBoard.module.scss';
+import { useSetPause } from '@/features/UseSetPause/useSetPause';
+import { useTileSize } from '@/shared/hooks/useTileSize';
 
 export const Game = ({
   player,
   foods,
   ghosts,
-  ghostImages,
-  direction
+  direction,
+  isPaused,
+  setIsPaused
 }: {
   player: Player;
   foods: Vector2D[];
   ghosts: Vector2D[];
-  ghostImages: HTMLImageElement[];
   direction: Direction;
+  isPaused: boolean;
+  setIsPaused: (isPaused: boolean) => void;
 }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const tileSize = useTileSize(map[0].length, map.length);
+  useSetPause({ isPaused, setIsPaused });
 
   useEffect(() => {
     const canvas = canvasRef.current!;
     const ctx = canvas.getContext('2d')!;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    renderMap(ctx, map);
-    renderFood(ctx, foods);
-    renderGhosts(ctx, ghosts, ghostImages);
-    renderPlayer(ctx, player, direction);
-  }, [player, foods, ghosts, ghostImages, direction]);
+    renderMap(ctx, map, tileSize);
+    renderFood(ctx, foods, tileSize);
+    renderGhosts(ctx, ghosts, tileSize);
+    renderPlayer(ctx, player, direction, tileSize);
+  }, [player, foods, ghosts, direction, tileSize]);
 
   return (
-    <canvas
-      ref={canvasRef}
-      width={map[0].length * tileSize}
-      height={map.length * tileSize}
-      style={{ background: 'black' }}
-    />
+    <>
+      {isPaused && (
+        <div className={styles.overlay}>
+          Нажмите <span> space </span> чтобы начать или поставить игру на паузу
+        </div>
+      )}
+      <canvas
+        ref={canvasRef}
+        width={map[0].length * tileSize}
+        height={map.length * tileSize}
+        style={{ background: 'black' }}
+      />
+    </>
   );
 };

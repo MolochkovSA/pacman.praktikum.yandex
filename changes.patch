@@ -1,0 +1,111 @@
+diff --git a/docker-compose.yml b/docker-compose.yml
+index a7b15c8..9a3a707 100644
+--- a/docker-compose.yml
++++ b/docker-compose.yml
+@@ -79,9 +79,9 @@ services:
+     ports:
+       - '5432:5432'
+     volumes:
+-      - ./tmp/pgdata:/var/lib/postgresql/data
+-      # - pgdata:/var/lib/postgresql/data
++      # - ./tmp/pgdata:/var/lib/postgresql/data
++      - pgdata:/var/lib/postgresql/data
+     networks:
+       - localnet
+-# volumes:
+-#   pgdata:
++volumes:
++  pgdata:
+diff --git a/packages/client/src/entry-client.tsx b/packages/client/src/entry-client.tsx
+index 56f310d..a2bdd7e 100644
+--- a/packages/client/src/entry-client.tsx
++++ b/packages/client/src/entry-client.tsx
+@@ -4,7 +4,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+ import { Provider } from 'react-redux';
+ import './app/styles/global.scss';
+ import { routes, store } from '@/app';
+-import { registerServiceWorker, unregisterServiceWorker } from './shared/lib/serviceWorker';
++// import { registerServiceWorker, unregisterServiceWorker } from './shared/lib/serviceWorker';
+ 
+ const router = createBrowserRouter(routes);
+ 
+@@ -17,8 +17,8 @@ ReactDOM.hydrateRoot(
+   </React.StrictMode>
+ );
+ 
+-if (import.meta.env.VITE_MODE === 'development') {
+-  unregisterServiceWorker();
+-} else {
+-  registerServiceWorker();
+-}
++// if (import.meta.env.VITE_MODE === 'development') {
++//   unregisterServiceWorker();
++// } else {
++//   registerServiceWorker();
++// }
+diff --git a/packages/client/src/shared/const/api.ts b/packages/client/src/shared/const/api.ts
+index 9e4b515..89fc3a4 100644
+--- a/packages/client/src/shared/const/api.ts
++++ b/packages/client/src/shared/const/api.ts
+@@ -1,4 +1,6 @@
+ export const API_URL: string = import.meta.env.VITE_API_URL;
+ const host: string = import.meta.env.VITE_SERVER_HOST;
+ const port: string = import.meta.env.VITE_SERVER_PORT;
+-export const PACMAN_API_URL: string = `${host}:${port}/api/v2`;
++
++// Если режим разработки, используем localhost:port, иначе отправляем все запросы на nginx, а тот в свою очередь маршрутизирует их
++export const PACMAN_API_URL: string = import.meta.env.VITE_MODE === 'development' ? `${host}:${port}/api/v2` :  `${host}/api/v2`;
+diff --git a/packages/nginx/nginx.conf b/packages/nginx/nginx.conf
+index b5fc767..7772761 100644
+--- a/packages/nginx/nginx.conf
++++ b/packages/nginx/nginx.conf
+@@ -2,6 +2,10 @@ upstream client_upstream {
+   server client:3000;
+ }
+ 
++upstream server_upstream {
++  server server:3001;
++}
++
+ server {
+   listen 80 default_server;
+ 
+@@ -15,6 +19,12 @@ server {
+   proxy_set_header Host $host;
+   proxy_cache_bypass $http_upgrade;
+ 
++   # API запросы проксируем на отдельный сервер
++  location /api/ {
++    proxy_pass http://server_upstream;
++    add_header Access-Control-Allow-Origin *;
++  }
++
+   location / {
+     proxy_pass http://client_upstream;
+     add_header Access-Control-Allow-Origin *;
+diff --git a/packages/server/index.ts b/packages/server/index.ts
+index 4e77661..ca01f1f 100644
+--- a/packages/server/index.ts
++++ b/packages/server/index.ts
+@@ -13,16 +13,16 @@ import themeRouter from './app/routers/theme.router';
+ import userThemeRouter from './app/routers/user_theme.router';
+ import { setThemes } from './app/utils/setThemes';
+ import { setEmojis } from './app/utils/setEmojis';
+-import { CLIENT_URL } from './shared/api';
+ 
+ var cookieParser = require('cookie-parser');
+ 
+ const app = express();
+ app.use(
+-  cors({
+-    origin: CLIENT_URL,
+-    credentials: true
+-  })
++  // Если дев мод, то разрешаем все запросы с localhost:3000 и 127.0.0.1:3000
++  cors(process.env.NODE_ENV === 'development' ? {
++    origin: ['http://127.0.0.1:3000', 'http://localhost:3000'],
++    credentials: true,
++  } : undefined)
+ );
+ app.use(express.json());
+ app.use(cookieParser());

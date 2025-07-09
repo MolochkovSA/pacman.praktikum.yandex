@@ -1,24 +1,27 @@
 :root {
   // colors
-  --color-yellow-text: #fff200;
-  --color-yellow-opacity15: rgba(255 242 0 / 15%);
-  --color-yellow-opacity50: rgba(255 242 0 / 50%);
-  --color-yellow-text-opacity90: rgb(255 242 0 / 90%);
+  --color-text-rgb: 255, 242, 0;
+  --color-text: rgb(var(--color-text-rgb));
+  --color-text-opacity15: rgba(var(--color-text-rgb), 0.15);
+  --color-text-opacity50: rgba(var(--color-text-rgb), 0.5);
+  --color-text-opacity90: rgba(var(--color-text-rgb), 0.9);
   --color-blue-main: #3369f3;
   --color-white-text: #fff;
-  --color-gainsboro: #dcdcdc;
-  --color-black: #000;
+  --color-table-text: #fff;
+  --color-user-dropdown-text: #dcdcdc;
   --color-red-invalidate: #f00;
-  --color-onion: #373710;
-  --color-charcoal-sand: #2e2e0e;
-  --color-mossy-gray: #484836;
+  --color-glitch-pacman: #3369f3;
+  --color-table-top: #373710;
+  --color-table-row: #484836;
+  --color-header-dropdown: #2e2e0e;
+  --color-modal-background: #505023;
   --color-gold-text: #ffd700;
   --color-silver-text: #c0c0c0;
   --color-bronze-text: #cd7f32;
 
   // shadows
-  --shadow-yellow-text: 1px 1px 10px var(--color-yellow-text-opacity90);
+  --shadow-text-opacity90: 1px 1px 10px var(--color-text-opacity90);
 }
 
 // bootstrap
-$primary: #3369f3;
+$primary: #3156b3;

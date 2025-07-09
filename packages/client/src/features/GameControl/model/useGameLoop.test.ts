@@ -1,6 +1,5 @@
 import { renderHook, act } from '@testing-library/react';
 import { useGameLoop } from './useGameLoop';
-
 import { Vector2D } from '@/shared/model/vector';
 
 // Мокаем alert, чтобы избежать его во время тестов
@@ -32,7 +31,10 @@ describe('useGameLoop', () => {
   });
 
   it('should initialize game state correctly', () => {
-    const { result } = renderHook(() => useGameLoop(false));
+    const mockSetGameStarted = jest.fn();
+
+    const { result } = renderHook(() => useGameLoop(false, mockSetGameStarted));
+
     expect(result.current.player.position).toEqual({ x: 1, y: 1 });
     expect(result.current.foods.length).toBe(2);
     expect(result.current.ghosts.length).toBe(3);
@@ -41,23 +43,32 @@ describe('useGameLoop', () => {
   });
 
   it('should move player and update score when game is started', () => {
-    const { result } = renderHook(({ started }) => useGameLoop(started), {
+    const mockSetGameStarted = jest.fn();
+
+    const { result } = renderHook(({ started }) => useGameLoop(started, mockSetGameStarted), {
       initialProps: { started: true }
     });
 
     act(() => {
-      jest.advanceTimersByTime(310); // Прокручиваем 1 тик
+      result.current.setIsPaused(false);
     });
 
-    expect(result.current.player.position).not.toEqual({ x: 1, y: 1 }); // игрок должен сдвинуться
-    expect(result.current.score).toBeGreaterThanOrEqual(0); // может быть 0 или 10, если подобрал еду
+    act(() => {
+      jest.advanceTimersByTime(310);
+    });
+
+    console.log('Player position after tick:', result.current.player.position);
+
+    expect(result.current.player.position).not.toEqual({ x: 1, y: 1 });
+    expect(result.current.score).toBeGreaterThanOrEqual(0);
   });
 
   it('should reset the game on game over', () => {
-    const { result } = renderHook(() => useGameLoop(true));
+    const mockSetGameStarted = jest.fn();
+
+    const { result } = renderHook(() => useGameLoop(true, mockSetGameStarted));
 
     act(() => {
-      // вручную обнуляем жизни
       result.current.resetGame();
     });
 

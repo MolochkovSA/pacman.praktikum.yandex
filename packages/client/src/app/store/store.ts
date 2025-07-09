@@ -1,12 +1,23 @@
-import { configureStore } from '@reduxjs/toolkit';
-import userReducer from '@/entities/user/model/slice.ts';
-import notificationReducer from '@/shared/model/notificationSlice.ts';
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
 
-export const store = configureStore({
-  reducer: {
-    user: userReducer,
-    notification: notificationReducer
-  }
+import { notificationReducer } from '@/entities/notification';
+import { userReducer } from '@/entities/user';
+import { leaderboardApi } from '@/pages/leader-board/api/api';
+
+export const reducer = combineReducers({
+  user: userReducer,
+  notification: notificationReducer,
+  [leaderboardApi.reducerPath]: leaderboardApi.reducer
 });
 
-export type AllStateType = ReturnType<typeof store.getState>;
+declare global {
+  interface Window {
+    APP_INITIAL_STATE: ReturnType<typeof reducer>;
+  }
+}
+
+export const store = configureStore({
+  reducer,
+  preloadedState: typeof window === 'undefined' ? undefined : window.APP_INITIAL_STATE,
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(leaderboardApi.middleware)
+});

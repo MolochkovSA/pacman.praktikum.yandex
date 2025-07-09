@@ -1,7 +1,5 @@
 import { Direction } from '@/shared/model/direction';
-
 import { Player } from '../model/types';
-import { tileSize } from '@/shared/const/game';
 
 const directionToAngle: Record<Direction, number> = {
   ArrowRight: 0,
@@ -10,10 +8,13 @@ const directionToAngle: Record<Direction, number> = {
   ArrowUp: -Math.PI / 2
 };
 
-export const renderPlayer = (ctx: CanvasRenderingContext2D, player: Player, direction: Direction) => {
+export const renderPlayer = (ctx: CanvasRenderingContext2D, player: Player, direction: Direction, tileSize: number) => {
   const time = Date.now();
-  const mouthOpen = (Math.sin(time / 150) + 1) / 2;
-  const mouthAngle = (mouthOpen * Math.PI) / 4; // угол раскрытия рта (макс 45°)
+  const smoothFactor = 150;
+  const amplitude = 0.25;
+
+  const mouthOpen = (Math.sin(time / smoothFactor) + 1) / 2;
+  const mouthAngle = mouthOpen * Math.PI * amplitude;
 
   const baseAngle = directionToAngle[direction];
   const centerX = player.position.x * tileSize + tileSize / 2;

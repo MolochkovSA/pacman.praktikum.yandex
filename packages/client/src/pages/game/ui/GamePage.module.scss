@@ -9,11 +9,15 @@
   align-items: center;
   gap: 2rem;
 
+  &__button {
+    @include typography.font(p3);
+  }
+
   .title {
     @include typography.font(h1);
     @include mixins.text-yellow-neon;
 
-    font-size: 5rem;
-    line-height: 6rem;
+    font-size: 4rem;
+    line-height: 4.5rem;
   }
 }

@@ -1,0 +1,23 @@
+@use 'styles/typography';
+
+.container {
+  padding-top: 0.25rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 2px solid var(--color-yellow-opacity15);
+
+  .reactions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+
+    .reaction {
+      cursor: pointer;
+
+      .total {
+        @include typography.font(p3);
+      }
+    }
+  }
+}

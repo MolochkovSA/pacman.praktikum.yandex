@@ -1,22 +1,30 @@
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router';
-import Dropdown from 'react-bootstrap/Dropdown';
+import { useNavigate } from 'react-router';
+import { Dropdown } from 'react-bootstrap';
 import { SlLogout, SlSettings } from 'react-icons/sl';
 
+import { RoutePath } from '@/shared/config/routeConfig';
+import { useAuth } from '@/features/auth';
 import UserInfo from '../UserInfo/UserInfo';
 
 import styles from './UserDropdown.module.scss';
+import { Button } from '@/shared/ui';
+import { ThemeToggle } from '../ThemeToggle';
 
 export const UserDropdown = () => {
   const navigate = useNavigate();
+  const { logout } = useAuth();
   const [dropdownShow, setDropdownShow] = useState(false);
 
-  const logout = () => {
-    navigate('/auth/login'); // Todo: logout
+  const goToProfile = () => {
+    navigate(RoutePath.PROFILE.ROOT);
+    setDropdownShow(false);
   };
 
   return (
-    <Dropdown onToggle={setDropdownShow}>
+    <Dropdown
+      onToggle={setDropdownShow}
+      show={dropdownShow}>
       <Dropdown.Toggle
         as={UserInfo}
         show={dropdownShow}
@@ -27,20 +35,20 @@ export const UserDropdown = () => {
         className={styles.menu}
         align="end"
         popperConfig={{ modifiers: [{ name: 'offset', options: { offset: [0, 20] } }] }}>
-        <Link
-          className={styles.link}
-          to="/settings">
+        <ThemeToggle></ThemeToggle>
+        <Button
+          className={styles.button}
+          onClick={goToProfile}>
           <SlSettings className={styles.icon} />
           <span>Профиль</span>
-        </Link>
+        </Button>
 
-        <Link
-          className={styles.link}
-          to="/"
+        <Button
+          className={styles.button}
           onClick={logout}>
           <SlLogout className={styles.icon} />
           <span>Выйти</span>
-        </Link>
+        </Button>
       </Dropdown.Menu>
     </Dropdown>
   );

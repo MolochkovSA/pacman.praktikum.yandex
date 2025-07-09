@@ -8,8 +8,8 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    background-color: var(--color-mossy-gray);
-    color: var(--color-white-text);
+    background-color: var(--color-table-row);
+    color: var(--color-table-text);
     vertical-align: middle;
 
     &:first-child {
@@ -22,7 +22,7 @@
   .author {
     display: block;
     cursor: pointer;
-    color: var(--color-yellow-text);
+    color: var(--color-text);
     text-decoration: underline;
   }
 

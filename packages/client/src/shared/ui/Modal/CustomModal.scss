@@ -1,0 +1,43 @@
+@use 'styles/typography';
+@use 'styles/mixins';
+@use 'styles/bootstrap';
+
+.modal-dialog {
+  min-width: max-content;
+
+  .modal-content {
+    @include mixins.card-background;
+
+    border-radius: 10px;
+  }
+
+  .modal-header {
+    @include typography.font(h2);
+    @include mixins.text-yellow-neon;
+
+    background-color: var(--color-modal-background);
+    padding: 1.5rem 2rem;
+    border-bottom: none;
+  }
+
+  .modal-body {
+    height: 100%;
+    padding: 30px;
+  }
+
+  .modal-footer {
+    border: none;
+    padding: 0 0 2rem;
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+}
+
+[data-theme='light'] {
+  .modal-body {
+    label {
+      color: var(--color-white-text);
+    }
+  }
+}

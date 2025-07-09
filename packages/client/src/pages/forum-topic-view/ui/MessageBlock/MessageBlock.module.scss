@@ -29,7 +29,7 @@
   .separator {
     min-height: 100%;
     width: 2px;
-    background-color: var(--color-yellow-opacity15);
+    background-color: var(--color-text-opacity15);
   }
 
   .content {
@@ -51,6 +51,7 @@
     p {
       @include typography.font(p3);
 
+      flex: 1;
       line-height: 1.5;
     }
   }

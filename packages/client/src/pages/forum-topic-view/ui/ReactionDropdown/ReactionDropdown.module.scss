@@ -1,0 +1,21 @@
+.menu {
+  background-color: var(--color-charcoal-sand);
+  border-radius: 8px;
+  padding: 12px;
+
+  .reactions {
+    display: grid !important;
+    grid-template-columns: repeat(10, 1fr);
+    gap: 8px;
+
+    .button {
+      padding: 0;
+      border: none;
+      background-color: inherit;
+
+      &:hover {
+        background-color: var(--color-yellow-opacity15);
+      }
+    }
+  }
+}

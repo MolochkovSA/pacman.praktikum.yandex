@@ -6,11 +6,13 @@
   justify-content: center;
   align-items: center;
   width: 100vw;
-  height: 100vh;
+  height: 100%;
   padding: 20px;
 
   &__card {
+    align-self: center;
     width: 750px;
+    margin-top: 1rem;
   }
 
   &__header {
@@ -20,13 +22,13 @@
     margin: -2rem -2rem 2rem;
     padding: 50px;
     position: relative;
-    background-color: #505023;
+    background-color: var(--color-modal-background);
     border-top-right-radius: 10px;
     border-top-left-radius: 10px;
   }
 
   &__avatar {
-    background-color: #505023;
+    background-color: var(--color-modal-background);
     width: 175px;
     height: 175px;
     position: absolute;
@@ -63,7 +65,7 @@
     input {
       text-align: right;
       border: none;
-      border-bottom: 2px solid #505023 !important;
+      border-bottom: 2px solid var(--color-modal-background) !important;
       box-shadow: none !important;
     }
   }
