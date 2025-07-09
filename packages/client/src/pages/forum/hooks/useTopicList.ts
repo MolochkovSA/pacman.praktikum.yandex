@@ -7,16 +7,14 @@ export const useTopicList = (page: number) => {
   const [topics, setTopics] = useState<TopicPreview[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [total, setTotal] = useState<number>(0);
-
   useEffect(() => {
     let isLive = true;
-
     setIsLoading(true);
 
-    getTopicList(page).then(({ topics, total }) => {
+    getTopicList(page).then((topics) => {
       if (isLive) {
         setTopics(topics);
-        setTotal(total);
+        setTotal(topics.length);
         setIsLoading(false);
       }
     });
