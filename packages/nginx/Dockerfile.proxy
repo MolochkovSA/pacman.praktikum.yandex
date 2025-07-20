@@ -1,5 +1,10 @@
 FROM nginx:alpine
-RUN rm /etc/nginx/conf.d/*
-COPY ./nginx.conf /etc/nginx/conf.d/
+
+WORKDIR /etc/nginx/
+COPY ./nginx.conf .
+
+RUN rm ./conf.d/*
+COPY ./conf.d/ ./conf.d/ 
+
 EXPOSE 80
-CMD [ "nginx", "-g", "daemon off;" ]
+EXPOSE 443
