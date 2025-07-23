@@ -1,13 +1,13 @@
 FROM node:alpine AS build
 WORKDIR /app
 COPY package*.json .
-# ENV NODE_ENV=production
 RUN npm i
 COPY ./app ./app
 COPY ./index.ts ./
 COPY ./db.ts ./
 COPY tsconfig.json ./
 COPY tsconfig.prod.json ./
+ENV NODE_ENV=production
 RUN npm run build
 
 FROM node:alpine 
