@@ -2,6 +2,8 @@ import { Request, Response } from 'express';
 import { splitCookiesString } from 'set-cookie-parser';
 import { authService } from '../services/auth.service';
 
+const isDev = process.env.NODE_ENV === 'development';
+
 const signIn = async (req: Request, res: Response) => {
   try {
     const response = await authService.signIn(req.body);
@@ -9,7 +11,16 @@ const signIn = async (req: Request, res: Response) => {
 
     if (rawSetCookie) {
       const cookies = splitCookiesString(rawSetCookie);
-      res.setHeader('Set-Cookie', cookies);
+
+      const cleanCookies = cookies.map((cookie) => {
+        let cleaned = cookie.replace(/Domain=ya-praktikum\.tech;? ?/gi, '');
+        if (isDev) {
+          cleaned = cleaned.replace(/Secure; ?/gi, '');
+        }
+        return cleaned;
+      });
+
+      res.setHeader('Set-Cookie', cleanCookies);
     }
 
     return res.status(response.status).end();
@@ -19,14 +30,25 @@ const signIn = async (req: Request, res: Response) => {
   }
 };
 
-const logout = async (_: Request, res: Response) => {
+const logout = async (req: Request, res: Response) => {
   try {
-    const response = await authService.logout();
+    const { authCookie, uuid } = req.cookies;
+
+    const response = await authService.logout({ authCookie, uuid });
     const rawSetCookie = response.headers.get('set-cookie');
 
     if (rawSetCookie) {
       const cookies = splitCookiesString(rawSetCookie);
-      res.setHeader('Set-Cookie', cookies);
+
+      const cleanCookies = cookies.map((cookie) => {
+        let cleaned = cookie.replace(/Domain=ya-praktikum\.tech;? ?/gi, '');
+        if (isDev) {
+          cleaned = cleaned.replace(/Secure; ?/gi, '');
+        }
+        return cleaned;
+      });
+
+      res.setHeader('Set-Cookie', cleanCookies);
     }
 
     return res.status(response.status).end();

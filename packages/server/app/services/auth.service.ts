@@ -14,10 +14,13 @@ const signIn = (args: SignInDto): Promise<Response> => {
   });
 };
 
-const logout = (): Promise<Response> => {
+const logout = ({ authCookie, uuid }: { authCookie: string; uuid: string }): Promise<Response> => {
   return fetch(`${authUrl}/logout`, {
     credentials: 'include',
-    method: 'POST'
+    method: 'POST',
+    headers: {
+      Cookie: `authCookie=${authCookie}; uuid=${uuid}`
+    }
   });
 };
 
