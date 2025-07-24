@@ -20,7 +20,13 @@ type Props = {
 export const CreateCommentForm = ({ topicId, onSubmit }: Props) => {
   const { isLoading, createComment } = useComment();
   const user = useSelector(userSelectors.selectUser);
-  const { register, handleSubmit, reset, watch } = useForm<CommentData>({
+  const {
+    register,
+    handleSubmit,
+    reset,
+    watch,
+    formState: { errors }
+  } = useForm<CommentData>({
     mode: 'onBlur',
     resolver: zodResolver(commentSchema)
   });
@@ -42,6 +48,7 @@ export const CreateCommentForm = ({ topicId, onSubmit }: Props) => {
             as="textarea"
             label="Быстрый ответ"
             {...register('text')}
+            error={errors.text?.message}
           />
 
           <div className="d-flex justify-content-end gap-3">
