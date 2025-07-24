@@ -1,5 +1,5 @@
 import { Button as BootstrapButton, ButtonProps } from 'react-bootstrap';
-import clsx from 'clsx';
+import { clsx } from 'clsx';
 
 import styles from './Button.module.scss';
 
