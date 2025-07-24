@@ -3,8 +3,8 @@ import { SignInDto } from '../dto/auth.dto';
 const API_URL: string = process.env.YANDEX_API_URL || '';
 const authUrl: string = `${API_URL}/auth`;
 
-const signIn = async (args: SignInDto): Promise<void> => {
-  const res = await fetch(`${authUrl}/signin`, {
+const signIn = (args: SignInDto): Promise<Response> => {
+  return fetch(`${authUrl}/signin`, {
     method: 'POST',
     credentials: 'include',
     headers: {
@@ -12,8 +12,6 @@ const signIn = async (args: SignInDto): Promise<void> => {
     },
     body: JSON.stringify(args)
   });
-
-  console.log(res);
 };
 
 const logout = (): Promise<Response> => {
