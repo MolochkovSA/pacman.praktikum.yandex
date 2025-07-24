@@ -10,19 +10,24 @@ import commentRouter from './app/routers/comment.router';
 import replyRouter from './app/routers/reply.router';
 import reactionRouter from './app/routers/reaction.router';
 import themeRouter from './app/routers/theme.router';
-import userThemeRouter from './app/routers/user_theme.router';
+import userThemeRouter from './app/routers/auth.router';
 import { setThemes } from './app/utils/setThemes';
 import { setEmojis } from './app/utils/setEmojis';
+import authRouter from './app/routers/auth.router';
 
 var cookieParser = require('cookie-parser');
 
 const app = express();
 app.use(
   // Если дев мод, то разрешаем все запросы с localhost:3000 и 127.0.0.1:3000
-  cors(process.env.NODE_ENV === 'development' ? {
-    origin: ['http://127.0.0.1:3000', 'http://localhost:3000'],
-    credentials: true,
-  } : undefined)
+  cors(
+    process.env.NODE_ENV === 'development'
+      ? {
+          origin: ['http://127.0.0.1:3000', 'http://localhost:3000'],
+          credentials: true
+        }
+      : undefined
+  )
 );
 app.use(express.json());
 app.use(cookieParser());
@@ -34,9 +39,9 @@ dbConnect().then(() => {
 });
 
 app.get('/', (_, res) => {
-  res.json('👋 Howdy from the server :)');
+  res.json('👋 Howdy from the server :)' + process.env.YANDEX_API_URL);
 });
-
+app.use('/api', authRouter);
 // app.use('/api', ensureAuthenticated);
 app.use('/api', topicRouter);
 app.use('/api', commentRouter);
