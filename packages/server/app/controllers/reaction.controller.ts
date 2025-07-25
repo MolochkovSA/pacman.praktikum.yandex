@@ -28,7 +28,6 @@ export const addReactionByComment = async (req: Request, res: Response) => {
 export const deleteReactionByComment = async (req: Request, res: Response) => {
   try {
     const { commentId, reactionId, author } = req.body as DeleteReactionDto;
-    console.log(commentId, reactionId, author);
 
     await reactionService.deleteReaction(commentId, reactionId, author);
 

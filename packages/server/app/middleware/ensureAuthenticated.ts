@@ -19,8 +19,6 @@ export const ensureAuthenticated = async (req: Request, res: Response, next: Nex
     });
 
     if (!response.ok) {
-      console.log(response);
-
       return res.status(403).json({ error: 'Forbidden' });
     }
     return next();

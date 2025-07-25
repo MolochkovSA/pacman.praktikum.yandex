@@ -1,20 +1,26 @@
 import dotenv from 'dotenv';
 dotenv.config();
 
-import express, { Request as ExpressRequest } from 'express';
+import express, { Request as ExpressRequest, Response as ExpressResponse } from 'express';
 import path from 'path';
 import fs from 'fs/promises';
 import { pathToFileURL } from 'url';
 import serialize from 'serialize-javascript';
 import cookieParser from 'cookie-parser';
 
-const port = process.env.CLIENT_PORT || 3000;
+const clientPort = process.env.CLIENT_PORT || 3000;
+const serverPort = process.env.VITE_SERVER_PORT || 3001;
+const serverHost = process.env.VITE_SERVER_HOST || 'http://localhost';
+const serverHostProd = process.env.VITE_SERVER_HOST_PROD || 'https://localhost';
+
 const isDev = process.env.VITE_MODE === 'development';
+const serverUrl = isDev ? `${serverHost}:${serverPort}` : `${serverHostProd}`;
 const clientPath = path.join(__dirname, '..');
 
 async function createServer() {
   const app = express();
   app.use(express.static(path.resolve(__dirname)));
+  app.use(express.json());
   app.use(cookieParser());
 
   const { createServer: createViteServer } = await import('vite');
@@ -34,6 +40,65 @@ async function createServer() {
   } else {
     app.use(express.static(path.join(clientPath, 'dist/client'), { index: false }));
   }
+
+  app.use('/api', async (req: ExpressRequest, res: ExpressResponse) => {
+    try {
+      const apiUrl = `${serverUrl}${req.originalUrl}`;
+
+      const body = ['GET', 'HEAD'].includes(req.method) ? undefined : JSON.stringify(req.body);
+
+      const headers = new Headers();
+
+      for (const [key, value] of Object.entries(req.headers)) {
+        if (key.toLowerCase() === 'content-length') continue;
+
+        if (Array.isArray(value)) {
+          headers.set(key, value.join(','));
+        } else if (value !== undefined) {
+          headers.set(key, value);
+        }
+      }
+
+      if (!headers.has('content-type')) {
+        headers.set('content-type', 'application/json');
+      }
+
+      headers.set('host', serverUrl);
+
+      const proxyRes = await fetch(apiUrl, {
+        method: req.method,
+        headers,
+        body,
+        credentials: 'include'
+      });
+
+      const setCookieHeaders: string[] = [];
+
+      for (const [key, value] of proxyRes.headers.entries()) {
+        if (key.toLowerCase() === 'set-cookie') {
+          setCookieHeaders.push(value);
+        } else {
+          res.setHeader(key, value);
+        }
+      }
+
+      if (setCookieHeaders.length > 0) {
+        res.setHeader('Set-Cookie', setCookieHeaders);
+      }
+
+      const contentType = proxyRes.headers.get('content-type');
+      if (contentType?.includes('application/json')) {
+        const data = await proxyRes.json();
+        res.status(proxyRes.status).json(data);
+      } else {
+        const text = await proxyRes.text();
+        res.status(proxyRes.status).send(text);
+      }
+    } catch (err) {
+      console.error('Proxy error:', err);
+      res.status(500).json({ message: 'Proxy error' });
+    }
+  });
 
   app.use(async (req, res, next) => {
     const url = req.originalUrl;
@@ -72,8 +137,8 @@ async function createServer() {
     }
   });
 
-  app.listen(port, () => {
-    console.log(`Client is started on: http://localhost:${port}`);
+  app.listen(clientPort, () => {
+    console.log(`Client is started on: http://localhost:${clientPort}`);
   });
 }
 
