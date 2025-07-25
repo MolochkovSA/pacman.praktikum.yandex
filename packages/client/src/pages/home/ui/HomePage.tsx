@@ -16,7 +16,7 @@ export const HomePage = () => {
               src="pacman"
               size={50}
             />
-            Игра
+            Играть
           </IconLink>
 
           <IconLink to={RoutePath.PROFILE.ROOT}>
