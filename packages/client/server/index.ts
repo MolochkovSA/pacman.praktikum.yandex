@@ -9,9 +9,9 @@ import serialize from 'serialize-javascript';
 import cookieParser from 'cookie-parser';
 
 const clientPort = process.env.CLIENT_PORT || 3000;
-const serverPort = process.env.VITE_SERVER_PORT || 3001;
-const serverHost = process.env.VITE_SERVER_HOST || 'http://localhost';
-const serverHostProd = process.env.VITE_SERVER_HOST_PROD || 'https://localhost';
+const serverPort = process.env.SERVER_PORT || 3001;
+const serverHost = process.env.SERVER_HOST || 'http://localhost';
+const serverHostProd = process.env.SERVER_HOST_PROD || 'https://localhost';
 
 const isDev = process.env.VITE_MODE === 'development';
 const serverUrl = isDev ? `${serverHost}:${serverPort}` : `${serverHostProd}`;

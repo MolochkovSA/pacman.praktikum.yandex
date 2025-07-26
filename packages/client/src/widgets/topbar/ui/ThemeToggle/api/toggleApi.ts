@@ -1,13 +1,15 @@
 import { HttpError } from '@/shared/types';
-import { PACMAN_API_URL } from '@/shared/const/api';
+import { API_PATH } from '@/shared/const/api';
 import { UserId } from '@/entities/user';
 import { UserThemeDto, UserThemeResponseDto } from '../types';
 import { Theme } from '@/app/providers/ThemeProvider/ThemeContext';
 
-const THEME_API_URL = `${PACMAN_API_URL}/user/theme`;
+const THEME_API_URL = `${API_PATH}/user/theme`;
 
 export const getUserTheme = async (userId: UserId): Promise<UserThemeResponseDto> => {
-  const response = await fetch(`${THEME_API_URL}/${userId}`);
+  const response = await fetch(`${THEME_API_URL}/${userId}`, {
+    credentials: 'include'
+  });
 
   if (!response.ok) {
     throw await HttpError.setMessage(response);

@@ -1,9 +1,9 @@
-import { PACMAN_API_URL } from '@/shared/const/api';
+import { API_PATH } from '@/shared/const/api';
 import { User, userSchema } from '@/entities/user';
 import { HttpError } from '@/shared/types';
 import { PasswordRequestDto, Profile } from '../model/types';
 
-const userUrl: string = `${PACMAN_API_URL}/user`;
+const userUrl: string = `${API_PATH}/user`;
 
 const editProfile = async (profile: Profile): Promise<User> => {
   const response = await fetch(`${userUrl}/profile`, {
