@@ -3,7 +3,7 @@
 const sw = self as unknown as ServiceWorkerGlobalScope;
 
 const CACHE_NAME = 'pacman-cache-v1';
-const URLS = ['/', '/game', '/leaderboard', '/profile', '/signup', '/login'];
+const URLS = ['/'];
 
 sw.addEventListener('install', (event: ExtendableEvent) => {
   event.waitUntil(

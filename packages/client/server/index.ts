@@ -14,7 +14,7 @@ const serverHost = process.env.SERVER_HOST || 'http://localhost';
 const serverHostProd = process.env.SERVER_HOST_PROD || 'https://localhost';
 
 const isDev = process.env.VITE_MODE === 'development';
-const serverUrl = isDev ? `${serverHost}:${serverPort}` : `${serverHostProd}`;
+const serverUrl = `${isDev ? serverHost : serverHostProd}:${serverPort}`;
 const clientPath = path.join(__dirname, '..');
 
 async function createServer() {
@@ -49,7 +49,7 @@ async function createServer() {
       for (const [key, value] of Object.entries(req.headers)) {
         if (Array.isArray(value)) {
           headers.set(key, value.join(','));
-        } else if (value !== undefined) {
+        } else if (typeof value === 'string') {
           headers.set(key, value);
         }
       }
@@ -85,7 +85,7 @@ async function createServer() {
 
         if (Array.isArray(value)) {
           headers.set(key, value.join(','));
-        } else if (value !== undefined) {
+        } else if (typeof value === 'string') {
           headers.set(key, value);
         }
       }
@@ -135,7 +135,10 @@ async function createServer() {
     const url = req.originalUrl;
 
     try {
-      let render: (req: ExpressRequest) => Promise<{ html: string; initialState: unknown }>;
+      let render: (
+        req: ExpressRequest,
+        apiUrl: string
+      ) => Promise<{ html: string; initialState: unknown; cspNonce: string }>;
       let template: string;
 
       if (vite) {
@@ -150,17 +153,33 @@ async function createServer() {
 
         render = (await import(pathToFileURL(pathToServer).href)).render;
       }
-      const { html: appHtml, initialState } = await render(req);
+      const { html: appHtml, initialState, cspNonce } = await render(req, `${serverUrl}/api/v2`);
 
-      const html = template.replace(`<!--ssr-outlet-->`, appHtml).replace(
-        `<!--ssr-initial-state-->`,
-        `<script>window.APP_INITIAL_STATE = ${serialize(initialState, {
-          isJSON: true
-        })}</script>`
+      res.setHeader(
+        'Content-Security-Policy',
+        `default-src 'self'; script-src 'self' 'nonce-${cspNonce}'; style-src 'self' 'unsafe-inline'; img-src 'self' data:;`
       );
+
+      const html = template
+        .replace(`<!--ssr-outlet-->`, appHtml)
+        .replace(
+          `<!--ssr-initial-state-->`,
+          `<script nonce="${cspNonce}">window.APP_INITIAL_STATE = ${serialize(initialState, {
+            isJSON: true
+          })}</script>`
+        )
+        .replace('<!--nonce-->', cspNonce);
 
       res.status(200).set({ 'Content-Type': 'text/html' }).end(html);
     } catch (e) {
+      if (e instanceof Response && e.status >= 300 && e.status < 400) {
+        const location = e.headers.get('Location');
+
+        if (location) {
+          return res.redirect(e.status, location);
+        }
+      }
+
       if (vite && vite.ssrFixStacktrace) {
         vite.ssrFixStacktrace(e as Error);
       }

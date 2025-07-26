@@ -20,6 +20,7 @@ export const useAuth = () => {
       try {
         await authApi.signIn(args);
         dispatch(fetchUserThunk());
+        navigate(RoutePath.MAIN);
       } catch (error) {
         if (error instanceof HttpError) {
           if (error.status === 401) {

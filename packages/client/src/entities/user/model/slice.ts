@@ -43,6 +43,10 @@ const userSlice = createSlice({
     selectFetchStatusIsFailed: (state) => state.fetchStatus === 'failed'
   },
   reducers: {
+    setUser: (state, { payload }: PayloadAction<User>) => {
+      state.user = payload;
+      state.fetchStatus = 'succeeded';
+    },
     clearState: (state) => {
       state.user = null;
       state.fetchStatus = 'idle';
