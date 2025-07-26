@@ -56,6 +56,7 @@ export const render = async (req: ExpressRequest, apiUrl: string) => {
     html: ReactDOM.renderToString(
       <Provider store={store}>
         <StaticRouterProvider
+          nonce={cspNonce}
           router={router}
           context={context}
         />
