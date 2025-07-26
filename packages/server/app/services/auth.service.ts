@@ -1,4 +1,4 @@
-import { SignInDto } from '../dto/auth.dto';
+import { SignInDto, SignUpRequestDto } from '../dto/auth.dto';
 
 const API_URL: string = process.env.YANDEX_API_URL || '';
 const authUrl: string = `${API_URL}/auth`;
@@ -23,6 +23,17 @@ const signIn = (args: SignInDto): Promise<Response> => {
   });
 };
 
+const signUp = (args: SignUpRequestDto): Promise<Response> => {
+  return fetch(`${authUrl}/signup`, {
+    method: 'POST',
+    credentials: 'include',
+    headers: {
+      'Content-Type': 'application/json;charset=utf-8'
+    },
+    body: JSON.stringify(args)
+  });
+};
+
 const logout = ({ authCookie, uuid }: { authCookie: string; uuid: string }): Promise<Response> => {
   return fetch(`${authUrl}/logout`, {
     credentials: 'include',
@@ -33,4 +44,4 @@ const logout = ({ authCookie, uuid }: { authCookie: string; uuid: string }): Pro
   });
 };
 
-export const authService = { signIn, logout, me };
+export const authService = { signIn, signUp, logout, me };

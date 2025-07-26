@@ -20,7 +20,7 @@ export const SignUpPage = () => {
   });
 
   return (
-    <Card>
+    <Card style={{ width: '450px' }}>
       <Card.Header>
         <Card.Title className="text-center">Регистрация</Card.Title>
       </Card.Header>

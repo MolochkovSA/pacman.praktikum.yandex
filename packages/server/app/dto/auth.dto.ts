@@ -3,15 +3,15 @@ export interface SignInDto {
   password: string;
 }
 
-// export interface SignUpRequestDto {
-//   first_name: string;
-//   second_name: string;
-//   login: string;
-//   email: string;
-//   phone: string;
-//   password: string;
-// }
+export interface SignUpRequestDto {
+  first_name: string;
+  second_name: string;
+  login: string;
+  email: string;
+  phone: string;
+  password: string;
+}
 
-// export interface SignUpResponseDto {
-//   id: number;
-// }
+export interface SignUpResponseDto {
+  id: number;
+}

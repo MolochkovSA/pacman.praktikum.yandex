@@ -28,8 +28,6 @@ export const fetchUserThunk = createAsyncThunk('user/fetchUserThunk', async (): 
 
   const data: unknown = await response.json();
 
-  console.log(data);
-
   return userSchema.parse(data);
 });
 
