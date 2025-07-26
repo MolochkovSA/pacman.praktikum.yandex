@@ -7,6 +7,7 @@ COPY ./index.ts ./
 COPY ./db.ts ./
 COPY tsconfig.json ./
 COPY tsconfig.prod.json ./
+ENV NODE_ENV=production
 RUN npm run build
 
 FROM node:alpine 
