@@ -10,7 +10,7 @@ import commentRouter from './app/routers/comment.router';
 import replyRouter from './app/routers/reply.router';
 import reactionRouter from './app/routers/reaction.router';
 import themeRouter from './app/routers/theme.router';
-import userThemeRouter from './app/routers/auth.router';
+import userThemeRouter from './app/routers/user_theme.router';
 import { setThemes } from './app/utils/setThemes';
 import { setEmojis } from './app/utils/setEmojis';
 import authRouter from './app/routers/auth.router';
