@@ -15,6 +15,7 @@ import { setThemes } from './app/utils/setThemes';
 import { setEmojis } from './app/utils/setEmojis';
 import authRouter from './app/routers/auth.router';
 import resourcesRouter from './app/routers/resources.router';
+import leaderboardRouter from './app/routers/leaderboard.router';
 
 var cookieParser = require('cookie-parser');
 
@@ -51,6 +52,7 @@ app.use('/api', replyRouter);
 app.use('/api', reactionRouter);
 app.use('/api', themeRouter);
 app.use('/api', userThemeRouter);
+app.use('/api', leaderboardRouter);
 
 app.listen(port, () => {
   console.log(`  ➜ 🎸 Server is listening on port: ${port}`);
