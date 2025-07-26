@@ -10,7 +10,7 @@ import commentRouter from './app/routers/comment.router';
 import replyRouter from './app/routers/reply.router';
 import reactionRouter from './app/routers/reaction.router';
 import themeRouter from './app/routers/theme.router';
-import userThemeRouter from './app/routers/user_theme.router';
+import userRouter from './app/routers/user.router';
 import { setThemes } from './app/utils/setThemes';
 import { setEmojis } from './app/utils/setEmojis';
 import authRouter from './app/routers/auth.router';
@@ -51,7 +51,7 @@ app.use('/api', commentRouter);
 app.use('/api', replyRouter);
 app.use('/api', reactionRouter);
 app.use('/api', themeRouter);
-app.use('/api', userThemeRouter);
+app.use('/api', userRouter);
 app.use('/api', leaderboardRouter);
 
 app.listen(port, () => {
