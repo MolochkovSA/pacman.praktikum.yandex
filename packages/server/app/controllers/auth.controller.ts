@@ -2,7 +2,19 @@ import { Request, Response } from 'express';
 import { splitCookiesString } from 'set-cookie-parser';
 import { authService } from '../services/auth.service';
 
-const isDev = process.env.NODE_ENV === 'development';
+const me = async (req: Request, res: Response) => {
+  try {
+    const { authCookie, uuid } = req.cookies;
+
+    const response = await authService.me({ authCookie, uuid });
+    const data = await response.json();
+
+    return res.status(response.status).json(data);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: 'Internal server error' });
+  }
+};
 
 const signIn = async (req: Request, res: Response) => {
   try {
@@ -14,9 +26,6 @@ const signIn = async (req: Request, res: Response) => {
 
       const cleanCookies = cookies.map((cookie) => {
         let cleaned = cookie.replace(/Domain=ya-praktikum\.tech;? ?/gi, '');
-        if (isDev) {
-          cleaned = cleaned.replace(/Secure; ?/gi, '');
-        }
         return cleaned;
       });
 
@@ -42,9 +51,6 @@ const logout = async (req: Request, res: Response) => {
 
       const cleanCookies = cookies.map((cookie) => {
         let cleaned = cookie.replace(/Domain=ya-praktikum\.tech;? ?/gi, '');
-        if (isDev) {
-          cleaned = cleaned.replace(/Secure; ?/gi, '');
-        }
         return cleaned;
       });
 
@@ -58,4 +64,4 @@ const logout = async (req: Request, res: Response) => {
   }
 };
 
-export const authController = { signIn, logout };
+export const authController = { signIn, logout, me };

@@ -3,6 +3,7 @@ import { authController } from '../controllers/auth.controller';
 
 const router = Router();
 
+router.get('/v2/auth/user', authController.me);
 router.post('/v2/auth/signin', authController.signIn);
 router.post('/v2/auth/logout', authController.logout);
 

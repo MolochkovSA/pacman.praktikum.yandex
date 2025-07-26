@@ -14,6 +14,7 @@ import userThemeRouter from './app/routers/auth.router';
 import { setThemes } from './app/utils/setThemes';
 import { setEmojis } from './app/utils/setEmojis';
 import authRouter from './app/routers/auth.router';
+import resourcesRouter from './app/routers/resources.router';
 
 var cookieParser = require('cookie-parser');
 
@@ -42,6 +43,7 @@ app.get('/', (_, res) => {
   res.json('👋 Howdy from the server :)' + process.env.YANDEX_API_URL);
 });
 app.use('/api', authRouter);
+app.use('/api', resourcesRouter);
 app.use('/api', ensureAuthenticated);
 app.use('/api', topicRouter);
 app.use('/api', commentRouter);

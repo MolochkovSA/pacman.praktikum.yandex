@@ -1,4 +1,4 @@
-export const API_URL: string = import.meta.env.VITE_API_URL;
+export const YANDEX_API_URL: string = import.meta.env.VITE_YANDEX_API_URL;
 const host: string = import.meta.env.VITE_SERVER_HOST;
 const host_prod: string = import.meta.env.VITE_SERVER_HOST_PROD;
 const port: string = import.meta.env.VITE_SERVER_PORT;

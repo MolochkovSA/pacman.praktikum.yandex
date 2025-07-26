@@ -41,7 +41,38 @@ async function createServer() {
     app.use(express.static(path.join(clientPath, 'dist/client'), { index: false }));
   }
 
-  app.use('/api', async (req: ExpressRequest, res: ExpressResponse) => {
+  app.use('/api/v2/resources', async (req: ExpressRequest, res: ExpressResponse) => {
+    try {
+      const resourceUrl = `${serverUrl}${req.originalUrl}`;
+
+      const headers = new Headers();
+      for (const [key, value] of Object.entries(req.headers)) {
+        if (Array.isArray(value)) {
+          headers.set(key, value.join(','));
+        } else if (value !== undefined) {
+          headers.set(key, value);
+        }
+      }
+
+      const proxyRes = await fetch(resourceUrl, {
+        method: req.method,
+        headers,
+        credentials: 'include'
+      });
+
+      proxyRes.headers.forEach((value, key) => {
+        res.setHeader(key, value);
+      });
+
+      const buffer = await proxyRes.arrayBuffer();
+      res.status(proxyRes.status).send(Buffer.from(buffer));
+    } catch (err) {
+      console.error('Proxy error (resource):', err);
+      res.status(500).json({ message: 'Proxy error' });
+    }
+  });
+
+  app.use('/api/v2', async (req: ExpressRequest, res: ExpressResponse) => {
     try {
       const apiUrl = `${serverUrl}${req.originalUrl}`;
 

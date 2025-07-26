@@ -1,7 +1,7 @@
 import { HttpError } from '@/shared/types';
 import { getServiceIdSchema } from '@/features/auth/model/schemas.ts';
 
-const apiUrl: string = import.meta.env.VITE_API_URL;
+const apiUrl: string = import.meta.env.VITE_YANDEX_API_URL;
 const redirectUri: string = import.meta.env.VITE_HOST_URL;
 const authUrl: string = `${apiUrl}/oauth`;
 

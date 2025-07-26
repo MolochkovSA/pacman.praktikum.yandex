@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { User } from './types';
-import { API_URL } from '@/shared/const/api';
+import { PACMAN_API_URL } from '@/shared/const/api';
 import { HttpError } from '@/shared/types';
 import { userSchema } from './schemas';
 
@@ -16,7 +16,7 @@ const initialState: UserState = {
 };
 
 export const fetchUserThunk = createAsyncThunk('user/fetchUserThunk', async (): Promise<User> => {
-  const url = `${API_URL}/auth/user`;
+  const url = `${PACMAN_API_URL}/auth/user`;
 
   const response = await fetch(url, {
     credentials: 'include'
