@@ -12,8 +12,8 @@ export const signUpSchema = z
     first_name: userSchema.shape.first_name,
     second_name: userSchema.shape.second_name,
     login: userSchema.shape.login,
-    email: userSchema.shape.email,
-    phone: userSchema.shape.phone,
+    email: userSchema.shape.email.trim(),
+    phone: userSchema.shape.phone.trim(),
     password: passwordSchema,
     password_two: passwordSchema
   })
