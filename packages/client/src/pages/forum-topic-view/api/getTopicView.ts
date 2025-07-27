@@ -1,6 +1,6 @@
 import { TopicId } from '@/entities/topic';
 import { TopicView } from '../model/types';
-import { PACMAN_API_URL } from '@/shared/const/api';
+import { API_PATH } from '@/shared/const/api';
 import { topicViewResponseDtoSchema } from '../model/schema';
 
 type Args = {
@@ -13,7 +13,7 @@ export const getTopicView = async ({ id, signal }: Args): Promise<TopicView> => 
     topicId: String(id)
   });
 
-  const response = await fetch(`${PACMAN_API_URL}/topic/?${params.toString()}`, {
+  const response = await fetch(`${API_PATH}/topic/?${params.toString()}`, {
     method: 'GET',
     signal
   });

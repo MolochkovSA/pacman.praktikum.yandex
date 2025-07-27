@@ -1,14 +1,12 @@
 import { HttpError } from '@/shared/types';
 import { getServiceIdSchema } from '@/features/auth/model/schemas.ts';
+import { API_PATH, YANDEX_API_URL, YANDEX_REDIRECT_URL } from '@/shared/const/api';
+import { OAuthYandexRequestDto, ServiceId } from '../model/types';
 
-const apiUrl: string = import.meta.env.VITE_API_URL;
-const redirectUri: string = import.meta.env.VITE_HOST_URL;
-const authUrl: string = `${apiUrl}/oauth`;
+const authUrl: string = `${YANDEX_API_URL}/oauth`;
 
-const getYandexClientId = async (): Promise<{ service_id: string }> => {
-  const response = await fetch(`${authUrl}/yandex/service-id`, {
-    method: 'GET'
-  });
+const getYandexClientId = async (): Promise<ServiceId> => {
+  const response = await fetch(`${authUrl}/yandex/service-id`);
 
   if (!response.ok) {
     throw new HttpError(response.status, response.statusText);
@@ -19,14 +17,16 @@ const getYandexClientId = async (): Promise<{ service_id: string }> => {
   return getServiceIdSchema.parse(data);
 };
 
-const signInWithYandex = async (args: { code: string; redirect_uri: string }): Promise<void> => {
-  const response = await fetch(`${authUrl}/yandex`, {
+const signInWithYandex = async (code: string): Promise<void> => {
+  const body: OAuthYandexRequestDto = { code, redirect_uri: YANDEX_REDIRECT_URL };
+
+  const response = await fetch(`${API_PATH}/auth/signin/yandex`, {
     method: 'POST',
     credentials: 'include',
     headers: {
       'Content-Type': 'application/json;charset=utf-8'
     },
-    body: JSON.stringify(args)
+    body: JSON.stringify(body)
   });
 
   if (!response.ok) {
@@ -34,4 +34,4 @@ const signInWithYandex = async (args: { code: string; redirect_uri: string }): P
   }
 };
 
-export const yandexOauthApi = { getYandexClientId, redirectUri, signInWithYandex };
+export const yandexOauthApi = { getYandexClientId, signInWithYandex };

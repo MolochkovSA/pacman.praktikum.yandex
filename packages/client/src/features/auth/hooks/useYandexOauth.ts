@@ -5,8 +5,12 @@ import { HttpError } from '@/shared/types';
 import { useAuth } from '@/features/auth';
 import { RoutePath } from '@/shared/config/routeConfig.ts';
 import { yandexOauthApi } from '@/features/auth/api/yandexOauthApi.ts';
+import { YANDEX_REDIRECT_URL } from '@/shared/const/api';
+import { useAppDispatch } from '@/shared/model/redux';
+import { fetchUserThunk } from '@/entities/user';
 
 export const useYandexAuth = () => {
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { logout } = useAuth();
   const { notify } = useNotification();
@@ -14,7 +18,8 @@ export const useYandexAuth = () => {
   const redirectOnYandexOauth = useCallback(async () => {
     try {
       const response = await yandexOauthApi.getYandexClientId();
-      document.location.href = `https://oauth.yandex.ru/authorize?response_type=code&client_id=${response.service_id}&redirect_uri=${yandexOauthApi.redirectUri}`;
+
+      document.location.href = `https://oauth.yandex.ru/authorize?response_type=code&client_id=${response.service_id}&redirect_uri=${YANDEX_REDIRECT_URL}`;
     } catch (error) {
       if (error instanceof HttpError) {
         if (error.status === 400) {
@@ -30,7 +35,14 @@ export const useYandexAuth = () => {
   const signInWithYandex = useCallback(
     async (code: string) => {
       try {
-        await yandexOauthApi.signInWithYandex({ code, redirect_uri: yandexOauthApi.redirectUri });
+        await yandexOauthApi.signInWithYandex(code);
+        const resultAction = await dispatch(fetchUserThunk());
+
+        if (fetchUserThunk.fulfilled.match(resultAction)) {
+          navigate(RoutePath.MAIN);
+        } else {
+          navigate(RoutePath.AUTH.LOGIN);
+        }
       } catch (error) {
         if (error instanceof HttpError) {
           if (error.status === 401) {
@@ -45,7 +57,7 @@ export const useYandexAuth = () => {
         }
       }
     },
-    [navigate, notify, logout]
+    [navigate, notify, logout, dispatch]
   );
 
   return { redirectOnYandexOauth, signInWithYandex };

@@ -1,9 +1,9 @@
-import { PACMAN_API_URL } from '@/shared/const/api';
+import { API_PATH } from '@/shared/const/api';
 import { CreateTopicRequestDto, Topic, TopicId, UpdateTopicRequestDto } from '../model/types';
 import { topicSchema } from '../model/schema';
 
 const createTopic = async (data: CreateTopicRequestDto): Promise<void> => {
-  const response = await fetch(`${PACMAN_API_URL}/topic`, {
+  const response = await fetch(`${API_PATH}/topic`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -21,7 +21,7 @@ const updateTopic = async (data: UpdateTopicRequestDto): Promise<void> => {
 };
 
 const getTopicByid = async (id: TopicId): Promise<Topic> => {
-  const response = await fetch(`${PACMAN_API_URL}/topic?id=${id}`, {
+  const response = await fetch(`${API_PATH}/topic?id=${id}`, {
     method: 'GET'
   });
 

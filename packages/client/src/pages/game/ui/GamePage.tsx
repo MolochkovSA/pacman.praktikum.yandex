@@ -2,10 +2,10 @@ import { useRef } from 'react';
 
 import { useFullscreen } from '@/features/FullScreen/useFullScreen';
 import { GameBoard } from '@/widgets/GameBoard';
-import { withAuthGuard } from '@/features/auth';
+
 import styles from './GamePage.module.scss';
 
-export const GamePage = withAuthGuard(function GamePage() {
+export const GamePage = () => {
   const gameContainerRef = useRef<HTMLDivElement>(null);
 
   const { isFullscreen, toggleFullscreen } = useFullscreen();
@@ -23,4 +23,4 @@ export const GamePage = withAuthGuard(function GamePage() {
       </button>
     </main>
   );
-});
+};

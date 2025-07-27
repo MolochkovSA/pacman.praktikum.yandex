@@ -1,9 +1,9 @@
 import { HttpError } from '@/shared/types';
-import { API_URL } from '@/shared/const/api';
+import { API_PATH } from '@/shared/const/api';
 import { SignInDto, SignUpRequestDto, SignUpResponseDto } from '../model/types';
 import { signUpResponseDtoSchema } from '../model/schemas';
 
-const authUrl: string = `${API_URL}/auth`;
+const authUrl: string = `${API_PATH}/auth`;
 
 const signUp = async (args: SignUpRequestDto): Promise<SignUpResponseDto> => {
   const response = await fetch(`${authUrl}/signup`, {

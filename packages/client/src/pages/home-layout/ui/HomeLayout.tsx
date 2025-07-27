@@ -1,11 +1,10 @@
 import { Outlet } from 'react-router';
 
 import { Topbar } from '@/widgets/topbar';
-import { withAuthGuard } from '@/features/auth';
 
 import styles from './HomeLayout.module.scss';
 
-export const HomeLayout = withAuthGuard(function HomeLayout() {
+export const HomeLayout = () => {
   return (
     <div className={styles.layout}>
       <Topbar />
@@ -15,4 +14,4 @@ export const HomeLayout = withAuthGuard(function HomeLayout() {
       </main>
     </div>
   );
-});
+};

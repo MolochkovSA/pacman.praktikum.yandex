@@ -19,7 +19,13 @@ export const useAuth = () => {
     async (args: SignInDto): Promise<void> => {
       try {
         await authApi.signIn(args);
-        dispatch(fetchUserThunk());
+        const resultAction = await dispatch(fetchUserThunk());
+
+        if (fetchUserThunk.fulfilled.match(resultAction)) {
+          navigate(RoutePath.MAIN);
+        } else {
+          navigate(RoutePath.AUTH.LOGIN);
+        }
       } catch (error) {
         if (error instanceof HttpError) {
           if (error.status === 401) {
