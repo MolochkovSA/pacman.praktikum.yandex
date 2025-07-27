@@ -1,4 +1,4 @@
-import { SignInDto, SignUpRequestDto } from '../dto/auth.dto';
+import { SignInDto, SignInWithYandexRequestDto, SignUpRequestDto } from '../dto/auth.dto';
 
 const API_URL: string = process.env.YANDEX_API_URL || '';
 const authUrl: string = `${API_URL}/auth`;
@@ -44,4 +44,15 @@ const logout = ({ authCookie, uuid }: { authCookie: string; uuid: string }): Pro
   });
 };
 
-export const authService = { signIn, signUp, logout, me };
+const signInWithYandex = async (args: SignInWithYandexRequestDto): Promise<Response> => {
+  return fetch(`${API_URL}/oauth/yandex`, {
+    method: 'POST',
+    credentials: 'include',
+    headers: {
+      'Content-Type': 'application/json;charset=utf-8'
+    },
+    body: JSON.stringify(args)
+  });
+};
+
+export const authService = { signIn, signUp, logout, me, signInWithYandex };

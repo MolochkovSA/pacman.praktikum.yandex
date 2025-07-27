@@ -89,4 +89,28 @@ const logout = async (req: Request, res: Response) => {
   }
 };
 
-export const authController = { signIn, signUp, logout, me };
+const signInWithYandex = async (req: Request, res: Response) => {
+  try {
+    const response = await authService.signInWithYandex(req.body);
+
+    const rawSetCookie = response.headers.get('set-cookie');
+
+    if (rawSetCookie) {
+      const cookies = splitCookiesString(rawSetCookie);
+
+      const cleanCookies = cookies.map((cookie) => {
+        let cleaned = cookie.replace(/Domain=ya-praktikum\.tech;? ?/gi, '');
+        return cleaned;
+      });
+
+      res.setHeader('Set-Cookie', cleanCookies);
+    }
+
+    return res.status(response.status).end();
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
+export const authController = { signIn, signUp, logout, me, signInWithYandex };

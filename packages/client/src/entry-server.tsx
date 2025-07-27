@@ -36,16 +36,19 @@ export const render = async (req: ExpressRequest, apiUrl: string) => {
     credentials: 'include'
   });
 
+  const [originalUrl, queryString] = req.originalUrl.split('?');
+  const queryParams = queryString ? `?${queryString}` : '';
+
   if (response.ok) {
     const data = await response.json();
     store.dispatch(userActions.setUser(data));
 
-    if (req.originalUrl === RoutePath.AUTH.LOGIN || req.originalUrl === RoutePath.AUTH.SIGNUP) {
+    if (originalUrl === RoutePath.AUTH.LOGIN || originalUrl === RoutePath.AUTH.SIGNUP) {
       throw redirect(RoutePath.MAIN);
     }
-  } else if (req.originalUrl !== RoutePath.AUTH.LOGIN && req.originalUrl !== RoutePath.AUTH.SIGNUP) {
+  } else if (originalUrl !== RoutePath.AUTH.LOGIN && originalUrl !== RoutePath.AUTH.SIGNUP) {
     store.dispatch(userActions.clearState());
-    throw redirect(RoutePath.AUTH.LOGIN);
+    throw redirect(RoutePath.AUTH.LOGIN + queryParams);
   }
 
   const router = createStaticRouter(dataRoutes, context);

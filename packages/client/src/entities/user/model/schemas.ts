@@ -31,16 +31,22 @@ export const userSchema = z.object({
     .refine(noHtmlTags, { message: 'HTML-теги недопустимы' }),
   email: z
     .string({ required_error: 'Поле обязательно' })
+    .trim()
     .email({ message: 'Используйте свой email для ввода' })
     .min(3, { message: 'Не менее 3 символов' })
     .max(100, { message: 'Не более 100 символов' }),
-  phone: z
-    .string({ required_error: 'Поле обязательно' })
-    .min(10, { message: 'Не менее 10 символов' })
-    .max(15, { message: 'Не более 15 символов' })
-    .regex(/^\+?\d+$/, {
-      message: 'Используйте любые цифры, может быть + в начале'
-    }),
+  phone: z.union([
+    z.null(),
+    z
+      .string({ required_error: 'Поле обязательно' })
+      .trim()
+      .min(10, { message: 'Не менее 10 символов' })
+      .max(15, { message: 'Не более 15 символов' })
+      .regex(/^\+?\d+$/, {
+        message: 'Используйте любые цифры, может быть + в начале'
+      })
+  ]),
+
   avatar: z.string().nullable()
 });
 

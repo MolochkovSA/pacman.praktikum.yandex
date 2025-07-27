@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { Card } from 'react-bootstrap';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
@@ -8,7 +9,6 @@ import { SignInDto, signInSchema, useAuth } from '@/features/auth';
 import { Icon } from '@/pages/home/ui/Icon/Icon.tsx';
 import { useSearchParams } from 'react-router-dom';
 import { useYandexAuth } from '@/features/auth/hooks/useYandexOauth.ts';
-import { useEffect } from 'react';
 
 export const LoginPage = () => {
   const { signIn } = useAuth();

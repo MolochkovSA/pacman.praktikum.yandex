@@ -1,5 +1,6 @@
 import defaultAvatar from '@/assets/images/avatar.png';
+import { API_PATH } from '../const/api';
 
 export function getAvatarSrc(avatar: string | null | undefined) {
-  return avatar ? '/api/v2/resources' + avatar : defaultAvatar;
+  return avatar ? `${API_PATH}/resources` + avatar : defaultAvatar;
 }

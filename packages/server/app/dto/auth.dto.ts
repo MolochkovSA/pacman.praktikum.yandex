@@ -15,3 +15,8 @@ export interface SignUpRequestDto {
 export interface SignUpResponseDto {
   id: number;
 }
+
+export interface SignInWithYandexRequestDto {
+  code: string;
+  redirect_uri: string;
+}
