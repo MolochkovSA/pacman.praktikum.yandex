@@ -155,10 +155,12 @@ async function createServer() {
       }
       const { html: appHtml, initialState, cspNonce } = await render(req, `${serverUrl}/api/v2`);
 
-      res.setHeader(
-        'Content-Security-Policy',
-        `default-src 'self'; script-src 'self' 'nonce-${cspNonce}'; style-src 'self' 'unsafe-inline'; img-src 'self' data:;`
-      );
+      if (!vite) {
+        res.setHeader(
+          'Content-Security-Policy',
+          `default-src 'self'; script-src 'self' 'nonce-${cspNonce}'; style-src 'self' 'unsafe-inline'; img-src 'self' data:;`
+        );
+      }
 
       const html = template
         .replace(`<!--ssr-outlet-->`, appHtml)
