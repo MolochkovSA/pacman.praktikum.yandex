@@ -28,6 +28,8 @@ services:
     build:
       context: ./packages/nginx
       dockerfile: Dockerfile.proxy
+      args:
+        NGINX_MODE: dev
     restart: always
     depends_on:
       - cert-gen

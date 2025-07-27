@@ -3,8 +3,10 @@ FROM nginx:alpine
 WORKDIR /etc/nginx/
 COPY ./nginx.conf .
 
+ARG NGINX_MODE=prod
 RUN rm ./conf.d/*
-COPY ./conf.d/ ./conf.d/ 
+COPY ./conf.d/http.conf ./conf.d/ 
+COPY ./conf.d/https-${NGINX_MODE}.conf ./conf.d/ 
 
 EXPOSE 80
 EXPOSE 443
