@@ -13,19 +13,22 @@ env:
 jobs:
   build-and-publish:
     runs-on: ubuntu-latest
-    outputs:
-      owner_lc: ${{ steps.export_owner.outputs.owner_lc }}
+
     permissions:
       contents: read
       packages: write
+
+    outputs:
+      owner_lc: ${{ steps.set_owner.outputs.owner_lc }}
 
     steps:
       - uses: actions/checkout@v3
 
       - name: Set owner lower case
-        run: echo "OWNER_LC=${OWNER,,}" >>${GITHUB_ENV}
+        id: set_owner
+        run: echo "owner_lc=${OWNER,,}" >> $GITHUB_OUTPUT
         env:
-          OWNER: '${{ github.repository_owner }}'
+          OWNER: ${{ github.repository_owner }}
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
@@ -43,7 +46,7 @@ jobs:
           context: ./packages/client
           file: ./packages/client/Dockerfile.client
           push: true
-          tags: ghcr.io/${{ env.OWNER_LC }}/${{ github.event.repository.name }}/client:${{ github.sha }}
+          tags: ghcr.io/${{ steps.set_owner.outputs.owner_lc }}/${{ github.event.repository.name }}/client:${{ github.sha }}
 
       - name: Build and push server
         uses: docker/build-push-action@v5
@@ -51,7 +54,7 @@ jobs:
           context: ./packages/server
           file: ./packages/server/Dockerfile.server
           push: true
-          tags: ghcr.io/${{ env.OWNER_LC }}/${{ github.event.repository.name }}/server:${{ github.sha }}
+          tags: ghcr.io/${{ steps.set_owner.outputs.owner_lc }}/${{ github.event.repository.name }}/server:${{ github.sha }}
 
       - name: Build and push nginx
         uses: docker/build-push-action@v5
@@ -59,11 +62,12 @@ jobs:
           context: ./packages/nginx
           file: ./packages/nginx/Dockerfile.proxy
           push: true
-          tags: ghcr.io/${{ env.OWNER_LC }}/${{ github.event.repository.name }}/nginx:${{ github.sha }}
+          tags: ghcr.io/${{ steps.set_owner.outputs.owner_lc }}/${{ github.event.repository.name }}/nginx:${{ github.sha }}
 
   deploy:
     needs: build-and-publish
     runs-on: ubuntu-latest
+
     env:
       OWNER_LC: ${{ needs.build-and-publish.outputs.owner_lc }}
 
@@ -77,9 +81,10 @@ jobs:
           script: |
             cd /home/joy-pixels
 
-            sed -i "s|ghcr.io.*/nginx:.*|ghcr.io/${{ env.OWNER_LC }}/${{ github.event.repository.name }}/nginx:${{ github.sha }}|" docker-compose.yml
-            sed -i "s|ghcr.io.*/client:.*|ghcr.io/${{ env.OWNER_LC }}/${{ github.event.repository.name }}/client:${{ github.sha }}|" docker-compose.yml
-            sed -i "s|ghcr.io.*/server:.*|ghcr.io/${{ env.OWNER_LC }}/${{ github.event.repository.name }}/server:${{ github.sha }}|" docker-compose.yml
+            sed -i "s|ghcr.io.*/nginx:.*|ghcr.io/${OWNER_LC}/${{ github.event.repository.name }}/nginx:${{ github.sha }}|" docker-compose.yml
+            sed -i "s|ghcr.io.*/client:.*|ghcr.io/${OWNER_LC}/${{ github.event.repository.name }}/client:${{ github.sha }}|" docker-compose.yml
+            sed -i "s|ghcr.io.*/server:.*|ghcr.io/${OWNER_LC}/${{ github.event.repository.name }}/server:${{ github.sha }}|" docker-compose.yml
 
             docker-compose pull
             docker-compose up -d
+
