@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-      - task-9.5
 
 env:
   REGISTRY: ghcr.io
