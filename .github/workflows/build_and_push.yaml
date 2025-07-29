@@ -13,7 +13,8 @@ env:
 jobs:
   build-and-publish:
     runs-on: ubuntu-latest
-
+    outputs:
+      owner_lc: ${{ steps.export_owner.outputs.owner_lc }}
     permissions:
       contents: read
       packages: write
@@ -76,9 +77,9 @@ jobs:
           script: |
             cd /home/joy-pixels
 
-            sed -i "s|ghcr.io.*/nginx:.*|ghcr.io/$OWNER_LC/${{ github.event.repository.name }}/nginx:${{ github.sha }}|" docker-compose.yml
-            sed -i "s|ghcr.io.*/client:.*|ghcr.io/$OWNER_LC/${{ github.event.repository.name }}/client:${{ github.sha }}|" docker-compose.yml
-            sed -i "s|ghcr.io.*/server:.*|ghcr.io/$OWNER_LC/${{ github.event.repository.name }}/server:${{ github.sha }}|" docker-compose.yml
+            sed -i "s|ghcr.io.*/nginx:.*|ghcr.io/${{ env.OWNER_LC }}/${{ github.event.repository.name }}/nginx:${{ github.sha }}|" docker-compose.yml
+            sed -i "s|ghcr.io.*/client:.*|ghcr.io/${{ env.OWNER_LC }}/${{ github.event.repository.name }}/client:${{ github.sha }}|" docker-compose.yml
+            sed -i "s|ghcr.io.*/server:.*|ghcr.io/${{ env.OWNER_LC }}/${{ github.event.repository.name }}/server:${{ github.sha }}|" docker-compose.yml
 
             docker-compose pull
             docker-compose up -d
