@@ -78,4 +78,4 @@
 
 1. 5-6 спринты: https://cloud.mail.ru/public/qDKQ/Wp4M3ZWbx
 2. 7-8 спринты: https://cloud.mail.ru/public/6i89/fPWLXoYu3
-3. впереди новые сер ии
+3. впереди новые серии
