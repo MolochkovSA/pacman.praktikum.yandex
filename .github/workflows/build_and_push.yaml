@@ -72,11 +72,11 @@ jobs:
           username: ${{ secrets.YC_VM_USER }}
           key: ${{ secrets.YC_VM_SSH_KEY }}
           script: |
-            cd /path/to/docker-compose
+            cd /home/joy-pixels
 
-            sed -i "s|ghcr.io.*/nginx:.*|ghcr.io/${{ env.OWNER_LC }}/${{ github.event.repository.name }}/nginx:${{ github.sha }}|" docker-compose.yml
-            sed -i "s|ghcr.io.*/client:.*|ghcr.io/${{ env.OWNER_LC }}/${{ github.event.repository.name }}/client:${{ github.sha }}|" docker-compose.yml
-            sed -i "s|ghcr.io.*/server:.*|ghcr.io/${{ env.OWNER_LC }}/${{ github.event.repository.name }}/server:${{ github.sha }}|" docker-compose.yml
+            sed -i "s|ghcr.io.*/nginx:.*|ghcr.io${{ env.OWNER_LC }}/${{ github.event.repository.name }}/nginx:${{ github.sha }}|" docker-compose.yml
+            sed -i "s|ghcr.io.*/client:.*|ghcr.io${{ env.OWNER_LC }}/${{ github.event.repository.name }}/client:${{ github.sha }}|" docker-compose.yml
+            sed -i "s|ghcr.io.*/server:.*|ghcr.io${{ env.OWNER_LC }}/${{ github.event.repository.name }}/server:${{ github.sha }}|" docker-compose.yml
 
             docker-compose pull
             docker-compose up -d
