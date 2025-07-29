@@ -9,3 +9,16 @@ export interface UserThemeResponseDto {
   externalUserId: string;
   theme: ThemeName;
 }
+
+export interface Profile {
+  first_name: string;
+  second_name: string;
+  login: string;
+  email: string;
+  phone: string;
+}
+
+export interface PasswordRequestDto {
+  oldPassword: string;
+  newPassword: string;
+}

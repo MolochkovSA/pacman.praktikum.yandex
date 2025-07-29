@@ -16,7 +16,7 @@ export const addReactionByComment = async (req: Request, res: Response) => {
 
     await reactionService.setReaction(commentId, reactionId, author);
 
-    return res.status(201).json();
+    return res.status(201).end();
   } catch (error) {
     if (error instanceof Error) {
       return res.status(400).json({ message: error.message });
@@ -28,11 +28,10 @@ export const addReactionByComment = async (req: Request, res: Response) => {
 export const deleteReactionByComment = async (req: Request, res: Response) => {
   try {
     const { commentId, reactionId, author } = req.body as DeleteReactionDto;
-    console.log(commentId, reactionId, author);
 
     await reactionService.deleteReaction(commentId, reactionId, author);
 
-    return res.status(204).json();
+    return res.status(204).end();
   } catch (error) {
     if (error instanceof Error) {
       return res.status(400).json({ message: error.message });

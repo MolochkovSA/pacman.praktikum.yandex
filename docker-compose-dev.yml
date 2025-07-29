@@ -9,6 +9,19 @@ networks:
     driver: bridge
 
 services:
+  cert-gen:
+    image: alpine/openssl
+    container_name: cert-gen
+    restart: 'no'
+    entrypoint: ''
+    command: >
+      openssl req -x509 -nodes -days 365 -newkey rsa:2048
+      -keyout /certs/localhost.key
+      -out /certs/localhost.crt
+      -subj "/C=RU/ST=Test/L=Test/O=Dev/OU=Dev/CN=localhost"
+    volumes:
+      - certs:/certs
+
   nginx:
     container_name: nginx
     image: prakticum-nginx
@@ -16,16 +29,16 @@ services:
       context: ./packages/nginx
       dockerfile: Dockerfile.proxy
       args:
-        NGINX_MODE: prod
+        NGINX_MODE: dev
     restart: always
     depends_on:
+      - cert-gen
       - client
     ports:
+      - 80:80
       - 443:443
     volumes:
-      - /etc/letsencrypt/live:/etc/letsencrypt/live:ro
-      - /etc/letsencrypt/archive:/etc/letsencrypt/archive:ro
-      - /etc/letsencrypt/keys:/etc/letsencrypt/keys:ro
+      - certs:/etc/nginx/certs
     networks:
       - internet
 
@@ -91,3 +104,4 @@ services:
 
 volumes:
   pgdata:
+  certs:

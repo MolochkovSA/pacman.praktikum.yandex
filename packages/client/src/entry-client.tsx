@@ -6,7 +6,9 @@ import './app/styles/global.scss';
 import { routes, store } from '@/app';
 import { registerServiceWorker, unregisterServiceWorker } from './shared/lib/serviceWorker';
 
-const router = createBrowserRouter(routes);
+const router = createBrowserRouter(routes, {
+  hydrationData: window.__staticRouterHydrationData
+});
 
 ReactDOM.hydrateRoot(
   document.getElementById('root') as HTMLElement,

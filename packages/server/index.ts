@@ -4,15 +4,18 @@ dotenv.config();
 
 import express from 'express';
 import { dbConnect } from './db';
-// import { ensureAuthenticated } from './app/middleware/ensureAuthenticated';
+import { ensureAuthenticated } from './app/middleware/ensureAuthenticated';
 import topicRouter from './app/routers/topic.router';
 import commentRouter from './app/routers/comment.router';
 import replyRouter from './app/routers/reply.router';
 import reactionRouter from './app/routers/reaction.router';
 import themeRouter from './app/routers/theme.router';
-import userThemeRouter from './app/routers/user_theme.router';
+import userRouter from './app/routers/user.router';
 import { setThemes } from './app/utils/setThemes';
 import { setEmojis } from './app/utils/setEmojis';
+import authRouter from './app/routers/auth.router';
+import resourcesRouter from './app/routers/resources.router';
+import leaderboardRouter from './app/routers/leaderboard.router';
 
 var cookieParser = require('cookie-parser');
 
@@ -38,16 +41,18 @@ dbConnect().then(() => {
 });
 
 app.get('/', (_, res) => {
-  res.json('👋 Howdy from the server :)');
+  res.json('👋 Howdy from the server :)' + process.env.YANDEX_API_URL);
 });
-
-// app.use('/api', ensureAuthenticated);
+app.use('/api', authRouter);
+app.use('/api', resourcesRouter);
+app.use('/api', ensureAuthenticated);
 app.use('/api', topicRouter);
 app.use('/api', commentRouter);
 app.use('/api', replyRouter);
 app.use('/api', reactionRouter);
 app.use('/api', themeRouter);
-app.use('/api', userThemeRouter);
+app.use('/api', userRouter);
+app.use('/api', leaderboardRouter);
 
 app.listen(port, () => {
   console.log(`  ➜ 🎸 Server is listening on port: ${port}`);

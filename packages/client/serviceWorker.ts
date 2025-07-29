@@ -3,7 +3,7 @@
 const sw = self as unknown as ServiceWorkerGlobalScope;
 
 const CACHE_NAME = 'pacman-cache-v1';
-const URLS = ['/', '/game', '/leaderboard', '/profile', '/signup', '/login'];
+const URLS: string[] = [];
 
 sw.addEventListener('install', (event: ExtendableEvent) => {
   event.waitUntil(
@@ -29,9 +29,15 @@ sw.addEventListener('activate', function (event) {
 
 sw.addEventListener('fetch', (event: FetchEvent) => {
   const { request } = event;
+
+  if (request.method !== 'GET' || !request.url.startsWith('http')) {
+    event.respondWith(fetch(request));
+    return;
+  }
+
   const url = new URL(request.url);
 
-  if (request.method === 'GET' && URLS.includes(url.pathname)) {
+  if (URLS.includes(url.pathname)) {
     event.respondWith(cacheFirst(request));
     return;
   }
@@ -59,26 +65,22 @@ async function cacheFirst(request: Request) {
   return response;
 }
 
-async function networkFirst(request: Request) {
-  const cache = await caches.open(CACHE_NAME);
-
+async function networkFirst(request: Request): Promise<Response> {
   try {
     const response = await fetch(request);
-    if (response) {
-      if (response.status === 200) cache.put(request, response.clone());
-      return response;
+
+    if (request.method === 'GET' && response.status === 200 && response.type === 'basic') {
+      const cache = await caches.open(CACHE_NAME);
+      await cache.put(request, response.clone());
     }
 
-    const cachedResponse = await cache.match(request);
-    if (cachedResponse) {
-      return cachedResponse;
-    }
     return response;
-  } catch (error) {
-    const cachedResponse = await cache.match(request);
+  } catch {
+    const cachedResponse = await caches.match(request);
     if (cachedResponse) {
       return cachedResponse;
     }
-    throw error;
+
+    return Response.error();
   }
 }

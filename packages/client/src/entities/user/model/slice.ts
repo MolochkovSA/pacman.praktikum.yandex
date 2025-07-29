@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { User } from './types';
-import { API_URL } from '@/shared/const/api';
+import { API_PATH } from '@/shared/const/api';
 import { HttpError } from '@/shared/types';
 import { userSchema } from './schemas';
 
@@ -16,7 +16,7 @@ const initialState: UserState = {
 };
 
 export const fetchUserThunk = createAsyncThunk('user/fetchUserThunk', async (): Promise<User> => {
-  const url = `${API_URL}/auth/user`;
+  const url = `${API_PATH}/auth/user`;
 
   const response = await fetch(url, {
     credentials: 'include'
@@ -43,6 +43,10 @@ const userSlice = createSlice({
     selectFetchStatusIsFailed: (state) => state.fetchStatus === 'failed'
   },
   reducers: {
+    setUser: (state, { payload }: PayloadAction<User>) => {
+      state.user = payload;
+      state.fetchStatus = 'succeeded';
+    },
     clearState: (state) => {
       state.user = null;
       state.fetchStatus = 'idle';

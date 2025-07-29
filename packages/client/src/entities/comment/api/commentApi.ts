@@ -1,9 +1,9 @@
-import { PACMAN_API_URL } from '@/shared/const/api';
+import { API_PATH } from '@/shared/const/api';
 import { CreateCommentRequestDto } from '../model/types';
 import { HttpError } from '@/shared/types/api/HttpError';
 
 const createComment = async (data: CreateCommentRequestDto): Promise<void> => {
-  const response = await fetch(`${PACMAN_API_URL}/comment`, {
+  const response = await fetch(`${API_PATH}/comment`, {
     method: 'POST',
 
     headers: {
