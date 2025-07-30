@@ -158,7 +158,7 @@ async function createServer() {
       if (!vite) {
         res.setHeader(
           'Content-Security-Policy',
-          `default-src 'self'; script-src 'self' 'nonce-${cspNonce}'; connect-src 'self' https://ya-praktikum.tech https://oauth.yandex.ru; style-src 'self' 'unsafe-inline'; img-src 'self' https://ya-praktikum.tech data: https:; font-src 'self' data:; worker-src 'self'; always;`
+          `default-src 'self'; script-src 'self' 'nonce-${cspNonce}'; connect-src 'self' https://ya-praktikum.tech https://oauth.yandex.ru; style-src 'self' 'unsafe-inline'; img-src 'self' https://ya-praktikum.tech data: https:; font-src 'self' data:; worker-src 'self';`
         );
       }
 
