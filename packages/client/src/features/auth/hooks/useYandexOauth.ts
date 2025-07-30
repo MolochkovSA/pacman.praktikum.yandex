@@ -18,10 +18,10 @@ export const useYandexAuth = () => {
   const redirectOnYandexOauth = useCallback(async () => {
     try {
       const response = await yandexOauthApi.getYandexClientId();
-      const encodedClientId = encodeURIComponent(response.service_id);
+      console.log('clientId', response.service_id);
       const encodedRedirectUri = encodeURIComponent(YANDEX_REDIRECT_URL);
 
-      document.location.href = `https://oauth.yandex.ru/authorize?response_type=code&client_id=${encodedClientId}&redirect_uri=${encodedRedirectUri}`;
+      document.location.href = `https://oauth.yandex.ru/authorize?response_type=code&client_id=${response.service_id}&redirect_uri=${encodedRedirectUri}`;
     } catch (error) {
       if (error instanceof HttpError) {
         if (error.status === 400) {
