@@ -21,7 +21,7 @@ export const useYandexAuth = () => {
       console.log('clientId', response.service_id);
       const encodedRedirectUri = encodeURIComponent(YANDEX_REDIRECT_URL);
 
-      document.location.href = `https://oauth.yandex.ru/authorize?response_type=code&client_id=${response.service_id}&redirect_uri=${encodedRedirectUri}`;
+      document.location.href = `https://oauth.yandex.ru/authorize?response_type=code&client_id=${`ec608a30584645bcb540dc86414ed113`}&redirect_uri=${encodedRedirectUri}`;
     } catch (error) {
       if (error instanceof HttpError) {
         if (error.status === 400) {

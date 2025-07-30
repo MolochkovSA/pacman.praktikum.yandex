@@ -39,6 +39,8 @@ export const render = async (req: ExpressRequest, apiUrl: string) => {
   const [originalUrl, queryString] = req.originalUrl.split('?');
   const queryParams = queryString ? `?${queryString}` : '';
 
+  console.log('queryParams', queryParams);
+
   if (response.ok) {
     const data = await response.json();
     store.dispatch(userActions.setUser(data));

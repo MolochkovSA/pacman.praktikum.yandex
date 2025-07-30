@@ -94,6 +94,7 @@ const signInWithYandex = async (req: Request, res: Response) => {
     const response = await authService.signInWithYandex(req.body);
 
     const rawSetCookie = response.headers.get('set-cookie');
+    console.log(req.body);
 
     if (rawSetCookie) {
       const cookies = splitCookiesString(rawSetCookie);
